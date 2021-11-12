@@ -1,0 +1,11 @@
+id;model;prix;image_1;image_1_content_type;image_2;image_2_content_type;image_3;image_3_content_type;statut;mise_en_vente;etat;porte;boite_vitesse;co_2;chevaux;carburant
+1;c Krone primary;17204;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;LIBRE;2021-11-11T16:55:14;ROULANT;5;62139;45461;38280;ELECTRIQUE
+2;transmitting;33676;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;RESERVER;2021-11-12T03:32:53;ENDOMMAGE;3;63500;88252;75245;DIESEL
+3;Fresh;20028;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;VENDU;2021-11-11T15:17:33;ROULANT;2;40242;41120;66383;DIESEL
+4;Generic c;24540;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;RESERVER;2021-11-12T02:47:52;ENDOMMAGE;2;18708;27121;85028;DIESEL
+5;Israël yellow Poitou-Charentes;67884;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;LIBRE;2021-11-11T20:22:14;ROULANT;5;89398;75059;59492;DIESEL
+6;unleash Outdoors Tasty;66243;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;VENDU;2021-11-12T07:23:20;ROULANT;4;94560;89947;67481;ESSENCE
+7;PCI client-server Rustic;26732;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;LIBRE;2021-11-11T21:20:02;NONROULANT;0;41384;84928;22410;ESSENCE
+8;d'Azur Monitored Shoes;33870;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;LIBRE;2021-11-11T21:26:54;NONROULANT;1;29591;43435;69003;DIESEL
+9;Auvergne;6436;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;LIBRE;2021-11-12T04:52:47;ENDOMMAGE;0;26978;5858;32453;ESSENCE
+10;Baht;54987;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;RESERVER;2021-11-11T16:24:59;ENDOMMAGE;3;15408;33116;51433;ELECTRIQUE

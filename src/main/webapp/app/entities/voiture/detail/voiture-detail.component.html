@@ -1,0 +1,126 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="voiture">
+      <h2 data-cy="voitureDetailsHeading"><span>Voiture</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ voiture.id }}</span>
+        </dd>
+        <dt><span>Model</span></dt>
+        <dd>
+          <span>{{ voiture.model }}</span>
+        </dd>
+        <dt><span>Prix</span></dt>
+        <dd>
+          <span>{{ voiture.prix }}</span>
+        </dd>
+        <dt><span>Image 1</span></dt>
+        <dd>
+          <div *ngIf="voiture.image1">
+            <a (click)="openFile(voiture.image1, voiture.image1ContentType)">
+              <img [src]="'data:' + voiture.image1ContentType + ';base64,' + voiture.image1" style="max-width: 100%" alt="voiture image" />
+            </a>
+            {{ voiture.image1ContentType }}, {{ byteSize(voiture.image1) }}
+          </div>
+        </dd>
+        <dt><span>Image 2</span></dt>
+        <dd>
+          <div *ngIf="voiture.image2">
+            <a (click)="openFile(voiture.image2, voiture.image2ContentType)">
+              <img [src]="'data:' + voiture.image2ContentType + ';base64,' + voiture.image2" style="max-width: 100%" alt="voiture image" />
+            </a>
+            {{ voiture.image2ContentType }}, {{ byteSize(voiture.image2) }}
+          </div>
+        </dd>
+        <dt><span>Image 3</span></dt>
+        <dd>
+          <div *ngIf="voiture.image3">
+            <a (click)="openFile(voiture.image3, voiture.image3ContentType)">
+              <img [src]="'data:' + voiture.image3ContentType + ';base64,' + voiture.image3" style="max-width: 100%" alt="voiture image" />
+            </a>
+            {{ voiture.image3ContentType }}, {{ byteSize(voiture.image3) }}
+          </div>
+        </dd>
+        <dt><span>Statut</span></dt>
+        <dd>
+          <span>{{ voiture.statut }}</span>
+        </dd>
+        <dt><span>Mise En Vente</span></dt>
+        <dd>
+          <span>{{ voiture.miseEnVente | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Etat</span></dt>
+        <dd>
+          <span>{{ voiture.etat }}</span>
+        </dd>
+        <dt><span>Porte</span></dt>
+        <dd>
+          <span>{{ voiture.porte }}</span>
+        </dd>
+        <dt><span>Boite Vitesse</span></dt>
+        <dd>
+          <span>{{ voiture.boiteVitesse }}</span>
+        </dd>
+        <dt><span>Co 2</span></dt>
+        <dd>
+          <span>{{ voiture.co2 }}</span>
+        </dd>
+        <dt><span>Chevaux</span></dt>
+        <dd>
+          <span>{{ voiture.chevaux }}</span>
+        </dd>
+        <dt><span>Carburant</span></dt>
+        <dd>
+          <span>{{ voiture.carburant }}</span>
+        </dd>
+        <dt><span>Marque</span></dt>
+        <dd>
+          <div *ngIf="voiture.marque">
+            <a [routerLink]="['/marque', voiture.marque?.id, 'view']">{{ voiture.marque?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Categories</span></dt>
+        <dd>
+          <span *ngFor="let categories of voiture.categories; let last = last">
+            <a [routerLink]="['/categorie', categories?.id, 'view']">{{ categories.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span>Commande</span></dt>
+        <dd>
+          <div *ngIf="voiture.commande">
+            <a [routerLink]="['/commande', voiture.commande?.id, 'view']">{{ voiture.commande?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Panier</span></dt>
+        <dd>
+          <div *ngIf="voiture.panier">
+            <a [routerLink]="['/panier', voiture.panier?.id, 'view']">{{ voiture.panier?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Vendeur</span></dt>
+        <dd>
+          <div *ngIf="voiture.vendeur">
+            <a [routerLink]="['/vendeur', voiture.vendeur?.id, 'view']">{{ voiture.vendeur?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/voiture', voiture.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

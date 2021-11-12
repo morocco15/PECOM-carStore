@@ -1,0 +1,148 @@
+<div>
+  <h2 id="page-heading" data-cy="VoitureHeading">
+    <span>Voitures</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-voiture"
+        [routerLink]="['/voiture/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Voiture </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="voitures?.length === 0">
+    <span>No voitures found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="voitures && voitures.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>Id</span></th>
+          <th scope="col"><span>Model</span></th>
+          <th scope="col"><span>Prix</span></th>
+          <th scope="col"><span>Image 1</span></th>
+          <th scope="col"><span>Image 2</span></th>
+          <th scope="col"><span>Image 3</span></th>
+          <th scope="col"><span>Statut</span></th>
+          <th scope="col"><span>Mise En Vente</span></th>
+          <th scope="col"><span>Etat</span></th>
+          <th scope="col"><span>Porte</span></th>
+          <th scope="col"><span>Boite Vitesse</span></th>
+          <th scope="col"><span>Co 2</span></th>
+          <th scope="col"><span>Chevaux</span></th>
+          <th scope="col"><span>Carburant</span></th>
+          <th scope="col"><span>Marque</span></th>
+          <th scope="col"><span>Categories</span></th>
+          <th scope="col"><span>Commande</span></th>
+          <th scope="col"><span>Panier</span></th>
+          <th scope="col"><span>Vendeur</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let voiture of voitures; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/voiture', voiture.id, 'view']">{{ voiture.id }}</a>
+          </td>
+          <td>{{ voiture.model }}</td>
+          <td>{{ voiture.prix }}</td>
+          <td>
+            <a *ngIf="voiture.image1" (click)="openFile(voiture.image1, voiture.image1ContentType)">
+              <img [src]="'data:' + voiture.image1ContentType + ';base64,' + voiture.image1" style="max-height: 30px" alt="voiture image" />
+            </a>
+            <span *ngIf="voiture.image1">{{ voiture.image1ContentType }}, {{ byteSize(voiture.image1) }}</span>
+          </td>
+          <td>
+            <a *ngIf="voiture.image2" (click)="openFile(voiture.image2, voiture.image2ContentType)">
+              <img [src]="'data:' + voiture.image2ContentType + ';base64,' + voiture.image2" style="max-height: 30px" alt="voiture image" />
+            </a>
+            <span *ngIf="voiture.image2">{{ voiture.image2ContentType }}, {{ byteSize(voiture.image2) }}</span>
+          </td>
+          <td>
+            <a *ngIf="voiture.image3" (click)="openFile(voiture.image3, voiture.image3ContentType)">
+              <img [src]="'data:' + voiture.image3ContentType + ';base64,' + voiture.image3" style="max-height: 30px" alt="voiture image" />
+            </a>
+            <span *ngIf="voiture.image3">{{ voiture.image3ContentType }}, {{ byteSize(voiture.image3) }}</span>
+          </td>
+          <td>{{ voiture.statut }}</td>
+          <td>{{ voiture.miseEnVente | formatMediumDatetime }}</td>
+          <td>{{ voiture.etat }}</td>
+          <td>{{ voiture.porte }}</td>
+          <td>{{ voiture.boiteVitesse }}</td>
+          <td>{{ voiture.co2 }}</td>
+          <td>{{ voiture.chevaux }}</td>
+          <td>{{ voiture.carburant }}</td>
+          <td>
+            <div *ngIf="voiture.marque">
+              <a [routerLink]="['/marque', voiture.marque?.id, 'view']">{{ voiture.marque?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <span *ngFor="let categories of voiture.categories; let last = last">
+              <a class="form-control-static" [routerLink]="['/categorie', categories.id, 'view']">{{ categories.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <div *ngIf="voiture.commande">
+              <a [routerLink]="['/commande', voiture.commande?.id, 'view']">{{ voiture.commande?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="voiture.panier">
+              <a [routerLink]="['/panier', voiture.panier?.id, 'view']">{{ voiture.panier?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="voiture.vendeur">
+              <a [routerLink]="['/vendeur', voiture.vendeur?.id, 'view']">{{ voiture.vendeur?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/voiture', voiture.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/voiture', voiture.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(voiture)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

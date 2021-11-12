@@ -1,0 +1,27 @@
+{
+  "name": "Marque",
+  "fields": [
+    {
+      "fieldName": "marque",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "voiture",
+      "otherEntityRelationshipName": "marque",
+      "relationshipName": "voitures"
+    }
+  ],
+  "entityTableName": "marque",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211112143933"
+}

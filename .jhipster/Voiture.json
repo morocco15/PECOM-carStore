@@ -1,0 +1,120 @@
+{
+  "name": "Voiture",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["unique"]
+    },
+    {
+      "fieldName": "model",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prix",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "image1",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "image2",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "image3",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "statut",
+      "fieldType": "Statut",
+      "fieldValues": "RESERVER,LIBRE,VENDU"
+    },
+    {
+      "fieldName": "miseEnVente",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "etat",
+      "fieldType": "Etat",
+      "fieldValues": "NONROULANT,ENDOMMAGE,ROULANT"
+    },
+    {
+      "fieldName": "porte",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["max"],
+      "fieldValidateRulesMax": "5"
+    },
+    {
+      "fieldName": "boiteVitesse",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "co2",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "chevaux",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "carburant",
+      "fieldType": "Carburant",
+      "fieldValues": "ESSENCE,DIESEL,ELECTRIQUE"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "marque",
+      "otherEntityRelationshipName": "voitures",
+      "relationshipName": "marque"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "categorie",
+      "otherEntityRelationshipName": "voitures",
+      "relationshipName": "categories",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "commande",
+      "otherEntityRelationshipName": "voitures",
+      "relationshipName": "commande"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "panier",
+      "otherEntityRelationshipName": "voitures",
+      "relationshipName": "panier"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "vendeur",
+      "otherEntityRelationshipName": "voitures",
+      "relationshipName": "vendeur"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "souhait",
+      "otherEntityRelationshipName": "voitures",
+      "relationshipName": "souhaits",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "voiture",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211112143931"
+}

@@ -43,6 +43,8 @@
     "clientThemeVariant": "",
     "enableGradleEnterprise": false,
     "languages": ["en", "fr"],
-    "cypressCoverage": true
+    "cypressCoverage": true,
+    "entities": ["Utilisateur", "CarteBancaire", "Commande", "Vendeur", "Panier", "Souhait", "Voiture", "Categorie", "Marque"],
+    "lastLiquibaseTimestamp": 1636727973000
   }
 }

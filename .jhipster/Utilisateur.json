@@ -1,0 +1,50 @@
+{
+  "name": "Utilisateur",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "utilisateur",
+      "relationshipName": "idcompte",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "carteBancaire",
+      "otherEntityRelationshipName": "utilisateur",
+      "relationshipName": "idPaiment",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "panier",
+      "otherEntityRelationshipName": "utilisateur",
+      "relationshipName": "panier",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "souhait",
+      "otherEntityRelationshipName": "utilisateur",
+      "relationshipName": "souhait",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "commande",
+      "otherEntityRelationshipName": "acheteur",
+      "relationshipName": "commandes"
+    }
+  ],
+  "entityTableName": "utilisateur",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211112143925"
+}

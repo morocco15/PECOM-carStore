@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity Utilisateur.
+    -->
+    <changeSet id="20211112143925-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="idcompte_id"
+                                 baseTableName="utilisateur"
+                                 constraintName="fk_utilisateur__idcompte_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="id_paiment_id"
+                                 baseTableName="utilisateur"
+                                 constraintName="fk_utilisateur__id_paiment_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="carte_bancaire"/>
+    </changeSet>
+</databaseChangeLog>

@@ -117,6 +117,7 @@
   },
   "defaultProject": "car-store",
   "cli": {
+    "analytics": false,
     "packageManager": "npm"
   }
 }

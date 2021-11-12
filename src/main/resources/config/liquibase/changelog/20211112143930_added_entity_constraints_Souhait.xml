@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity Souhait.
+    -->
+    <changeSet id="20211112143930-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="utilisateur_id"
+                                 baseTableName="souhait"
+                                 constraintName="fk_souhait__utilisateur_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="utilisateur"/>
+
+        <addForeignKeyConstraint baseColumnNames="souhait_id"
+                                 baseTableName="rel_souhait__voitures"
+                                 constraintName="fk_rel_souhait__voitures__souhait_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="souhait"/>
+
+        <addForeignKeyConstraint baseColumnNames="voitures_id"
+                                 baseTableName="rel_souhait__voitures"
+                                 constraintName="fk_rel_souhait__voitures__voitures_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="voiture"/>
+    </changeSet>
+</databaseChangeLog>
