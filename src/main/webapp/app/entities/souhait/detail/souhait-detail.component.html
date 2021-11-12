@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="souhait">
+      <h2 data-cy="souhaitDetailsHeading"><span>Souhait</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ souhait.id }}</span>
+        </dd>
+        <dt><span>Utilisateur</span></dt>
+        <dd>
+          <div *ngIf="souhait.utilisateur">
+            <a [routerLink]="['/utilisateur', souhait.utilisateur?.id, 'view']">{{ souhait.utilisateur?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Voitures</span></dt>
+        <dd>
+          <span *ngFor="let voitures of souhait.voitures; let last = last">
+            <a [routerLink]="['/voiture', voitures?.id, 'view']">{{ voitures.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/souhait', souhait.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

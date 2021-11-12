@@ -1,0 +1,98 @@
+entity Utilisateur {
+}
+
+entity CarteBancaire {
+	id Long unique,
+	code  Long,
+    expiration ZonedDateTime,
+    prenom String,
+    nom String
+}
+
+entity Commande {
+	id Long unique,
+	dateCommande ZonedDateTime,
+    modeLivraison Livraison,
+}
+
+entity Vendeur {
+	id Long unique,
+	login String,
+    coordonnee String
+}
+
+entity Panier {
+}
+
+entity Souhait {
+}
+
+
+entity Voiture {
+	id Long unique,
+	model String,
+    prix Long,
+    image1 ImageBlob,
+    image2 ImageBlob,
+    image3 ImageBlob,
+    statut Statut,
+    miseEnVente ZonedDateTime,
+    etat Etat,
+    porte Integer max(5),
+    boiteVitesse Integer,
+    co2 Integer,
+    chevaux Integer,
+    carburant Carburant
+}
+entity Categorie {
+    categorie String
+}
+
+entity Marque{
+	marque String
+}
+
+enum Statut {
+    RESERVER, LIBRE, VENDU
+}
+
+enum Carburant {
+    ESSENCE, DIESEL, ELECTRIQUE
+}
+
+enum Etat {
+    NONROULANT, ENDOMMAGE, ROULANT
+}
+
+
+
+
+
+enum Livraison {
+    RETRAIT, LIVRER
+}
+
+relationship OneToOne {
+	Utilisateur{idcompte} to User,
+	Utilisateur{idPaiment} to CarteBancaire,
+    Panier{utilisateur} to Utilisateur{panier},
+    Souhait{utilisateur} to Utilisateur{souhait},
+
+    
+}
+
+relationship ManyToOne {
+    Commande{acheteur} to Utilisateur{commandes},
+	Voiture{marque} to Marque{voitures},
+}
+
+relationship OneToMany {
+	Commande{Voitures} to Voiture,
+    Panier{voitures} to Voiture,
+    Vendeur{voitures} to Voiture
+    
+}
+relationship ManyToMany{
+	Voiture{categories} to Categorie{voitures},
+    Souhait{voitures} to Voiture{souhaits}
+}

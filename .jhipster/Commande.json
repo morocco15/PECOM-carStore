@@ -1,0 +1,43 @@
+{
+  "name": "Commande",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["unique"]
+    },
+    {
+      "fieldName": "dateCommande",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "modeLivraison",
+      "fieldType": "Livraison",
+      "fieldValues": "RETRAIT,LIVRER"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "voiture",
+      "otherEntityRelationshipName": "commande",
+      "relationshipName": "voitures"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "commandes",
+      "relationshipName": "acheteur"
+    }
+  ],
+  "entityTableName": "commande",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211112143927"
+}

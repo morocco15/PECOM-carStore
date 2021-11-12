@@ -1,0 +1,29 @@
+{
+  "name": "Panier",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "panier",
+      "relationshipName": "utilisateur",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "voiture",
+      "otherEntityRelationshipName": "panier",
+      "relationshipName": "voitures"
+    }
+  ],
+  "entityTableName": "panier",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211112143929"
+}

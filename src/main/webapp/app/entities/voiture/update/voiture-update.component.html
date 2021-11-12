@@ -1,0 +1,272 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-voiture-heading" data-cy="VoitureCreateUpdateHeading">Create or edit a Voiture</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          <div *ngIf="editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)">
+            <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number"> This field should be a number. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_model">Model</label>
+          <input type="text" class="form-control" name="model" id="field_model" data-cy="model" formControlName="model" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_prix">Prix</label>
+          <input type="number" class="form-control" name="prix" id="field_prix" data-cy="prix" formControlName="prix" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_image1">Image 1</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('image1ContentType')!.value + ';base64,' + editForm.get('image1')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image1')!.value"
+              alt="voiture image"
+            />
+            <div *ngIf="editForm.get('image1')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('image1ContentType')!.value }}, {{ byteSize(editForm.get('image1')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image1', 'image1ContentType', 'file_image1')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image1" data-cy="image1" (change)="setFileData($event, 'image1', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image1" id="field_image1" data-cy="image1" formControlName="image1" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="image1ContentType"
+            id="field_image1ContentType"
+            formControlName="image1ContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_image2">Image 2</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('image2ContentType')!.value + ';base64,' + editForm.get('image2')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image2')!.value"
+              alt="voiture image"
+            />
+            <div *ngIf="editForm.get('image2')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('image2ContentType')!.value }}, {{ byteSize(editForm.get('image2')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image2', 'image2ContentType', 'file_image2')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image2" data-cy="image2" (change)="setFileData($event, 'image2', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image2" id="field_image2" data-cy="image2" formControlName="image2" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="image2ContentType"
+            id="field_image2ContentType"
+            formControlName="image2ContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_image3">Image 3</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('image3ContentType')!.value + ';base64,' + editForm.get('image3')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image3')!.value"
+              alt="voiture image"
+            />
+            <div *ngIf="editForm.get('image3')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('image3ContentType')!.value }}, {{ byteSize(editForm.get('image3')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image3', 'image3ContentType', 'file_image3')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image3" data-cy="image3" (change)="setFileData($event, 'image3', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image3" id="field_image3" data-cy="image3" formControlName="image3" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="image3ContentType"
+            id="field_image3ContentType"
+            formControlName="image3ContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_statut">Statut</label>
+          <select class="form-control" name="statut" formControlName="statut" id="field_statut" data-cy="statut">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let statut of statutValues" [value]="statut">statut</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_miseEnVente">Mise En Vente</label>
+          <div class="d-flex">
+            <input
+              id="field_miseEnVente"
+              data-cy="miseEnVente"
+              type="datetime-local"
+              class="form-control"
+              name="miseEnVente"
+              formControlName="miseEnVente"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_etat">Etat</label>
+          <select class="form-control" name="etat" formControlName="etat" id="field_etat" data-cy="etat">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let etat of etatValues" [value]="etat">etat</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_porte">Porte</label>
+          <input type="number" class="form-control" name="porte" id="field_porte" data-cy="porte" formControlName="porte" />
+          <div *ngIf="editForm.get('porte')!.invalid && (editForm.get('porte')!.dirty || editForm.get('porte')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('porte')?.errors?.max"> This field cannot be more than 5. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('porte')?.errors?.number"> This field should be a number. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_boiteVitesse">Boite Vitesse</label>
+          <input
+            type="number"
+            class="form-control"
+            name="boiteVitesse"
+            id="field_boiteVitesse"
+            data-cy="boiteVitesse"
+            formControlName="boiteVitesse"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_co2">Co 2</label>
+          <input type="number" class="form-control" name="co2" id="field_co2" data-cy="co2" formControlName="co2" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_chevaux">Chevaux</label>
+          <input type="number" class="form-control" name="chevaux" id="field_chevaux" data-cy="chevaux" formControlName="chevaux" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_carburant">Carburant</label>
+          <select class="form-control" name="carburant" formControlName="carburant" id="field_carburant" data-cy="carburant">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let carburant of carburantValues" [value]="carburant">carburant</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_marque">Marque</label>
+          <select class="form-control" id="field_marque" data-cy="marque" name="marque" formControlName="marque">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="marqueOption.id === editForm.get('marque')!.value?.id ? editForm.get('marque')!.value : marqueOption"
+              *ngFor="let marqueOption of marquesSharedCollection; trackBy: trackMarqueById"
+            >
+              {{ marqueOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="field_categories">Categories</label>
+          <select class="form-control" id="field_categories" data-cy="categories" multiple name="categories" formControlName="categories">
+            <option
+              [ngValue]="getSelectedCategorie(categorieOption, editForm.get('categories')!.value)"
+              *ngFor="let categorieOption of categoriesSharedCollection; trackBy: trackCategorieById"
+            >
+              {{ categorieOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_commande">Commande</label>
+          <select class="form-control" id="field_commande" data-cy="commande" name="commande" formControlName="commande">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="commandeOption.id === editForm.get('commande')!.value?.id ? editForm.get('commande')!.value : commandeOption"
+              *ngFor="let commandeOption of commandesSharedCollection; trackBy: trackCommandeById"
+            >
+              {{ commandeOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_panier">Panier</label>
+          <select class="form-control" id="field_panier" data-cy="panier" name="panier" formControlName="panier">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="panierOption.id === editForm.get('panier')!.value?.id ? editForm.get('panier')!.value : panierOption"
+              *ngFor="let panierOption of paniersSharedCollection; trackBy: trackPanierById"
+            >
+              {{ panierOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_vendeur">Vendeur</label>
+          <select class="form-control" id="field_vendeur" data-cy="vendeur" name="vendeur" formControlName="vendeur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="vendeurOption.id === editForm.get('vendeur')!.value?.id ? editForm.get('vendeur')!.value : vendeurOption"
+              *ngFor="let vendeurOption of vendeursSharedCollection; trackBy: trackVendeurById"
+            >
+              {{ vendeurOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+export enum Etat {
+  NONROULANT = 'NONROULANT',
+
+  ENDOMMAGE = 'ENDOMMAGE',
+
+  ROULANT = 'ROULANT',
+}

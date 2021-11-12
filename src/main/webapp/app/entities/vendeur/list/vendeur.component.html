@@ -1,0 +1,80 @@
+<div>
+  <h2 id="page-heading" data-cy="VendeurHeading">
+    <span>Vendeurs</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-vendeur"
+        [routerLink]="['/vendeur/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Vendeur </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="vendeurs?.length === 0">
+    <span>No vendeurs found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="vendeurs && vendeurs.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>Id</span></th>
+          <th scope="col"><span>Login</span></th>
+          <th scope="col"><span>Coordonnee</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vendeur of vendeurs; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/vendeur', vendeur.id, 'view']">{{ vendeur.id }}</a>
+          </td>
+          <td>{{ vendeur.login }}</td>
+          <td>{{ vendeur.coordonnee }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/vendeur', vendeur.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/vendeur', vendeur.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(vendeur)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
