@@ -28,6 +28,6 @@ public interface VoitureRepository extends JpaRepository<Voiture, Long> {
     @Query("select voiture from Voiture voiture left join fetch voiture.categories where voiture.id =:id")
     Optional<Voiture> findOneWithEagerRelationships(@Param("id") Long id);
 
-    @Query("select model,image1 from Voiture voiture ORDER BY voiture.miseEnVente DESC")
+    @Query("select voiture from Voiture voiture ORDER BY voiture.miseEnVente DESC")
     Page<Voiture> derniereVoitureAjouter(Pageable page);
 }
