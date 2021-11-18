@@ -2,6 +2,7 @@ package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.VoitureRepository;
+import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -34,10 +36,13 @@ public class VoitureResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private VoitureService voitureService;
+
     private final VoitureRepository voitureRepository;
 
-    public VoitureResource(VoitureRepository voitureRepository) {
+    public VoitureResource(VoitureRepository voitureRepository, VoitureService voitureService) {
         this.voitureRepository = voitureRepository;
+        this.voitureService = voitureService;
     }
 
     /**
@@ -223,5 +228,10 @@ public class VoitureResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/voiture")
+    public Page<Voiture> getModelRecent(int debut, int fin) {
+        return voitureService.getModelRecent(debut, fin);
     }
 }
