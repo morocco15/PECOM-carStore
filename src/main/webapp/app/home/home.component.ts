@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService, private http: HttpClient) {}
+  constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService) {}
 
   callService() {
     return this.homeservice.getQuatreDernieresVoitures().subscribe((res: Voiture[]) => {
@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
+    //this.callService();
   }
 
   login(): void {
