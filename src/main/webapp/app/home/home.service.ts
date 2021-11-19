@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError, retry } from 'rxjs/operators';
-import { Voiture } from '../entities/voiture/voiture.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { IVoiture } from '../entities/voiture/voiture.model';
 
 @Injectable()
 export class HomeService {
   endpoint = 'http://localhost:8080/api/voiture';
   constructor(private httpClient: HttpClient) {}
 
-  public getQuatreDernieresVoitures(): Observable<Voiture[]> {
+  public getQuatreDernieresVoitures(): Observable<any> {
     return this.httpClient.get<any>(this.endpoint + '/0/4').pipe(
       map((body: any) => {
-        console.log('body=', JSON.stringify(body, null, 2));
         return body.content;
       })
       // catchError(this.handleErrorVoitures)
@@ -31,6 +30,6 @@ export class HomeService {
         Voiture: Voiture;
       }*/
 /*getData(){
-        let 
+        let
         return get("/api/voiture");
       }*/
