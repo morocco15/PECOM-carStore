@@ -1,0 +1,56 @@
+
+<div class = "container">
+    <div class = "title-bar">
+      <span class = nom>Peugeot 3008 II 1.6 Allure Eat8</span>
+    </div>
+    <!-- <span class = nom>Panier</span> -->
+  
+
+    <!--
+    Barre de produits Afficher dynamiquement, les produits Le produit sélectionné provient de l'interface précédente-->
+    <div class ="product-bar">
+        <!-- <div class="product-name">{{ item.variant.product.title }}</div> -->
+        <div class="product-name">nom: Oh</div>
+
+        <!-- <img src="item.variant.productVarImages[0].imgUrl" alt="" class="product-image"> -->
+        <img src="" alt="" class="product-image">
+
+        <div class="product-price">
+          <!--<span>{{ item.variant.price | currency: 'CNY' }}</span>-->
+          prix:1330 €
+        </div>
+
+        <div class="product-citeres">
+        </div>
+
+        <div class="product-description">
+        </div>
+    </div>
+     
+  
+  
+    <div class = "toolbar">
+      <div class="contacter">
+        <div class="vendeur">
+          <span>
+              le nom de vendeur  <!--obtenir le nom depuis de l'etape procedent-->
+          </span>
+        </div>
+
+        <div class="contacter">
+          <img src="" alt="" class="contacter-image">
+          <span>
+             Contacter le vendeur
+          </span>
+        </div> 
+      </div>
+      
+      <div class="pay" (click)="handlePay()">
+          <div>paiement</div>
+      </div>
+    </div>
+  
+  
+  
+  
+  </div>
