@@ -42,7 +42,9 @@ describe('Panier Management Delete Component', () => {
         tick();
 
         // THEN
+        // @ts-ignore
         expect(service.delete).toHaveBeenCalledWith(123);
+        // @ts-ignore
         expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
       })
     ));
@@ -55,8 +57,11 @@ describe('Panier Management Delete Component', () => {
       comp.cancel();
 
       // THEN
+      // @ts-ignore
       expect(service.delete).not.toHaveBeenCalled();
+      // @ts-ignore
       expect(mockActiveModal.close).not.toHaveBeenCalled();
+      // @ts-ignore
       expect(mockActiveModal.dismiss).toHaveBeenCalled();
     });
   });
