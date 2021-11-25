@@ -12,7 +12,8 @@
     background-color: #f5f5f5;
   }
    
-  .title-bar {
+  .title-bar 
+  {
     display: flex;
     flex-shrink: 0;
     width: 100%;
@@ -51,7 +52,7 @@
     object-fit: contain;
     //justify-self: start;
   }
-  .product-bar .product-name {
+  .product-bar .product-price {
     grid-area: name;
     justify-self: start;
     font-weight: 400;

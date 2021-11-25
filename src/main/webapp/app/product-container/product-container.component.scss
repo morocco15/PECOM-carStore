@@ -1,78 +1,133 @@
-.container {
+.container 
+{
     display: flex;
-    flex-direction: column;
+    flex-direction:row;
+    align-items: flex-start;
     width: 100%;
     padding: 1rem;
-  }
+}
 
-  .vendeur
-  {
+.product-bar
+{
+    position:relative;
+
     display: flex;
+    flex-direction: column;
     flex-shrink: 0;
+    width:70%;
     background-color: #f5f5f5;
-  }
-   
-  .title-bar {
-    display: flex;
-    flex-shrink: 0;
-    width: 100%;
-    align-items: center;
-    padding-bottom: 3rem;
-    border-bottom: 2px solid #f4f4f4;
-    background-color: #f5f5f5;
-    
-  }
+}
 
-  .title-bar .span
-  {
-    font-size: larger;
-     
-  }
-   
-   
-  
-  
-  .container .product-bar {
-    background-color: #f5f5f5;
-    display: grid;
-    grid-template-areas:
-      'image name'
-      'image marque'
-      'image price';
-    grid-template-rows: 5rem 1fr;
-    grid-gap: 0.5rem;
-    place-items: center;
-    padding: 0.5rem 1rem;
-  }
-  .product-bar .product-image {
-    grid-area: image;
-    width: 10rem;
-    height: 10rem;
-    object-fit: contain;
-    //justify-self: start;
-  }
-  .product-bar .product-name {
-    grid-area: name;
-    justify-self: start;
-    font-weight: 400;
-  }
+//nom de voiture
+.product-bar .title-bar
+{
+  position: absolute;
+  font-size: 20px;
+  font-weight: 900;
+}
 
-  .product-bar .product-marque {
-    grid-area: marque;
-    justify-self: start;
-    font-weight: 400;
-  }
-  .product-bar .product-price {
-    grid-area: price;
-    justify-self: start;
-    font-weight: 400;
-  }
+.product-bar .product-image
+{
+
+  width: 35rem;
+  height: 25rem;
+  object-fit: contain;
+  position: relative;
+  left: 40px;
+}
+
+.product-bar .product-price
+{
+  position: relative;
+  top: 25px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.product-bar .product-citeres
+{
+  display: grid;
+  grid-template-areas:
+  'detaill detaill detaill detaill'
+  'detaill detaill detaill detaill'
+  'detaill detaill detaill detaill';
+  grid-template-rows: 5rem 5rem 5rem,;//la taille de chaque grid
+  grid-gap: 0.2rem;//le intervalle entre des grids
+  position:relative;
+  top: 45px;
+  
+}
+
+.product-bar .product-citeres .marque
+{
+  grid-area: detaill;
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.product-bar .product-citeres .product-marque .title
+{
+  font-size: 15px;
+}
+
+.product-bar .product-citeres .product-marque .contenu
+{
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.product-bar .product-description
+{
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.product-bar .product-description .title
+{
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.product-bar .product-description .detail
+{
+  font-size: 16px;
+}
+
+
+
+.toolbar
+{
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.toolbar .contacter
+{
+  display: grid;
+  
+}
+
+
+
+
+
+
+
+
+  
+
+
+   
+   
    
   
    
   .container .toolbar {
     flex-shrink: 0;
     display: flex;
+    width:40%;
     justify-content: space-between;
     align-items: center;
   }
