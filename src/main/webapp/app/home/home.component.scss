@@ -2,16 +2,16 @@
 Main page styles
 ========================================================================== */
 
-.hipster {
+/*.hipster {
   display: inline-block;
   width: 347px;
   height: 497px;
   background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
   background-size: contain;
-}
+}*/
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
+/*@media only screen and (-webkit-min-device-pixel-ratio: 2),
   only screen and (-moz-min-device-pixel-ratio: 2),
   only screen and (-o-min-device-pixel-ratio: 2/1),
   only screen and (min-resolution: 192dpi),
@@ -20,4 +20,55 @@ Main page styles
     background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
     background-size: contain;
   }
+}
+*/
+
+.searchbar {
+  display: flex;
+  justify-content: center;
+}
+.formulaire {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.champ {
+  width: 50%;
+}
+
+button {
+  padding: 0;
+  border-left: 1px solid #a9a9b4;
+  border-bottom: 1px solid #a9a9b4;
+  border-top: 1px solid #a9a9b4;
+  border-right: 1px solid #a9a9b4;
+}
+
+button:hover {
+  border-left: 1px solid #676774;
+  border-bottom: 1px solid #676774;
+  border-top: 1px solid #676774;
+  border-right: 1px solid #676774;
+}
+
+.nouveaute {
+  display: grid;
+  justify-content: center;
+}
+
+.voiture {
+  display: flex;
+}
+
+.voiture1 {
+  display: grid;
+}
+
+.voiture2 {
+  display: grid;
+}
+
+.nom {
+  display: flex;
+  justify-content: center;
 }

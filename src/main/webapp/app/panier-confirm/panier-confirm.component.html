@@ -1,0 +1,55 @@
+
+
+  <div class = "container">
+    <div class = "title-bar">
+      <span class = nom>Confirmer votre commande</span>
+    </div>
+    <!-- <span class = nom>Panier</span> -->
+  
+     
+    <div class="vendeur">
+      <span>
+          le nom de vendeur  <!--obtenir le nom depuis de l'etape procedent-->
+      </span>
+    </div>
+   
+  
+    <!--
+    Barre de produits Afficher dynamiquement, les produits Le produit sélectionné provient de l'interface précédente-->
+    <div class ="product-bar">
+        <!-- <img src="item.variant.productVarImages[0].imgUrl" alt="" class="product-image"> -->
+        <img src="" alt="" class="product-image" height="199.5px" width="355.5px">
+        
+        <!-- <div class="product-name">{{ item.variant.product.title }}</div> -->
+        <div class="product-name">nom: Oh</div>
+
+        <div class="product-marque">marque：Benze</div>
+
+        <div class="product-price">
+          <!--<span>{{ item.variant.price | currency: 'CNY' }}</span>-->
+          prix:1330 €
+        </div>
+    </div>
+     
+  
+  
+    <div class = "toolbar">
+      <div class="total-price">
+          <span>paiement totale：</span>
+          <span class="price-section">
+            <!-- {{totalPrice$ | async | currency: 'CNY'}} -->
+            1330 €
+          </span>
+      </div>
+      
+      <div class="pay" (click)="handlePay()">
+          <div>paiement</div>
+      </div>
+    </div>
+  
+  
+  
+  
+  </div>
+
+

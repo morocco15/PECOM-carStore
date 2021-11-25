@@ -1,0 +1,107 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .vendeur
+  {
+    display: flex;
+    flex-shrink: 0;
+    background-color: #f5f5f5;
+  }
+   
+  .title-bar 
+  {
+    display: flex;
+    flex-shrink: 0;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 3rem;
+    border-bottom: 2px solid #f4f4f4;
+    background-color: #f5f5f5;
+    
+  }
+
+  .title-bar .span
+  {
+    font-size: larger;
+     
+  }
+   
+   
+  
+  
+  .container .product-bar {
+    background-color: #f5f5f5;
+    display: grid;
+    grid-template-areas:
+      'image name'
+      'image marque'
+      'image price';
+    grid-template-rows: 5rem 1fr;
+    grid-gap: 0.5rem;
+    place-items: center;
+    padding: 0.5rem 1rem;
+  }
+  .product-bar .product-image {
+    grid-area: image;
+    width: 10rem;
+    height: 10rem;
+    object-fit: contain;
+    //justify-self: start;
+  }
+  .product-bar .product-price {
+    grid-area: name;
+    justify-self: start;
+    font-weight: 400;
+  }
+
+  .product-bar .product-marque {
+    grid-area: marque;
+    justify-self: start;
+    font-weight: 400;
+  }
+  .product-bar .product-price {
+    grid-area: price;
+    justify-self: start;
+    font-weight: 400;
+  }
+   
+  
+   
+  .container .toolbar {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .toolbar .total-price {
+    flex: 0 1 auto;
+    margin: 0 1rem;
+  }
+  .toolbar .pay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #e02f29;
+    color: #fff;
+    padding: 0.5rem;
+    font-weight: 300;
+    flex: 1 1 25%;
+    font-size: 1.3rem;
+  }
+  .total-price .price-section {
+    color: #e02f29;
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+  .total-price .price-condition {
+    color: #e02f29;
+    font-weight: 400;
+  }
+  .content app-product-amount {
+    margin: 0.5rem 1rem;
+  }
+  
