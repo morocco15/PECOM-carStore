@@ -12,11 +12,11 @@
       <div class="nom">
         <div class="marque" style="font-weight: bold">
           <!--Requête pour obtenir la marque de la voiture-->
-          {{ voiture1.model }}
+          {{ voiture1.marque }}
         </div>
         <div class="modele" style="font-weight: bold">
           <!--Requête pour obtenir le modèle de la voiture-->
-          amg c63 gt s
+          {{ voiture1.model }}
         </div>
       </div>
       <div class="prix" style="text-align: center">
@@ -25,6 +25,7 @@
       </div>
       <div class="image">
         <!--Requête pour récupérer l'image-->
+        {{ voiture1.image1 }}
         <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
       </div>
     </div>

@@ -22,7 +22,7 @@ public class VoitureService {
         this.voitureRepository = voitureRepository;
     }
 
-    public Page<Voiture> getModelRecent(int debut, int fin) {
-        return voitureRepository.derniereVoitureAjouter(debut, fin);
+    public List<Voiture> getModelRecent(int debut, int fin) {
+        return voitureRepository.derniereVoitureAjouter();
     }
 }

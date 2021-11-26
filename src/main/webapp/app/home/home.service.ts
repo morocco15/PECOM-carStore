@@ -12,8 +12,6 @@ export class HomeService {
   constructor(private httpClient: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   public getQuatreDernieresVoitures(debut: number, fin: number): Observable<IVoiture[]> {
-    //eslint-disable-next-line no-console
-    console.error(this.httpClient.get<IVoiture[]>(`${this.resourceUrl}/${debut}/${fin}`));
     return this.httpClient.get<IVoiture[]>(`${this.resourceUrl}/${debut}/${fin}`);
   }
 }
