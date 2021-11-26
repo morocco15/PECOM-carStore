@@ -2,6 +2,7 @@ package com.ecom.carstore.service.impl;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.model.ObjectMetadata;
 import com.ecom.carstore.OssConstant;
 import com.ecom.carstore.repository.VoitureRepository;
 import com.ecom.carstore.service.OssService;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 @Service
@@ -20,42 +23,64 @@ public class OssServiceImpl implements OssService, OssConstant {
     @Autowired
     private VoitureRepository voitureRepository;
 
-    //adresse d'accès---à modifier
-    public static final String endpoint = "oss-cn-beijing.aliyuncs.com";
+    public static final String endpoint = "oss-eu-central-1.aliyuncs.com";
 
-    //demande KEY_ID---à modifier
-    public static final String accessKeyId = "LTAIFrerFxxxxxxEwJfNSPoL";
+    public static final String accessKeyId = "LTAI5t5YZa6tzhSUbAyXWK1C";
 
-    //demande KEY_SECRET ---à modifier
-    public static final String accessKeySecret = "jG46wbefAxxxxxx1OQuyl8MLcuGoO5";
+    public static final String accessKeySecret = "MpX0NYVM0miTEerlaOl1q0uUOzQInJ";
 
-    //espace de stockage ---à modifier
-    public static final String bucket = "nicle-oss-bucket";
+    public static final String bucket = "cars-store";
 
     @Override
-    public void uploadImageToServer(MultipartFile imageFile) {
+    public String uploadImageToServer(MultipartFile imageFile,int idVoiture,int n) {
 
-        int i = imageFile.getOriginalFilename().lastIndexOf(".");
-        String suffix = imageFile.getOriginalFilename().substring(i);
-        String uuid = UUID.randomUUID().toString();
-        String datePath = "Angular";
-        String filename = datePath + "/" + uuid + suffix;
+        String filename = idVoiture + "/" + n;
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        ObjectMetadata meta = new ObjectMetadata();
+        meta.setContentType("image/jpg");
         try {
-            ossClient.putObject(bucket, filename,imageFile.getInputStream());
+            InputStream in = imageFile.getInputStream();
+            ossClient.putObject(bucket, filename,in,meta);
+            in.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         ossClient.shutdown();
-        String url = "https://" + bucket + "." + endpoint + "/" + filename;
+        String url = "https://" + bucket + "." + endpoint + "/" +filename;
 
         //méthode à moodifier
-        voitureRepository.insertImage(url);
+        //voitureRepository.insertImage();
+
+        return url;
     }
 
     @Override
     public MultipartFile  downloadImageFromServer(String url) {
 
         return null;
+    }
+    @Override
+    public String getServerImageUrl(int idVoiture,int n){
+        //voitureRepository.getImageById();
+        String url = "https://cars-store.oss-eu-central-1.aliyuncs.com/test/bonneVoiture.jpg";
+
+        return url;
+    }
+    @Override
+    public MultipartFile uploadImageFileFromPath(String imagePath,int idVoiture,int n){
+        File file = new File(imagePath);
+
+
+
+        return null;
+    }
+    public  static void main(String[] args) {
+
+        OssService ossService=new OssServiceImpl();
+
+
+        String resultat = ossService.uploadImageToServer(null,1,2);
+        System.out.println("url du image= "+resultat);
+
     }
 }

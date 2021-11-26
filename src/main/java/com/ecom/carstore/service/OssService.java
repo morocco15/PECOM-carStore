@@ -5,9 +5,11 @@ import org.springframework.web.multipart.MultipartFile;
 public interface OssService {
 
 
-    void uploadImageToServer(MultipartFile imageFile);
+    String uploadImageToServer(MultipartFile imageFile,int idVoiture,int n);
 
 
     MultipartFile downloadImageFromServer(String url);
+    String getServerImageUrl(int idVoiture,int n);
+    MultipartFile uploadImageFileFromPath(String imagePath,int idVoiture,int n);
 }
 
