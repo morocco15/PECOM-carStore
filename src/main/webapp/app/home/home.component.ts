@@ -16,21 +16,23 @@ import { IVoiture } from 'app/entities/voiture/voiture.model';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
-  Ivoiture1: IVoiture | null = null;
-  Ivoiture2: IVoiture | null = null;
-  Ivoiture3: IVoiture | null = null;
-  Ivoiture4: IVoiture | null = null;
+  voiture1!: IVoiture;
+  voiture2!: IVoiture;
+  voiture3!: IVoiture;
+  voiture4!: IVoiture;
 
   private readonly destroy$ = new Subject<void>();
 
   constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService, private http: HttpClient) {}
 
   callService(): void {
-    return this.homeservice.getQuatreDernieresVoitures().subscribe((res: IVoiture[]) => {
-      res[0];
-      /*this.voiture2 = res[1];
+    this.homeservice.getQuatreDernieresVoitures(0, 4).subscribe((res: IVoiture[]) => {
+      //eslint-disable-next-line no-console
+      console.error(res);
+      this.voiture1 = res[0];
+      this.voiture2 = res[1];
       this.voiture3 = res[2];
-      this.voiture4 = res[3];*/
+      this.voiture4 = res[3];
     });
   }
 
@@ -39,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
+    this.callService();
   }
 
   login(): void {
