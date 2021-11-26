@@ -20,10 +20,10 @@
     <ul class="navbar-nav ml-auto">
       <!--Bouton populaire visible même si utilisateur pas connecté-->
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+        <a class="nav-link" routerLink="fildactualite">
           <span>
             <fa-icon icon="home"></fa-icon>
-            <span id="menu">Populaire</span>
+            <span id="menu">Fil d'actualité</span>
           </span>
         </a>
       </li>
@@ -249,7 +249,7 @@
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
           <span *ngIf="!account?.imageUrl">
             <fa-icon icon="user"></fa-icon>
-            <span id="menu">Paramètres</span>
+            <span id="menu">Connexion</span>
           </span>
           <span *ngIf="account?.imageUrl">
             <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
