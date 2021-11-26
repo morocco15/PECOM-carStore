@@ -47,7 +47,9 @@
         }
       }
     ],
+    ////modifier pour eviter return type error
     "@typescript-eslint/explicit-function-return-type": ["error", { "allowExpressions": true }],
+    //"@typescript-eslint/explicit-function-return-type": {"allowExpressions": true },
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/member-ordering": [
       "error",
@@ -69,6 +71,7 @@
         ]
       }
     ],
+
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-non-null-assertion": "off",

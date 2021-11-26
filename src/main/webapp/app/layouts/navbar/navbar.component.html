@@ -18,6 +18,15 @@
   </a>
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
     <ul class="navbar-nav ml-auto">
+      <!--Bouton accueil visible même si utilisateur pas connecté-->
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/">
+          <span>
+            <fa-icon icon="home"></fa-icon>
+            <span id="menu">Accueil</span>
+          </span>
+        </a>
+      </li>
       <!--Bouton fil d'actualité visible même si utilisateur pas connecté-->
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="fildactualite">
@@ -303,7 +312,7 @@
         </a>
       </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+        <a class="nav-link">
           <span>
             <fa-icon icon="home"></fa-icon>
             <span id="menu">À propos</span>

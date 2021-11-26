@@ -26,6 +26,8 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
 import { FildactualiteComponent } from './fildactualite/fildactualite.component';
 import { PanierComponent } from './panier/panier.component';
+import { PanierConfirmComponent } from './panier-confirm/panier-confirm.component';
+import { ProductContainerComponent } from './product-container/product-container.component';
 
 @NgModule({
   imports: [
@@ -46,7 +48,15 @@ import { PanierComponent } from './panier/panier.component';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    FooterComponent,
+    PanierConfirmComponent,
+    ProductContainerComponent,
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {
