@@ -18,7 +18,7 @@
   </a>
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
     <ul class="navbar-nav ml-auto">
-      <!--Bouton populaire visible même si utilisateur pas connecté-->
+      <!--Bouton fil d'actualité visible même si utilisateur pas connecté-->
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="fildactualite">
           <span>
@@ -37,7 +37,7 @@
         </a>
       </li>
       <!--Bouton panier visible que si utilisateur connecté-->
-      <li
+      <!--<li
         *jhiHasAnyAuthority="'ROLE_ADMIN'"
         ngbDropdown
         class="nav-item dropdown pointer"
@@ -51,7 +51,7 @@
             <span id="menu">Panier</span>
           </span>
         </a>
-      </li>
+      </li>-->
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
       <li
         *ngSwitchCase="true"
@@ -119,7 +119,7 @@
           <li>
             <a
               class="dropdown-item"
-              routerLink="panier"
+              routerLink="paniers"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
               (click)="collapseNavbar()"
@@ -293,6 +293,14 @@
             </a>
           </li>
         </ul>
+      </li>
+      <li *ngSwitchCase="true" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="panier">
+          <span>
+            <fa-icon icon="home"></fa-icon>
+            <span id="menu">Panier</span>
+          </span>
+        </a>
       </li>
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
