@@ -1,0 +1,66 @@
+.Panier,
+.caracteristiqueproduit,
+.kilometrage,
+.carburant,
+.boiteDeVitesse {
+  display: grid;
+}
+
+.FicheProduit,
+.nom,
+.caracteristiques {
+  display: flex;
+}
+
+.nom {
+  margin-left: 20px;
+}
+.kilometrage {
+  margin-left: 30px;
+}
+
+.carburant,
+.boiteDeVitesse,
+.prix {
+  margin-left: 100px;
+}
+
+img {
+  border-radius: 5%;
+  margin-left: 35px;
+}
+
+.Titre {
+  font-size: 40px;
+  text-align: center;
+}
+
+.FicheProduit {
+  background-color: rgb(214, 222, 233);
+  border: 1px solid grey;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#nomCarac {
+  font-size: 14px;
+}
+
+#carac {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.Commandes {
+  display: flex;
+}
+
+#toutSelectionner {
+  margin-left: 10px;
+}
+
+#supprimer,
+#deplacerFavoris,
+#selectionne {
+  margin-left: 70px;
+}
