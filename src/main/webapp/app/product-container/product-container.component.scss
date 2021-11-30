@@ -106,8 +106,46 @@
 .toolbar .contacter
 {
   display: grid;
-  
+  border-style:solid;
+	border-width:1px;
 }
+
+.contacter .vendeur
+{
+
+}
+
+.contacter .telephone
+{
+  margin-top: 30px;
+  margin-right: 3px;
+  margin-bottom: 2px;
+}
+
+.toolbar .ajouter
+{
+  display: grid;
+  border-style:solid;
+	border-width:1px;
+  margin-top: 20px;
+}
+
+.ajouter .auPanier
+{
+  margin-top: 10px;
+}
+
+.ajouter .auPanier
+{
+  margin-top: 1px;
+}
+
+.ajouter .auList
+{
+  margin-top: 10px;
+}
+
+
 
 
 
@@ -131,6 +169,18 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  .toolbar .contacter
+  {
+    display:grid;
+  }
+
+  .toolbar .ajouter
+  {
+    display: grid;
+  }
+  
+
   .toolbar .total-price {
     flex: 0 1 auto;
     margin: 0 1rem;

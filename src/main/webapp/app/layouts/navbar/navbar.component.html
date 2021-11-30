@@ -18,14 +18,40 @@
   </a>
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
     <ul class="navbar-nav ml-auto">
+      <!--Bouton fil d'actualité visible même si utilisateur pas connecté-->
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="fildactualite">
+          <span>
+            <fa-icon icon="home"></fa-icon>
+            <span id="menu">Fil d'actualité</span>
+          </span>
+        </a>
+      </li>
+      <!--Bouton catégorie visible même si utilisateur pas connecté-->
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
           <span>
             <fa-icon icon="home"></fa-icon>
-            <span id="menu">Home</span>
+            <span id="menu">Catégorie</span>
           </span>
         </a>
       </li>
+      <!--Bouton panier visible que si utilisateur connecté-->
+      <!--<li
+        *jhiHasAnyAuthority="'ROLE_ADMIN'"
+        ngbDropdown
+        class="nav-item dropdown pointer"
+        display="dynamic"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu" data-cy="adminMenu">
+          <span>
+            <fa-icon icon="users-cog"></fa-icon>
+            <span id="menu">Panier</span>
+          </span>
+        </a>
+      </li>-->
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
       <li
         *ngSwitchCase="true"
@@ -93,7 +119,7 @@
           <li>
             <a
               class="dropdown-item"
-              routerLink="panier"
+              routerLink="paniers"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
               (click)="collapseNavbar()"
@@ -223,7 +249,7 @@
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
           <span *ngIf="!account?.imageUrl">
             <fa-icon icon="user"></fa-icon>
-            <span id="menu">Account</span>
+            <span id="menu">Connexion</span>
           </span>
           <span *ngIf="account?.imageUrl">
             <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
@@ -251,22 +277,38 @@
           <li *ngSwitchCase="true">
             <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
               <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
-              <span id="menu">Sign out</span>
+              <span id="menu">Se déconnecter</span>
             </a>
           </li>
           <li *ngSwitchCase="false">
             <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
               <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
-              <span id="menu">Sign in</span>
+              <span id="menu">Se connecter</span>
             </a>
           </li>
           <li *ngSwitchCase="false">
             <a class="dropdown-item" routerLink="account/register" routerLinkActive="active" (click)="collapseNavbar()" data-cy="register">
               <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
-              <span id="menu">Register</span>
+              <span id="menu">S'inscrire</span>
             </a>
           </li>
         </ul>
+      </li>
+      <li *ngSwitchCase="true" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="panier">
+          <span>
+            <fa-icon icon="home"></fa-icon>
+            <span id="menu">Panier</span>
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+          <span>
+            <fa-icon icon="home"></fa-icon>
+            <span id="menu">À propos</span>
+          </span>
+        </a>
       </li>
     </ul>
   </div>
