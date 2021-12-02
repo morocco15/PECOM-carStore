@@ -33,6 +33,6 @@ public class VoitureService {
         return voiture;
     }
     public String getImageURL(Long id){
-        return "mmp";
+        return "https://cars-store.oss-eu-central-1.aliyuncs.com/test/bonneVoiture.jpg\n";
     }
 }

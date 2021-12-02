@@ -4,9 +4,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IVoiture, Voiture } from '../entities/voiture/voiture.model';
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class ProductContainerService
 {
 
