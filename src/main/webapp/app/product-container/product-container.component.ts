@@ -16,15 +16,15 @@ import { ProductContainerService } from './product-container.service';
 export class ProductContainerComponent implements OnInit {
 
   account: Account | null = null;
-  voiture!: IVoiture;
-
+  //voiture!: IVoiture;
+  imageURL!: string;
   private readonly destroy$ = new Subject<void>();
 
   constructor(private accountService: AccountService, private router: Router, private containerservice: ProductContainerService , private http: HttpClient)
   {
     //
   }
-
+/*
   callService(): void {
     this.containerservice.getVoitures(1).subscribe((res: IVoiture) => {
       //eslint-disable-next-line no-console
@@ -33,7 +33,13 @@ export class ProductContainerComponent implements OnInit {
 
     });
   }
-
+*/
+  callService():void{
+    this.containerservice.getVoitureImageURL(1).subscribe((res:string)=>{
+      console.error(res);
+      this.imageURL = res;
+    })
+  }
   ngOnInit(): void
   {
     //

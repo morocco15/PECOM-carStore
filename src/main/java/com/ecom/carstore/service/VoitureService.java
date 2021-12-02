@@ -25,6 +25,13 @@ public class VoitureService {
         return voitureRepository.derniereVoitureAjouter(PageRequest.of(debut, fin));
     }
     public Voiture getProduct(Long id){
-        return voitureRepository.findOneById(id);
+        //return voitureRepository.findOneById(id);
+        Voiture voiture= new Voiture();
+        voiture.setChevaux(5);
+
+        return voiture;
+    }
+    public String getImageURL(Long id){
+        return "mmp";
     }
 }
