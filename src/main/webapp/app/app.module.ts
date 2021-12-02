@@ -48,7 +48,7 @@ import { PanierComponent } from './panier/panier.component';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, PanierConfirmComponent, ProductContainerComponent],
+  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, PanierConfirmComponent],
   bootstrap: [MainComponent],
 })
 export class AppModule {
