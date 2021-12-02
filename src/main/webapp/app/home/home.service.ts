@@ -1,29 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { Voiture } from '../entities/voiture/voiture.model';
-import { catchError } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { IVoiture, Voiture } from '../entities/voiture/voiture.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HomeService {
-  urlAPI = 'http://localhost:8080/api/voiture';
+  private resourceUrl = this.applicationConfigService.getEndpointFor('api/voiture');
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  getQuatreDernieresVoitures(): Observable<Voiture[]> {
-    return this.httpClient.get<Voiture[]>(this.urlAPI + '/0/4'); /*.pipe(
-        tap(voiture => print(),
-        catchError(this.handleError<Voiture[]>([]))
-      // catchError(this.handleErrorVoitures)
-    ));*/
-  }
-
-  private handleError<T>(result = {} as T) {
-    return (error: HttpErrorResponse): Observable<T> => {
-      console.error(error);
-      return of(result);
-    };
+  public getQuatreDernieresVoitures(debut: number, fin: number): Observable<IVoiture[]> {
+    return this.httpClient.get<IVoiture[]>(`${this.resourceUrl}/${debut}/${fin}`);
   }
 }

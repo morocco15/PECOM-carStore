@@ -2,6 +2,7 @@ package com.ecom.carstore.service;
 
 import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.VoitureRepository;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -21,8 +22,8 @@ public class VoitureService {
         this.voitureRepository = voitureRepository;
     }
 
-    public Page<Voiture> getModelRecent(int debut, int fin) {
-        return voitureRepository.derniereVoitureAjouter(PageRequest.of(debut, fin));
+    public List<Voiture> getModelRecent(int debut, int fin) {
+        return voitureRepository.derniereVoitureAjouter();
     }
     public Voiture getProduct(Long id){
         //return voitureRepository.findOneById(id);

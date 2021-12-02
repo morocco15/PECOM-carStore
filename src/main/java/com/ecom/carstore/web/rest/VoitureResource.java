@@ -232,7 +232,7 @@ public class VoitureResource {
 
     @GetMapping("/voiture/{debut}/{fin}")
     @ResponseBody
-    public Page<Voiture> getModelRecent(@PathVariable("debut") int debut, @PathVariable("fin") int fin) {
+    public List<Voiture> getModelRecent(@PathVariable("debut") int debut, @PathVariable("fin") int fin) {
         return voitureService.getModelRecent(debut, fin);
     }
 /*
