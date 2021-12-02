@@ -3,7 +3,6 @@ package com.ecom.carstore.service.impl;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.ObjectMetadata;
-import com.ecom.carstore.OssConstant;
 import com.ecom.carstore.repository.VoitureRepository;
 import com.ecom.carstore.service.OssService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.UUID;
 
 @Service
 @Transactional
-public class OssServiceImpl implements OssService, OssConstant {
+public class OssServiceImpl implements OssService{
 
     @Autowired
     private VoitureRepository voitureRepository;
