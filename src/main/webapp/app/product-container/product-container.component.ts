@@ -7,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductContainerComponent implements OnInit {
 
-  constructor() 
+
+  constructor()
   {
     //
    }
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
     //
   }
@@ -20,7 +21,7 @@ export class ProductContainerComponent implements OnInit {
   handlePay():void
   {
     //
-    
+
   }
 
 }

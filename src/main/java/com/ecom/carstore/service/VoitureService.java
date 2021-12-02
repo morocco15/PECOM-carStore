@@ -24,4 +24,7 @@ public class VoitureService {
     public Page<Voiture> getModelRecent(int debut, int fin) {
         return voitureRepository.derniereVoitureAjouter(PageRequest.of(debut, fin));
     }
+    public Voiture getProduct(Long id){
+        return voitureRepository.findOneById(id);
+    }
 }

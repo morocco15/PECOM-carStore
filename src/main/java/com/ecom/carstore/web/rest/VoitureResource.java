@@ -235,4 +235,10 @@ public class VoitureResource {
     public Page<Voiture> getModelRecent(@PathVariable("debut") int debut, @PathVariable("fin") int fin) {
         return voitureService.getModelRecent(debut, fin);
     }
+
+    @GetMapping("/voiture/{id}")
+    @ResponseBody
+    public  Voiture getProduct(@PathVariable Long id){
+        return voitureService.getProduct(id);
+    }
 }

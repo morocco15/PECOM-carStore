@@ -30,4 +30,10 @@ public interface VoitureRepository extends JpaRepository<Voiture, Long> {
 
     @Query("select voiture from Voiture voiture ORDER BY voiture.miseEnVente DESC")
     Page<Voiture> derniereVoitureAjouter(Pageable page);
+
+    @Query("select distinct voiture from Voiture voiture where voiture.id =:id")
+    Voiture findOneById(@Param("id")Long id);
+
+
+
 }
