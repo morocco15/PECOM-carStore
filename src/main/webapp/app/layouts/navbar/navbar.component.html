@@ -18,11 +18,20 @@
   </a>
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
     <ul class="navbar-nav ml-auto">
+      <!--Bouton accueil visible même si utilisateur pas connecté-->
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/">
+          <span>
+            <fa-icon icon="home"></fa-icon>
+            <span id="menu">Accueil</span>
+          </span>
+        </a>
+      </li>
       <!--Bouton fil d'actualité visible même si utilisateur pas connecté-->
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="fildactualite">
           <span>
-            <fa-icon icon="home"></fa-icon>
+            <fa-icon icon="th-list"></fa-icon>
             <span id="menu">Fil d'actualité</span>
           </span>
         </a>
@@ -31,7 +40,7 @@
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
           <span>
-            <fa-icon icon="home"></fa-icon>
+            <fa-icon icon="list"></fa-icon>
             <span id="menu">Catégorie</span>
           </span>
         </a>
@@ -54,7 +63,7 @@
       </li>-->
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
       <li
-        *ngSwitchCase="true"
+        *jhiHasAnyAuthority="'ROLE_ADMIN'"
         ngbDropdown
         class="nav-item dropdown pointer"
         display="dynamic"
@@ -239,6 +248,30 @@
           </li>
         </ul>
       </li>
+      <li *ngSwitchCase="true" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="listedesouhait">
+          <span>
+            <fa-icon icon="list-alt"></fa-icon>
+            <span id="menu">Liste de souhait</span>
+          </span>
+        </a>
+      </li>
+      <li *ngSwitchCase="true" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="panier">
+          <span>
+            <fa-icon icon="shopping-cart"></fa-icon>
+            <span id="menu">Panier</span>
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link">
+          <span>
+            <fa-icon icon="sticky-note"></fa-icon>
+            <span id="menu">À propos</span>
+          </span>
+        </a>
+      </li>
       <li
         ngbDropdown
         class="nav-item dropdown pointer"
@@ -293,22 +326,6 @@
             </a>
           </li>
         </ul>
-      </li>
-      <li *ngSwitchCase="true" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="panier">
-          <span>
-            <fa-icon icon="home"></fa-icon>
-            <span id="menu">Panier</span>
-          </span>
-        </a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-          <span>
-            <fa-icon icon="home"></fa-icon>
-            <span id="menu">À propos</span>
-          </span>
-        </a>
       </li>
     </ul>
   </div>

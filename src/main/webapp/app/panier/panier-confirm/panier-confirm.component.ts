@@ -3,24 +3,18 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'jhi-panier-confirm',
   templateUrl: './panier-confirm.component.html',
-  styleUrls: ['./panier-confirm.component.scss']
+  styleUrls: ['./panier-confirm.component.scss'],
 })
 export class PanierConfirmComponent implements OnInit {
-
-  constructor()
-   {
-     //
-    }
-
-  ngOnInit(): void
-  {
+  constructor() {
     //
   }
 
-  handlePay():void
-  {
+  ngOnInit(): void {
     //
-    
   }
 
+  handlePay(): void {
+    //
+  }
 }

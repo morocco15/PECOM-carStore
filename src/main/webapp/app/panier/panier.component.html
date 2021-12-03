@@ -1,1 +1,152 @@
-<p>panier works!</p>
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <!--<script>function test() {
+        /*var toutSelectionne = document.querySelector('input[value="toutselectionne"]');
+        var voiture1 = document.querySelector('input[value="voiture1"]');
+        var voiture2 = document.querySelector('input[value="voiture2"]');*/
+        var toutSelectionne = document.getElementsByClassName("toutsele5ctionne");
+        var voiture1 = document.getElementsByClassName("voiture1");
+        var voiture2 = document.getElementsByClassName("voiture2");
+        if (toutSelectionne.checked){
+                voiture1.checked=true;
+                voiture2.checked=true;
+            }
+            else{
+                voiture1.checked=false;
+                voiture2.checked=false;
+            }
+      }
+    </script>-->
+  </head>
+  <body>
+    <div class="Panier">
+      <!--<script>
+            window.addEventListener('load', function () {
+            console.log('Cette fonction est exécutée une fois quand la page est chargée.');
+            });
+            </script>
+            
+        <script language="javascript">
+            var toutSelectionne = document.querySelector('input[value="toutselectionne"]');
+            var voiture1 = document.querySelector('input[value="voiture1"]');
+            var voiture2 = document.querySelector('input[value="voiture2"]');
+            toutSelectionne.onclick = function() {
+                if (toutSelectionne.checked){
+                    voiture1.checked=true;
+                    voiture2.checked=true;
+                }
+                else{
+                    voiture1.checked=false;
+                    voiture2.checked=false;
+                }
+            };
+        </script>-->
+      <p class="Titre">Panier</p>
+      <div class="FicheProduit">
+        <input type="checkbox" class="checkboxvoiture1" id="voiture1" />
+        <div class="image">
+          <!--Requête pour récupérer l'image-->
+          <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+        </div>
+        <div class="caracteristiqueproduit">
+          <!--grid-->
+          <div class="nom">
+            <!--flex-->
+            <div class="marque" style="font-weight: bold">
+              <!--Requête pour obtenir la marque de la voiture-->
+              {{ voiture1.marque
+              }}<!--MercedesBenz&nbsp;-->
+              <!--{{ voiture1.marque }} erreur ici, peut etre créer le service panier ?-->
+            </div>
+            <div class="modele" style="font-weight: bold">
+              <!--Requête pour obtenir le modèle de la voiture-->
+              amg c63 gt s
+            </div>
+          </div>
+          <div class="caracteristiques">
+            <!--<div class="année">
+                            L'année est à ajouter dans le model de voiture.
+                        </div>-->
+            <div class="kilometrage">
+              <div id="nomCarac">Kilométrage</div>
+              <!--Requête pour obtenir le kilométrage de la voiture-->
+              <div id="carac">135 000 km</div>
+            </div>
+            <div class="carburant">
+              <div id="nomCarac">Carburant</div>
+              <!--Requête pour obtenir le carburant de la voiture-->
+              <div id="carac">Essence</div>
+            </div>
+            <div class="boiteDeVitesse">
+              <div id="nomCarac">Boîte de vitesse</div>
+              <!--Requête pour obtenir la boîte de vitesse de la voiture-->
+              <div id="carac">automatique</div>
+            </div>
+            <div class="prix">
+              <!--Requête pour obtenir le prix de la voiture-->
+              <div id="carac">199 999 €</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="FicheProduit">
+        <input type="checkbox" class="checkboxvoiture1" id="voiture2" />
+        <div class="image">
+          <!--Requête pour récupérer l'image-->
+          <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+        </div>
+        <div class="caracteristiqueproduit">
+          <!--grid-->
+          <div class="nom">
+            <!--flex-->
+            <div class="marque" style="font-weight: bold">
+              <!--Requête pour obtenir la marque de la voiture-->
+              Mercedes-Benz&nbsp;
+            </div>
+            <div class="modele" style="font-weight: bold">
+              <!--Requête pour obtenir le modèle de la voiture-->
+              amg c63 gt s
+            </div>
+          </div>
+          <div class="caracteristiques">
+            <!--<div class="année">
+                            L'année est à ajouter dans le model de voiture.
+                        </div>-->
+            <div class="kilometrage">
+              <div id="nomCarac">Kilométrage</div>
+              <!--Requête pour obtenir le kilométrage de la voiture-->
+              <div id="carac">135 000 km</div>
+            </div>
+            <div class="carburant">
+              <div id="nomCarac">Carburant</div>
+              <!--Requête pour obtenir le carburant de la voiture-->
+              <div id="carac">Essence</div>
+            </div>
+            <div class="boiteDeVitesse">
+              <div id="nomCarac">Boîte de vitesse</div>
+              <!--Requête pour obtenir la boîte de vitesse de la voiture-->
+              <div id="carac">automatique</div>
+            </div>
+            <div class="prix">
+              <!--Requête pour obtenir le prix de la voiture-->
+              <div id="carac">199 999 €</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="Commandes">
+        <input type="checkbox" class="toutselectionne" id="toutselectionne" onClick="test()" />
+        <div id="toutSelectionner">Tout sélectionner</div>
+        <div id="supprimer">Supprimer</div>
+        <div id="deplacerFavoris">Déplacer vers les favoris</div>
+        <div id="selectionne">Sélectionné : 0</div>
+      </div>
+      <div class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="panierconfirm">
+          <button class="boutonValide" type="button">Valider le paiement</button>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

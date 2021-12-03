@@ -8,9 +8,8 @@ describe('PanierConfirmComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PanierConfirmComponent ]
-    })
-    .compileComponents();
+      declarations: [PanierConfirmComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
