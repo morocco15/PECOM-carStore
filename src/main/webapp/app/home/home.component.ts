@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   callServicePanier1(): void {
-    this.homeservice.ajouterVoiturePanier(this.username, this.voiture1).subscribe((res: Boolean) => {
+    this.homeservice.ajouterVoiturePanier(this.username, this.voiture1).subscribe((res: boolean) => {
       //eslint-disable-next-line no-console
       console.error(res);
     });

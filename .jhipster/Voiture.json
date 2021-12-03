@@ -16,23 +16,24 @@
     },
     {
       "fieldName": "image1",
-      "fieldType": "byte[]",
-      "fieldTypeBlobContent": "image"
+      "fieldType": "String"
     },
     {
       "fieldName": "image2",
-      "fieldType": "byte[]",
-      "fieldTypeBlobContent": "image"
+      "fieldType": "String"
     },
     {
       "fieldName": "image3",
-      "fieldType": "byte[]",
-      "fieldTypeBlobContent": "image"
+      "fieldType": "String"
     },
     {
       "fieldName": "statut",
       "fieldType": "Statut",
       "fieldValues": "RESERVER,LIBRE,VENDU"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Integer"
     },
     {
       "fieldName": "miseEnVente",
@@ -51,7 +52,8 @@
     },
     {
       "fieldName": "boiteVitesse",
-      "fieldType": "Integer"
+      "fieldType": "BoiteDeVitesse",
+      "fieldValues": "AUTOMATIQUE,MANUELLE"
     },
     {
       "fieldName": "co2",
@@ -65,6 +67,22 @@
       "fieldName": "carburant",
       "fieldType": "Carburant",
       "fieldValues": "ESSENCE,DIESEL,ELECTRIQUE"
+    },
+    {
+      "fieldName": "annees",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "ville",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codePostal",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
     }
   ],
   "relationships": [

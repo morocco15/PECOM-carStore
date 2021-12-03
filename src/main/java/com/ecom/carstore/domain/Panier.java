@@ -32,7 +32,7 @@ public class Panier implements Serializable {
     @OneToMany(mappedBy = "panier")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "marque", "categories", "commande", "panier", "vendeur", "souhaits" }, allowSetters = true)
-    private Set<Voiture> voitures = new HashSet<>();
+    public Set<Voiture> voitures = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

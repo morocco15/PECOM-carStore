@@ -20,25 +20,19 @@
             <column name="prix" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="image_1" type="longblob">
+            <column name="image_1" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="image_1_content_type" type="varchar(255)">
+            <column name="image_2" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="image_2" type="longblob">
-                <constraints nullable="true" />
-            </column>
-            <column name="image_2_content_type" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            <column name="image_3" type="longblob">
-                <constraints nullable="true" />
-            </column>
-            <column name="image_3_content_type" type="varchar(255)">
+            <column name="image_3" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="statut" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="version" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="mise_en_vente" type="${datetimeType}">
@@ -50,7 +44,7 @@
             <column name="porte" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="boite_vitesse" type="integer">
+            <column name="boite_vitesse" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="co_2" type="integer">
@@ -60,6 +54,18 @@
                 <constraints nullable="true" />
             </column>
             <column name="carburant" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="annees" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="ville" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="code_postal" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="description" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="marque_id" type="bigint">
@@ -77,6 +83,7 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="voiture" columnName="mise_en_vente" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="voiture" columnName="annees" columnDataType="${datetimeType}"/>
     </changeSet>
 
     <changeSet id="20211112143931-1-relations" author="jhipster">
@@ -112,20 +119,22 @@
             <column name="id" type="numeric"/>
             <column name="model" type="string"/>
             <column name="prix" type="numeric"/>
-            <column name="image_1" type="blob"/>
-            <column name="image_1_content_type" type="string"/>
-            <column name="image_2" type="blob"/>
-            <column name="image_2_content_type" type="string"/>
-            <column name="image_3" type="blob"/>
-            <column name="image_3_content_type" type="string"/>
+            <column name="image_1" type="string"/>
+            <column name="image_2" type="string"/>
+            <column name="image_3" type="string"/>
             <column name="statut" type="string"/>
+            <column name="version" type="numeric"/>
             <column name="mise_en_vente" type="date"/>
             <column name="etat" type="string"/>
             <column name="porte" type="numeric"/>
-            <column name="boite_vitesse" type="numeric"/>
+            <column name="boite_vitesse" type="string"/>
             <column name="co_2" type="numeric"/>
             <column name="chevaux" type="numeric"/>
             <column name="carburant" type="string"/>
+            <column name="annees" type="date"/>
+            <column name="ville" type="string"/>
+            <column name="code_postal" type="numeric"/>
+            <column name="description" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

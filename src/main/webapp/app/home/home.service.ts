@@ -15,7 +15,7 @@ export class HomeService {
     return this.httpClient.get<IVoiture[]>(`${this.resourceUrl}/${debut}/${fin}`);
   }
 
-  public ajouterVoiturePanier(username: string, voiture: IVoiture) {
+  public ajouterVoiturePanier(username: string, voiture: Voiture): Observable<boolean> {
     return this.httpClient.get<boolean>(`${this.resourceUrl}/${username}/${voiture}`);
   }
 }

@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +35,8 @@ public class VoitureResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private VoitureService voitureService;
-
     private final VoitureRepository voitureRepository;
+    private VoitureService voitureService;
 
     public VoitureResource(VoitureRepository voitureRepository, VoitureService voitureService) {
         this.voitureRepository = voitureRepository;
@@ -139,23 +137,17 @@ public class VoitureResource {
                 if (voiture.getImage1() != null) {
                     existingVoiture.setImage1(voiture.getImage1());
                 }
-                if (voiture.getImage1ContentType() != null) {
-                    existingVoiture.setImage1ContentType(voiture.getImage1ContentType());
-                }
                 if (voiture.getImage2() != null) {
                     existingVoiture.setImage2(voiture.getImage2());
-                }
-                if (voiture.getImage2ContentType() != null) {
-                    existingVoiture.setImage2ContentType(voiture.getImage2ContentType());
                 }
                 if (voiture.getImage3() != null) {
                     existingVoiture.setImage3(voiture.getImage3());
                 }
-                if (voiture.getImage3ContentType() != null) {
-                    existingVoiture.setImage3ContentType(voiture.getImage3ContentType());
-                }
                 if (voiture.getStatut() != null) {
                     existingVoiture.setStatut(voiture.getStatut());
+                }
+                if (voiture.getVersion() != null) {
+                    existingVoiture.setVersion(voiture.getVersion());
                 }
                 if (voiture.getMiseEnVente() != null) {
                     existingVoiture.setMiseEnVente(voiture.getMiseEnVente());
@@ -177,6 +169,18 @@ public class VoitureResource {
                 }
                 if (voiture.getCarburant() != null) {
                     existingVoiture.setCarburant(voiture.getCarburant());
+                }
+                if (voiture.getAnnees() != null) {
+                    existingVoiture.setAnnees(voiture.getAnnees());
+                }
+                if (voiture.getVille() != null) {
+                    existingVoiture.setVille(voiture.getVille());
+                }
+                if (voiture.getCodePostal() != null) {
+                    existingVoiture.setCodePostal(voiture.getCodePostal());
+                }
+                if (voiture.getDescription() != null) {
+                    existingVoiture.setDescription(voiture.getDescription());
                 }
 
                 return existingVoiture;

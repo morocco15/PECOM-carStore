@@ -73,17 +73,22 @@ class VoitureGatlingTest extends Simulation {
             .body(StringBody("""{
                 "model":"SAMPLE_TEXT"
                 , "prix":"0"
-                , "image1":null
-                , "image2":null
-                , "image3":null
+                , "image1":"SAMPLE_TEXT"
+                , "image2":"SAMPLE_TEXT"
+                , "image3":"SAMPLE_TEXT"
                 , "statut":"RESERVER"
+                , "version":"0"
                 , "miseEnVente":"2020-01-01T00:00:00.000Z"
                 , "etat":"NONROULANT"
                 , "porte":"0"
-                , "boiteVitesse":"0"
+                , "boiteVitesse":"AUTOMATIQUE"
                 , "co2":"0"
                 , "chevaux":"0"
                 , "carburant":"ESSENCE"
+                , "annees":"2020-01-01T00:00:00.000Z"
+                , "ville":"SAMPLE_TEXT"
+                , "codePostal":"0"
+                , "description":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_voiture_url"))).exitHereIfFailed
