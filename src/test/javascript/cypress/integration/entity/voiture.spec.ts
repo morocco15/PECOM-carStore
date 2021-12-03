@@ -173,7 +173,7 @@ describe('Voiture e2e test', () => {
 
       cy.get(`[data-cy="porte"]`).type('2').should('have.value', '2');
 
-      cy.get(`[data-cy="boiteVitesse"]`).type('763').should('have.value', '763');
+      cy.get(`[data-cy="boiteVitesse"]`).select('AUTOMATIQUE');
 
       cy.get(`[data-cy="co2"]`).type('28999').should('have.value', '28999');
 

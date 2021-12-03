@@ -7,6 +7,7 @@ import { IVendeur } from 'app/entities/vendeur/vendeur.model';
 import { ISouhait } from 'app/entities/souhait/souhait.model';
 import { Statut } from 'app/entities/enumerations/statut.model';
 import { Etat } from 'app/entities/enumerations/etat.model';
+import { BoiteDeVitesse } from 'app/entities/enumerations/boite-de-vitesse.model';
 import { Carburant } from 'app/entities/enumerations/carburant.model';
 
 export interface IVoiture {
@@ -21,7 +22,7 @@ export interface IVoiture {
   miseEnVente?: dayjs.Dayjs | null;
   etat?: Etat | null;
   porte?: number | null;
-  boiteVitesse?: number | null;
+  boiteVitesse?: BoiteDeVitesse | null;
   co2?: number | null;
   chevaux?: number | null;
   carburant?: Carburant | null;
@@ -50,7 +51,7 @@ export class Voiture implements IVoiture {
     public miseEnVente?: dayjs.Dayjs | null,
     public etat?: Etat | null,
     public porte?: number | null,
-    public boiteVitesse?: number | null,
+    public boiteVitesse?: BoiteDeVitesse | null,
     public co2?: number | null,
     public chevaux?: number | null,
     public carburant?: Carburant | null,

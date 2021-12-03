@@ -36,9 +36,7 @@ public class VoitureResource {
     private String applicationName;
 
     private final VoitureRepository voitureRepository;
-
     private VoitureService voitureService;
-
     public VoitureResource(VoitureRepository voitureRepository,VoitureService voitureService) {
         this.voitureRepository = voitureRepository;
         this.voitureService = voitureService;
@@ -234,9 +232,11 @@ public class VoitureResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
+
     @GetMapping("/voiture/{debut}/{fin}")
     @ResponseBody
     public List<Voiture> getModelRecent(@PathVariable("debut") int debut, @PathVariable("fin") int fin) {
         return voitureService.getModelRecent(debut, fin);
     }
+
 }

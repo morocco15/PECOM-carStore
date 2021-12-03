@@ -5,6 +5,7 @@ import * as dayjs from 'dayjs';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 import { Statut } from 'app/entities/enumerations/statut.model';
 import { Etat } from 'app/entities/enumerations/etat.model';
+import { BoiteDeVitesse } from 'app/entities/enumerations/boite-de-vitesse.model';
 import { Carburant } from 'app/entities/enumerations/carburant.model';
 import { IVoiture, Voiture } from '../voiture.model';
 
@@ -38,7 +39,7 @@ describe('Voiture Service', () => {
       miseEnVente: currentDate,
       etat: Etat.NONROULANT,
       porte: 0,
-      boiteVitesse: 0,
+      boiteVitesse: BoiteDeVitesse.AUTOMATIQUE,
       co2: 0,
       chevaux: 0,
       carburant: Carburant.ESSENCE,
@@ -105,7 +106,7 @@ describe('Voiture Service', () => {
           miseEnVente: currentDate.format(DATE_TIME_FORMAT),
           etat: 'BBBBBB',
           porte: 1,
-          boiteVitesse: 1,
+          boiteVitesse: 'BBBBBB',
           co2: 1,
           chevaux: 1,
           carburant: 'BBBBBB',
@@ -179,7 +180,7 @@ describe('Voiture Service', () => {
           miseEnVente: currentDate.format(DATE_TIME_FORMAT),
           etat: 'BBBBBB',
           porte: 1,
-          boiteVitesse: 1,
+          boiteVitesse: 'BBBBBB',
           co2: 1,
           chevaux: 1,
           carburant: 'BBBBBB',

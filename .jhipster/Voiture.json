@@ -52,7 +52,8 @@
     },
     {
       "fieldName": "boiteVitesse",
-      "fieldType": "Integer"
+      "fieldType": "BoiteDeVitesse",
+      "fieldValues": "AUTOMATIQUE,MANUELLE"
     },
     {
       "fieldName": "co2",

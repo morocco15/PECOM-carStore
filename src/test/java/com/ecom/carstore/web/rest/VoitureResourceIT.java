@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.ecom.carstore.IntegrationTest;
 import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.enumeration.BoiteDeVitesse;
 import com.ecom.carstore.domain.enumeration.Carburant;
 import com.ecom.carstore.domain.enumeration.Etat;
 import com.ecom.carstore.domain.enumeration.Statut;
@@ -75,8 +76,8 @@ class VoitureResourceIT {
     private static final Integer DEFAULT_PORTE = 5;
     private static final Integer UPDATED_PORTE = 4;
 
-    private static final Integer DEFAULT_BOITE_VITESSE = 1;
-    private static final Integer UPDATED_BOITE_VITESSE = 2;
+    private static final BoiteDeVitesse DEFAULT_BOITE_VITESSE = BoiteDeVitesse.AUTOMATIQUE;
+    private static final BoiteDeVitesse UPDATED_BOITE_VITESSE = BoiteDeVitesse.MANUELLE;
 
     private static final Integer DEFAULT_CO_2 = 1;
     private static final Integer UPDATED_CO_2 = 2;
@@ -255,7 +256,7 @@ class VoitureResourceIT {
             .andExpect(jsonPath("$.[*].miseEnVente").value(hasItem(sameInstant(DEFAULT_MISE_EN_VENTE))))
             .andExpect(jsonPath("$.[*].etat").value(hasItem(DEFAULT_ETAT.toString())))
             .andExpect(jsonPath("$.[*].porte").value(hasItem(DEFAULT_PORTE)))
-            .andExpect(jsonPath("$.[*].boiteVitesse").value(hasItem(DEFAULT_BOITE_VITESSE)))
+            .andExpect(jsonPath("$.[*].boiteVitesse").value(hasItem(DEFAULT_BOITE_VITESSE.toString())))
             .andExpect(jsonPath("$.[*].co2").value(hasItem(DEFAULT_CO_2)))
             .andExpect(jsonPath("$.[*].chevaux").value(hasItem(DEFAULT_CHEVAUX)))
             .andExpect(jsonPath("$.[*].carburant").value(hasItem(DEFAULT_CARBURANT.toString())))
@@ -305,7 +306,7 @@ class VoitureResourceIT {
             .andExpect(jsonPath("$.miseEnVente").value(sameInstant(DEFAULT_MISE_EN_VENTE)))
             .andExpect(jsonPath("$.etat").value(DEFAULT_ETAT.toString()))
             .andExpect(jsonPath("$.porte").value(DEFAULT_PORTE))
-            .andExpect(jsonPath("$.boiteVitesse").value(DEFAULT_BOITE_VITESSE))
+            .andExpect(jsonPath("$.boiteVitesse").value(DEFAULT_BOITE_VITESSE.toString()))
             .andExpect(jsonPath("$.co2").value(DEFAULT_CO_2))
             .andExpect(jsonPath("$.chevaux").value(DEFAULT_CHEVAUX))
             .andExpect(jsonPath("$.carburant").value(DEFAULT_CARBURANT.toString()))

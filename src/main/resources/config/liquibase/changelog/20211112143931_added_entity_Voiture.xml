@@ -44,7 +44,7 @@
             <column name="porte" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="boite_vitesse" type="integer">
+            <column name="boite_vitesse" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="co_2" type="integer">
@@ -127,7 +127,7 @@
             <column name="mise_en_vente" type="date"/>
             <column name="etat" type="string"/>
             <column name="porte" type="numeric"/>
-            <column name="boite_vitesse" type="numeric"/>
+            <column name="boite_vitesse" type="string"/>
             <column name="co_2" type="numeric"/>
             <column name="chevaux" type="numeric"/>
             <column name="carburant" type="string"/>

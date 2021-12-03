@@ -22,6 +22,7 @@ import { IVendeur } from 'app/entities/vendeur/vendeur.model';
 import { VendeurService } from 'app/entities/vendeur/service/vendeur.service';
 import { Statut } from 'app/entities/enumerations/statut.model';
 import { Etat } from 'app/entities/enumerations/etat.model';
+import { BoiteDeVitesse } from 'app/entities/enumerations/boite-de-vitesse.model';
 import { Carburant } from 'app/entities/enumerations/carburant.model';
 
 @Component({
@@ -32,6 +33,7 @@ export class VoitureUpdateComponent implements OnInit {
   isSaving = false;
   statutValues = Object.keys(Statut);
   etatValues = Object.keys(Etat);
+  boiteDeVitesseValues = Object.keys(BoiteDeVitesse);
   carburantValues = Object.keys(Carburant);
 
   marquesSharedCollection: IMarque[] = [];

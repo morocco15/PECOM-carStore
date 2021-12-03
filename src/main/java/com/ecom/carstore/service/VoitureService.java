@@ -20,6 +20,7 @@ public class VoitureService {
 
     public VoitureService(VoitureRepository voitureRepository) {
         this.voitureRepository = voitureRepository;
+
     }
 
     public List<Voiture> getModelRecent(int debut, int fin) {

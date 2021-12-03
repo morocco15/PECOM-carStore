@@ -1,5 +1,6 @@
 package com.ecom.carstore.domain;
 
+import com.ecom.carstore.domain.enumeration.BoiteDeVitesse;
 import com.ecom.carstore.domain.enumeration.Carburant;
 import com.ecom.carstore.domain.enumeration.Etat;
 import com.ecom.carstore.domain.enumeration.Statut;
@@ -62,8 +63,9 @@ public class Voiture implements Serializable {
     @Column(name = "porte")
     private Integer porte;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "boite_vitesse")
-    private Integer boiteVitesse;
+    private BoiteDeVitesse boiteVitesse;
 
     @Column(name = "co_2")
     private Integer co2;
@@ -263,16 +265,16 @@ public class Voiture implements Serializable {
         this.porte = porte;
     }
 
-    public Integer getBoiteVitesse() {
+    public BoiteDeVitesse getBoiteVitesse() {
         return this.boiteVitesse;
     }
 
-    public Voiture boiteVitesse(Integer boiteVitesse) {
+    public Voiture boiteVitesse(BoiteDeVitesse boiteVitesse) {
         this.setBoiteVitesse(boiteVitesse);
         return this;
     }
 
-    public void setBoiteVitesse(Integer boiteVitesse) {
+    public void setBoiteVitesse(BoiteDeVitesse boiteVitesse) {
         this.boiteVitesse = boiteVitesse;
     }
 
@@ -509,7 +511,7 @@ public class Voiture implements Serializable {
             ", miseEnVente='" + getMiseEnVente() + "'" +
             ", etat='" + getEtat() + "'" +
             ", porte=" + getPorte() +
-            ", boiteVitesse=" + getBoiteVitesse() +
+            ", boiteVitesse='" + getBoiteVitesse() + "'" +
             ", co2=" + getCo2() +
             ", chevaux=" + getChevaux() +
             ", carburant='" + getCarburant() + "'" +

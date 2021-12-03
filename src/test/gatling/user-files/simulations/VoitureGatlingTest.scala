@@ -81,7 +81,7 @@ class VoitureGatlingTest extends Simulation {
                 , "miseEnVente":"2020-01-01T00:00:00.000Z"
                 , "etat":"NONROULANT"
                 , "porte":"0"
-                , "boiteVitesse":"0"
+                , "boiteVitesse":"AUTOMATIQUE"
                 , "co2":"0"
                 , "chevaux":"0"
                 , "carburant":"ESSENCE"

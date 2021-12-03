@@ -40,7 +40,7 @@ entity Voiture {
     miseEnVente ZonedDateTime,
     etat Etat,
     porte Integer max(5),
-    boiteVitesse Integer,
+    boiteVitesse BoiteDeVitesse,
     co2 Integer,
     chevaux Integer,
     carburant Carburant,
@@ -48,8 +48,6 @@ entity Voiture {
     ville String,
     codePostal Integer,
     description String,
-
-
 }
 entity Categorie {
     categorie String
@@ -71,7 +69,9 @@ enum Etat {
     NONROULANT, ENDOMMAGE, ROULANT
 }
 
-
+enum BoiteDeVitesse{
+	AUTOMATIQUE, MANUELLE
+}
 
 
 
