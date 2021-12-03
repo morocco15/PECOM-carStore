@@ -249,9 +249,3 @@ public class VoitureResource {
         return voitureService.getImageURL(id);
     }
 }
-/*
-oui pour définire le endpoint du coter angular faut utiliser
-private resourceUrl = this.applicationConfigService.getEndpointFor('api/voiture');
-avec api qui correspond a @RequestMapping("/api")
-et voiture qui correspond a @GetMapping("/voiture)
- */

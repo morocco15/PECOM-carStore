@@ -32,7 +32,7 @@ public class OssServiceImpl implements OssService{
     @Override
     public String uploadImageToServer(MultipartFile imageFile,int idVoiture,int n) {
 
-        String filename = idVoiture + "/" + n;
+        String filename = idVoiture + ";" + n;
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         ObjectMetadata meta = new ObjectMetadata();
         meta.setContentType("image/jpg");
@@ -60,7 +60,7 @@ public class OssServiceImpl implements OssService{
     @Override
     public String getServerImageUrl(int idVoiture,int n){
         //voitureRepository.getImageById();
-        String url = "https://cars-store.oss-eu-central-1.aliyuncs.com/test/bonneVoiture.jpg";
+        String url = "https://cars-store.oss-eu-central-1.aliyuncs.com/test/v1.jpg";
 
         return url;
     }
@@ -71,14 +71,5 @@ public class OssServiceImpl implements OssService{
 
 
         return null;
-    }
-    public  static void main(String[] args) {
-
-        OssService ossService=new OssServiceImpl();
-
-
-        String resultat = ossService.uploadImageToServer(null,1,2);
-        System.out.println("url du image= "+resultat);
-
     }
 }
