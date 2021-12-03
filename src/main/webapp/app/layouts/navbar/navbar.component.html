@@ -248,6 +248,30 @@
           </li>
         </ul>
       </li>
+      <li *ngSwitchCase="true" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="listedesouhait">
+          <span>
+            <fa-icon icon="list-alt"></fa-icon>
+            <span id="menu">Liste de souhait</span>
+          </span>
+        </a>
+      </li>
+      <li *ngSwitchCase="true" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="panier">
+          <span>
+            <fa-icon icon="shopping-cart"></fa-icon>
+            <span id="menu">Panier</span>
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link">
+          <span>
+            <fa-icon icon="sticky-note"></fa-icon>
+            <span id="menu">À propos</span>
+          </span>
+        </a>
+      </li>
       <li
         ngbDropdown
         class="nav-item dropdown pointer"
@@ -302,30 +326,6 @@
             </a>
           </li>
         </ul>
-      </li>
-      <li *ngSwitchCase="true" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="listedesouhait">
-          <span>
-            <fa-icon icon="list-alt"></fa-icon>
-            <span id="menu">Liste de souhait</span>
-          </span>
-        </a>
-      </li>
-      <li *ngSwitchCase="true" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="panier">
-          <span>
-            <fa-icon icon="shopping-cart"></fa-icon>
-            <span id="menu">Panier</span>
-          </span>
-        </a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link">
-          <span>
-            <fa-icon icon="sticky-note"></fa-icon>
-            <span id="menu">À propos</span>
-          </span>
-        </a>
       </li>
     </ul>
   </div>
