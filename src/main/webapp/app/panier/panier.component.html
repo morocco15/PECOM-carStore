@@ -141,6 +141,11 @@
         <div id="deplacerFavoris">Déplacer vers les favoris</div>
         <div id="selectionne">Sélectionné : 0</div>
       </div>
+      <div class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="panierconfirm">
+          <button class="boutonValide" type="button">Valider le paiement</button>
+        </a>
+      </div>
     </div>
   </body>
 </html>
