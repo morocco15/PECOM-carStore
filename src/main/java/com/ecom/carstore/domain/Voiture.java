@@ -35,30 +35,21 @@ public class Voiture implements Serializable {
     @Column(name = "prix")
     private Long prix;
 
-    @Lob
     @Column(name = "image_1")
-    private byte[] image1;
+    private String image1;
 
-    @Column(name = "image_1_content_type")
-    private String image1ContentType;
-
-    @Lob
     @Column(name = "image_2")
-    private byte[] image2;
+    private String image2;
 
-    @Column(name = "image_2_content_type")
-    private String image2ContentType;
-
-    @Lob
     @Column(name = "image_3")
-    private byte[] image3;
-
-    @Column(name = "image_3_content_type")
-    private String image3ContentType;
+    private String image3;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "statut")
     private Statut statut;
+
+    @Column(name = "version")
+    private Integer version;
 
     @Column(name = "mise_en_vente")
     private ZonedDateTime miseEnVente;
@@ -83,6 +74,18 @@ public class Voiture implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "carburant")
     private Carburant carburant;
+
+    @Column(name = "annees")
+    private ZonedDateTime annees;
+
+    @Column(name = "ville")
+    private String ville;
+
+    @Column(name = "code_postal")
+    private Integer codePostal;
+
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "voitures" }, allowSetters = true)
@@ -156,82 +159,43 @@ public class Voiture implements Serializable {
         this.prix = prix;
     }
 
-    public byte[] getImage1() {
+    public String getImage1() {
         return this.image1;
     }
 
-    public Voiture image1(byte[] image1) {
+    public Voiture image1(String image1) {
         this.setImage1(image1);
         return this;
     }
 
-    public void setImage1(byte[] image1) {
+    public void setImage1(String image1) {
         this.image1 = image1;
     }
 
-    public String getImage1ContentType() {
-        return this.image1ContentType;
-    }
-
-    public Voiture image1ContentType(String image1ContentType) {
-        this.image1ContentType = image1ContentType;
-        return this;
-    }
-
-    public void setImage1ContentType(String image1ContentType) {
-        this.image1ContentType = image1ContentType;
-    }
-
-    public byte[] getImage2() {
+    public String getImage2() {
         return this.image2;
     }
 
-    public Voiture image2(byte[] image2) {
+    public Voiture image2(String image2) {
         this.setImage2(image2);
         return this;
     }
 
-    public void setImage2(byte[] image2) {
+    public void setImage2(String image2) {
         this.image2 = image2;
     }
 
-    public String getImage2ContentType() {
-        return this.image2ContentType;
-    }
-
-    public Voiture image2ContentType(String image2ContentType) {
-        this.image2ContentType = image2ContentType;
-        return this;
-    }
-
-    public void setImage2ContentType(String image2ContentType) {
-        this.image2ContentType = image2ContentType;
-    }
-
-    public byte[] getImage3() {
+    public String getImage3() {
         return this.image3;
     }
 
-    public Voiture image3(byte[] image3) {
+    public Voiture image3(String image3) {
         this.setImage3(image3);
         return this;
     }
 
-    public void setImage3(byte[] image3) {
+    public void setImage3(String image3) {
         this.image3 = image3;
-    }
-
-    public String getImage3ContentType() {
-        return this.image3ContentType;
-    }
-
-    public Voiture image3ContentType(String image3ContentType) {
-        this.image3ContentType = image3ContentType;
-        return this;
-    }
-
-    public void setImage3ContentType(String image3ContentType) {
-        this.image3ContentType = image3ContentType;
     }
 
     public Statut getStatut() {
@@ -245,6 +209,19 @@ public class Voiture implements Serializable {
 
     public void setStatut(Statut statut) {
         this.statut = statut;
+    }
+
+    public Integer getVersion() {
+        return this.version;
+    }
+
+    public Voiture version(Integer version) {
+        this.setVersion(version);
+        return this;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public ZonedDateTime getMiseEnVente() {
@@ -336,6 +313,58 @@ public class Voiture implements Serializable {
 
     public void setCarburant(Carburant carburant) {
         this.carburant = carburant;
+    }
+
+    public ZonedDateTime getAnnees() {
+        return this.annees;
+    }
+
+    public Voiture annees(ZonedDateTime annees) {
+        this.setAnnees(annees);
+        return this;
+    }
+
+    public void setAnnees(ZonedDateTime annees) {
+        this.annees = annees;
+    }
+
+    public String getVille() {
+        return this.ville;
+    }
+
+    public Voiture ville(String ville) {
+        this.setVille(ville);
+        return this;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public Integer getCodePostal() {
+        return this.codePostal;
+    }
+
+    public Voiture codePostal(Integer codePostal) {
+        this.setCodePostal(codePostal);
+        return this;
+    }
+
+    public void setCodePostal(Integer codePostal) {
+        this.codePostal = codePostal;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public Voiture description(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Marque getMarque() {
@@ -473,12 +502,10 @@ public class Voiture implements Serializable {
             ", model='" + getModel() + "'" +
             ", prix=" + getPrix() +
             ", image1='" + getImage1() + "'" +
-            ", image1ContentType='" + getImage1ContentType() + "'" +
             ", image2='" + getImage2() + "'" +
-            ", image2ContentType='" + getImage2ContentType() + "'" +
             ", image3='" + getImage3() + "'" +
-            ", image3ContentType='" + getImage3ContentType() + "'" +
             ", statut='" + getStatut() + "'" +
+            ", version=" + getVersion() +
             ", miseEnVente='" + getMiseEnVente() + "'" +
             ", etat='" + getEtat() + "'" +
             ", porte=" + getPorte() +
@@ -486,6 +513,10 @@ public class Voiture implements Serializable {
             ", co2=" + getCo2() +
             ", chevaux=" + getChevaux() +
             ", carburant='" + getCarburant() + "'" +
+            ", annees='" + getAnnees() + "'" +
+            ", ville='" + getVille() + "'" +
+            ", codePostal=" + getCodePostal() +
+            ", description='" + getDescription() + "'" +
             "}";
     }
 }

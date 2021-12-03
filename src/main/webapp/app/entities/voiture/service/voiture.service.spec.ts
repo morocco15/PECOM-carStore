@@ -30,13 +30,11 @@ describe('Voiture Service', () => {
       id: 0,
       model: 'AAAAAAA',
       prix: 0,
-      image1ContentType: 'image/png',
       image1: 'AAAAAAA',
-      image2ContentType: 'image/png',
       image2: 'AAAAAAA',
-      image3ContentType: 'image/png',
       image3: 'AAAAAAA',
       statut: Statut.RESERVER,
+      version: 0,
       miseEnVente: currentDate,
       etat: Etat.NONROULANT,
       porte: 0,
@@ -44,6 +42,10 @@ describe('Voiture Service', () => {
       co2: 0,
       chevaux: 0,
       carburant: Carburant.ESSENCE,
+      annees: currentDate,
+      ville: 'AAAAAAA',
+      codePostal: 0,
+      description: 'AAAAAAA',
     };
   });
 
@@ -52,6 +54,7 @@ describe('Voiture Service', () => {
       const returnedFromService = Object.assign(
         {
           miseEnVente: currentDate.format(DATE_TIME_FORMAT),
+          annees: currentDate.format(DATE_TIME_FORMAT),
         },
         elemDefault
       );
@@ -68,6 +71,7 @@ describe('Voiture Service', () => {
         {
           id: 0,
           miseEnVente: currentDate.format(DATE_TIME_FORMAT),
+          annees: currentDate.format(DATE_TIME_FORMAT),
         },
         elemDefault
       );
@@ -75,6 +79,7 @@ describe('Voiture Service', () => {
       const expected = Object.assign(
         {
           miseEnVente: currentDate,
+          annees: currentDate,
         },
         returnedFromService
       );
@@ -96,6 +101,7 @@ describe('Voiture Service', () => {
           image2: 'BBBBBB',
           image3: 'BBBBBB',
           statut: 'BBBBBB',
+          version: 1,
           miseEnVente: currentDate.format(DATE_TIME_FORMAT),
           etat: 'BBBBBB',
           porte: 1,
@@ -103,6 +109,10 @@ describe('Voiture Service', () => {
           co2: 1,
           chevaux: 1,
           carburant: 'BBBBBB',
+          annees: currentDate.format(DATE_TIME_FORMAT),
+          ville: 'BBBBBB',
+          codePostal: 1,
+          description: 'BBBBBB',
         },
         elemDefault
       );
@@ -110,6 +120,7 @@ describe('Voiture Service', () => {
       const expected = Object.assign(
         {
           miseEnVente: currentDate,
+          annees: currentDate,
         },
         returnedFromService
       );
@@ -126,11 +137,13 @@ describe('Voiture Service', () => {
         {
           prix: 1,
           statut: 'BBBBBB',
+          miseEnVente: currentDate.format(DATE_TIME_FORMAT),
           etat: 'BBBBBB',
           porte: 1,
-          boiteVitesse: 1,
+          co2: 1,
           chevaux: 1,
-          carburant: 'BBBBBB',
+          codePostal: 1,
+          description: 'BBBBBB',
         },
         new Voiture()
       );
@@ -140,6 +153,7 @@ describe('Voiture Service', () => {
       const expected = Object.assign(
         {
           miseEnVente: currentDate,
+          annees: currentDate,
         },
         returnedFromService
       );
@@ -161,6 +175,7 @@ describe('Voiture Service', () => {
           image2: 'BBBBBB',
           image3: 'BBBBBB',
           statut: 'BBBBBB',
+          version: 1,
           miseEnVente: currentDate.format(DATE_TIME_FORMAT),
           etat: 'BBBBBB',
           porte: 1,
@@ -168,6 +183,10 @@ describe('Voiture Service', () => {
           co2: 1,
           chevaux: 1,
           carburant: 'BBBBBB',
+          annees: currentDate.format(DATE_TIME_FORMAT),
+          ville: 'BBBBBB',
+          codePostal: 1,
+          description: 'BBBBBB',
         },
         elemDefault
       );
@@ -175,6 +194,7 @@ describe('Voiture Service', () => {
       const expected = Object.assign(
         {
           miseEnVente: currentDate,
+          annees: currentDate,
         },
         returnedFromService
       );
@@ -224,7 +244,7 @@ describe('Voiture Service', () => {
       });
 
       it('should add only unique Voiture to an array', () => {
-        const voitureArray: IVoiture[] = [{ id: 123 }, { id: 456 }, { id: 29244 }];
+        const voitureArray: IVoiture[] = [{ id: 123 }, { id: 456 }, { id: 97568 }];
         const voitureCollection: IVoiture[] = [{ id: 123 }];
         expectedResult = service.addVoitureToCollectionIfMissing(voitureCollection, ...voitureArray);
         expect(expectedResult).toHaveLength(3);

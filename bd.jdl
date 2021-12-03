@@ -36,13 +36,20 @@ entity Voiture {
     image2 String,
     image3 String,
     statut Statut,
+	version Integer,
     miseEnVente ZonedDateTime,
     etat Etat,
     porte Integer max(5),
     boiteVitesse Integer,
     co2 Integer,
     chevaux Integer,
-    carburant Carburant
+    carburant Carburant,
+    annees ZonedDateTime,
+    ville String,
+    codePostal Integer,
+    description String,
+
+
 }
 entity Categorie {
     categorie String

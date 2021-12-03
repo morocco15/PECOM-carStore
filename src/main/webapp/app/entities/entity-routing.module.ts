@@ -49,6 +49,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'Marques' },
         loadChildren: () => import('./marque/marque.module').then(m => m.MarqueModule),
       },
+      {
+        path: 'panier',
+        data: { pageTitle: 'Paniers' },
+        loadChildren: () => import('./panier/panier.module').then(m => m.PanierModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

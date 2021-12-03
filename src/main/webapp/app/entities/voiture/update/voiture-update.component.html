@@ -26,95 +26,17 @@
 
         <div class="form-group">
           <label class="form-control-label" for="field_image1">Image 1</label>
-          <div>
-            <img
-              [src]="'data:' + editForm.get('image1ContentType')!.value + ';base64,' + editForm.get('image1')!.value"
-              style="max-height: 100px"
-              *ngIf="editForm.get('image1')!.value"
-              alt="voiture image"
-            />
-            <div *ngIf="editForm.get('image1')!.value" class="form-text text-danger clearfix">
-              <span class="pull-left">{{ editForm.get('image1ContentType')!.value }}, {{ byteSize(editForm.get('image1')!.value) }}</span>
-              <button
-                type="button"
-                (click)="clearInputImage('image1', 'image1ContentType', 'file_image1')"
-                class="btn btn-secondary btn-xs pull-right"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input type="file" id="file_image1" data-cy="image1" (change)="setFileData($event, 'image1', true)" accept="image/*" />
-          </div>
-          <input type="hidden" class="form-control" name="image1" id="field_image1" data-cy="image1" formControlName="image1" />
-          <input
-            type="hidden"
-            class="form-control"
-            name="image1ContentType"
-            id="field_image1ContentType"
-            formControlName="image1ContentType"
-          />
+          <input type="text" class="form-control" name="image1" id="field_image1" data-cy="image1" formControlName="image1" />
         </div>
 
         <div class="form-group">
           <label class="form-control-label" for="field_image2">Image 2</label>
-          <div>
-            <img
-              [src]="'data:' + editForm.get('image2ContentType')!.value + ';base64,' + editForm.get('image2')!.value"
-              style="max-height: 100px"
-              *ngIf="editForm.get('image2')!.value"
-              alt="voiture image"
-            />
-            <div *ngIf="editForm.get('image2')!.value" class="form-text text-danger clearfix">
-              <span class="pull-left">{{ editForm.get('image2ContentType')!.value }}, {{ byteSize(editForm.get('image2')!.value) }}</span>
-              <button
-                type="button"
-                (click)="clearInputImage('image2', 'image2ContentType', 'file_image2')"
-                class="btn btn-secondary btn-xs pull-right"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input type="file" id="file_image2" data-cy="image2" (change)="setFileData($event, 'image2', true)" accept="image/*" />
-          </div>
-          <input type="hidden" class="form-control" name="image2" id="field_image2" data-cy="image2" formControlName="image2" />
-          <input
-            type="hidden"
-            class="form-control"
-            name="image2ContentType"
-            id="field_image2ContentType"
-            formControlName="image2ContentType"
-          />
+          <input type="text" class="form-control" name="image2" id="field_image2" data-cy="image2" formControlName="image2" />
         </div>
 
         <div class="form-group">
           <label class="form-control-label" for="field_image3">Image 3</label>
-          <div>
-            <img
-              [src]="'data:' + editForm.get('image3ContentType')!.value + ';base64,' + editForm.get('image3')!.value"
-              style="max-height: 100px"
-              *ngIf="editForm.get('image3')!.value"
-              alt="voiture image"
-            />
-            <div *ngIf="editForm.get('image3')!.value" class="form-text text-danger clearfix">
-              <span class="pull-left">{{ editForm.get('image3ContentType')!.value }}, {{ byteSize(editForm.get('image3')!.value) }}</span>
-              <button
-                type="button"
-                (click)="clearInputImage('image3', 'image3ContentType', 'file_image3')"
-                class="btn btn-secondary btn-xs pull-right"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input type="file" id="file_image3" data-cy="image3" (change)="setFileData($event, 'image3', true)" accept="image/*" />
-          </div>
-          <input type="hidden" class="form-control" name="image3" id="field_image3" data-cy="image3" formControlName="image3" />
-          <input
-            type="hidden"
-            class="form-control"
-            name="image3ContentType"
-            id="field_image3ContentType"
-            formControlName="image3ContentType"
-          />
+          <input type="text" class="form-control" name="image3" id="field_image3" data-cy="image3" formControlName="image3" />
         </div>
 
         <div class="form-group">
@@ -123,6 +45,11 @@
             <option [ngValue]="null"></option>
             <option *ngFor="let statut of statutValues" [value]="statut">statut</option>
           </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_version">Version</label>
+          <input type="number" class="form-control" name="version" id="field_version" data-cy="version" formControlName="version" />
         </div>
 
         <div class="form-group">
@@ -185,6 +112,50 @@
             <option [ngValue]="null"></option>
             <option *ngFor="let carburant of carburantValues" [value]="carburant">carburant</option>
           </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_annees">Annees</label>
+          <div class="d-flex">
+            <input
+              id="field_annees"
+              data-cy="annees"
+              type="datetime-local"
+              class="form-control"
+              name="annees"
+              formControlName="annees"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_ville">Ville</label>
+          <input type="text" class="form-control" name="ville" id="field_ville" data-cy="ville" formControlName="ville" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_codePostal">Code Postal</label>
+          <input
+            type="number"
+            class="form-control"
+            name="codePostal"
+            id="field_codePostal"
+            data-cy="codePostal"
+            formControlName="codePostal"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
         </div>
 
         <div class="form-group">

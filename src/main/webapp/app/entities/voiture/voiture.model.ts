@@ -13,13 +13,11 @@ export interface IVoiture {
   id?: number;
   model?: string | null;
   prix?: number | null;
-  image1ContentType?: string | null;
   image1?: string | null;
-  image2ContentType?: string | null;
   image2?: string | null;
-  image3ContentType?: string | null;
   image3?: string | null;
   statut?: Statut | null;
+  version?: number | null;
   miseEnVente?: dayjs.Dayjs | null;
   etat?: Etat | null;
   porte?: number | null;
@@ -27,6 +25,10 @@ export interface IVoiture {
   co2?: number | null;
   chevaux?: number | null;
   carburant?: Carburant | null;
+  annees?: dayjs.Dayjs | null;
+  ville?: string | null;
+  codePostal?: number | null;
+  description?: string | null;
   marque?: IMarque | null;
   categories?: ICategorie[] | null;
   commande?: ICommande | null;
@@ -40,13 +42,11 @@ export class Voiture implements IVoiture {
     public id?: number,
     public model?: string | null,
     public prix?: number | null,
-    public image1ContentType?: string | null,
     public image1?: string | null,
-    public image2ContentType?: string | null,
     public image2?: string | null,
-    public image3ContentType?: string | null,
     public image3?: string | null,
     public statut?: Statut | null,
+    public version?: number | null,
     public miseEnVente?: dayjs.Dayjs | null,
     public etat?: Etat | null,
     public porte?: number | null,
@@ -54,14 +54,17 @@ export class Voiture implements IVoiture {
     public co2?: number | null,
     public chevaux?: number | null,
     public carburant?: Carburant | null,
+    public annees?: dayjs.Dayjs | null,
+    public ville?: string | null,
+    public codePostal?: number | null,
+    public description?: string | null,
     public marque?: IMarque | null,
     public categories?: ICategorie[] | null,
     public commande?: ICommande | null,
     public panier?: IPanier | null,
     public vendeur?: IVendeur | null,
     public souhaits?: ISouhait[] | null
-  ) //ajouter description de 1 ligne, description complète, année, ville, code postal
-  {}
+  ) {}
 }
 
 export function getVoitureIdentifier(voiture: IVoiture): number | undefined {

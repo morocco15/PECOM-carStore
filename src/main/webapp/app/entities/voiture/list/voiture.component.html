@@ -39,6 +39,7 @@
           <th scope="col"><span>Image 2</span></th>
           <th scope="col"><span>Image 3</span></th>
           <th scope="col"><span>Statut</span></th>
+          <th scope="col"><span>Version</span></th>
           <th scope="col"><span>Mise En Vente</span></th>
           <th scope="col"><span>Etat</span></th>
           <th scope="col"><span>Porte</span></th>
@@ -46,6 +47,10 @@
           <th scope="col"><span>Co 2</span></th>
           <th scope="col"><span>Chevaux</span></th>
           <th scope="col"><span>Carburant</span></th>
+          <th scope="col"><span>Annees</span></th>
+          <th scope="col"><span>Ville</span></th>
+          <th scope="col"><span>Code Postal</span></th>
+          <th scope="col"><span>Description</span></th>
           <th scope="col"><span>Marque</span></th>
           <th scope="col"><span>Categories</span></th>
           <th scope="col"><span>Commande</span></th>
@@ -61,25 +66,11 @@
           </td>
           <td>{{ voiture.model }}</td>
           <td>{{ voiture.prix }}</td>
-          <td>
-            <a *ngIf="voiture.image1" (click)="openFile(voiture.image1, voiture.image1ContentType)">
-              <img [src]="'data:' + voiture.image1ContentType + ';base64,' + voiture.image1" style="max-height: 30px" alt="voiture image" />
-            </a>
-            <span *ngIf="voiture.image1">{{ voiture.image1ContentType }}, {{ byteSize(voiture.image1) }}</span>
-          </td>
-          <td>
-            <a *ngIf="voiture.image2" (click)="openFile(voiture.image2, voiture.image2ContentType)">
-              <img [src]="'data:' + voiture.image2ContentType + ';base64,' + voiture.image2" style="max-height: 30px" alt="voiture image" />
-            </a>
-            <span *ngIf="voiture.image2">{{ voiture.image2ContentType }}, {{ byteSize(voiture.image2) }}</span>
-          </td>
-          <td>
-            <a *ngIf="voiture.image3" (click)="openFile(voiture.image3, voiture.image3ContentType)">
-              <img [src]="'data:' + voiture.image3ContentType + ';base64,' + voiture.image3" style="max-height: 30px" alt="voiture image" />
-            </a>
-            <span *ngIf="voiture.image3">{{ voiture.image3ContentType }}, {{ byteSize(voiture.image3) }}</span>
-          </td>
+          <td>{{ voiture.image1 }}</td>
+          <td>{{ voiture.image2 }}</td>
+          <td>{{ voiture.image3 }}</td>
           <td>{{ voiture.statut }}</td>
+          <td>{{ voiture.version }}</td>
           <td>{{ voiture.miseEnVente | formatMediumDatetime }}</td>
           <td>{{ voiture.etat }}</td>
           <td>{{ voiture.porte }}</td>
@@ -87,6 +78,10 @@
           <td>{{ voiture.co2 }}</td>
           <td>{{ voiture.chevaux }}</td>
           <td>{{ voiture.carburant }}</td>
+          <td>{{ voiture.annees | formatMediumDatetime }}</td>
+          <td>{{ voiture.ville }}</td>
+          <td>{{ voiture.codePostal }}</td>
+          <td>{{ voiture.description }}</td>
           <td>
             <div *ngIf="voiture.marque">
               <a [routerLink]="['/marque', voiture.marque?.id, 'view']">{{ voiture.marque?.id }}</a>

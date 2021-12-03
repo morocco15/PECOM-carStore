@@ -76,12 +76,14 @@ export class VoitureService {
   protected convertDateFromClient(voiture: IVoiture): IVoiture {
     return Object.assign({}, voiture, {
       miseEnVente: voiture.miseEnVente?.isValid() ? voiture.miseEnVente.toJSON() : undefined,
+      annees: voiture.annees?.isValid() ? voiture.annees.toJSON() : undefined,
     });
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       res.body.miseEnVente = res.body.miseEnVente ? dayjs(res.body.miseEnVente) : undefined;
+      res.body.annees = res.body.annees ? dayjs(res.body.annees) : undefined;
     }
     return res;
   }
@@ -90,6 +92,7 @@ export class VoitureService {
     if (res.body) {
       res.body.forEach((voiture: IVoiture) => {
         voiture.miseEnVente = voiture.miseEnVente ? dayjs(voiture.miseEnVente) : undefined;
+        voiture.annees = voiture.annees ? dayjs(voiture.annees) : undefined;
       });
     }
     return res;

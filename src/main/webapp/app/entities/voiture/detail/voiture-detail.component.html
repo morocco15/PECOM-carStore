@@ -24,34 +24,23 @@
         </dd>
         <dt><span>Image 1</span></dt>
         <dd>
-          <div *ngIf="voiture.image1">
-            <a (click)="openFile(voiture.image1, voiture.image1ContentType)">
-              <img [src]="'data:' + voiture.image1ContentType + ';base64,' + voiture.image1" style="max-width: 100%" alt="voiture image" />
-            </a>
-            {{ voiture.image1ContentType }}, {{ byteSize(voiture.image1) }}
-          </div>
+          <span>{{ voiture.image1 }}</span>
         </dd>
         <dt><span>Image 2</span></dt>
         <dd>
-          <div *ngIf="voiture.image2">
-            <a (click)="openFile(voiture.image2, voiture.image2ContentType)">
-              <img [src]="'data:' + voiture.image2ContentType + ';base64,' + voiture.image2" style="max-width: 100%" alt="voiture image" />
-            </a>
-            {{ voiture.image2ContentType }}, {{ byteSize(voiture.image2) }}
-          </div>
+          <span>{{ voiture.image2 }}</span>
         </dd>
         <dt><span>Image 3</span></dt>
         <dd>
-          <div *ngIf="voiture.image3">
-            <a (click)="openFile(voiture.image3, voiture.image3ContentType)">
-              <img [src]="'data:' + voiture.image3ContentType + ';base64,' + voiture.image3" style="max-width: 100%" alt="voiture image" />
-            </a>
-            {{ voiture.image3ContentType }}, {{ byteSize(voiture.image3) }}
-          </div>
+          <span>{{ voiture.image3 }}</span>
         </dd>
         <dt><span>Statut</span></dt>
         <dd>
           <span>{{ voiture.statut }}</span>
+        </dd>
+        <dt><span>Version</span></dt>
+        <dd>
+          <span>{{ voiture.version }}</span>
         </dd>
         <dt><span>Mise En Vente</span></dt>
         <dd>
@@ -80,6 +69,22 @@
         <dt><span>Carburant</span></dt>
         <dd>
           <span>{{ voiture.carburant }}</span>
+        </dd>
+        <dt><span>Annees</span></dt>
+        <dd>
+          <span>{{ voiture.annees | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Ville</span></dt>
+        <dd>
+          <span>{{ voiture.ville }}</span>
+        </dd>
+        <dt><span>Code Postal</span></dt>
+        <dd>
+          <span>{{ voiture.codePostal }}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+          <span>{{ voiture.description }}</span>
         </dd>
         <dt><span>Marque</span></dt>
         <dd>
