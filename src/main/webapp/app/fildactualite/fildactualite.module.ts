@@ -8,6 +8,5 @@ import { FildactualiteComponent } from './fildactualite.component';
 @NgModule({
   imports: [SharedModule, RouterModule.forChild([FILDACTUALITE_ROUTE])],
   declarations: [FildactualiteComponent],
-  //providers: [HomeService],
 })
 export class FildactualiteModule {}

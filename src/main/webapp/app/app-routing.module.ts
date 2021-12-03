@@ -46,6 +46,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
           loadChildren: () => import('./panier/panier.module').then(m => m.PanierModule),
         },
         {
+          path: 'listedesouhait',
+          loadChildren: () => import('./listedesouhait/listedesouhait.module').then(m => m.ListedesouhaitModule),
+        },
+        {
           path: 'panierconfirm',
           loadChildren: () => import('././panier/panier-confirm/panier-confirm.module').then(m => m.PanierConfirmModule),
         },

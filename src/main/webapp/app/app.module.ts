@@ -28,6 +28,7 @@ import { FildactualiteComponent } from './fildactualite/fildactualite.component'
 import { PanierComponent } from './panier/panier.component';
 //import { PanierConfirmComponent } from './panier/panier-confirm/panier-confirm.component';
 import { ArticleComponent } from './article/article.component';
+import { ListedesouhaitComponent } from './listedesouhait/listedesouhait.component';
 
 @NgModule({
   imports: [
