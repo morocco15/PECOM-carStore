@@ -2,6 +2,7 @@ package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.VoitureRepository;
+import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,6 +36,8 @@ public class VoitureResource {
     private String applicationName;
 
     private final VoitureRepository voitureRepository;
+
+    private VoitureService voitureService;
 
     public VoitureResource(VoitureRepository voitureRepository) {
         this.voitureRepository = voitureRepository;
@@ -229,5 +232,10 @@ public class VoitureResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+    @GetMapping("/voiture/{debut}/{fin}")
+    @ResponseBody
+    public List<Voiture> getModelRecent(@PathVariable("debut") int debut, @PathVariable("fin") int fin) {
+        return voitureService.getModelRecent(debut, fin);
     }
 }
