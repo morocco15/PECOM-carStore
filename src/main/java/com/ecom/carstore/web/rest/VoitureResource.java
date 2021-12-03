@@ -39,8 +39,9 @@ public class VoitureResource {
 
     private VoitureService voitureService;
 
-    public VoitureResource(VoitureRepository voitureRepository) {
+    public VoitureResource(VoitureRepository voitureRepository,VoitureService voitureService) {
         this.voitureRepository = voitureRepository;
+        this.voitureService = voitureService;
     }
 
     /**
