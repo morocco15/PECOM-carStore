@@ -1,7 +1,9 @@
 package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.Panier;
+import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.PanierRepository;
+import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,9 +35,11 @@ public class PanierResource {
     private String applicationName;
 
     private final PanierRepository panierRepository;
+    private VoitureService voitureService;
+    public PanierResource(PanierRepository panierRepository,VoitureService voitureService) {
 
-    public PanierResource(PanierRepository panierRepository) {
         this.panierRepository = panierRepository;
+        this.voitureService = voitureService;
     }
 
     /**
@@ -169,5 +173,21 @@ public class PanierResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+
+    public boolean AjouterVoitureDansPanier(@PathVariable Long id, @PathVariable Voiture voiture){
+
+
+        if(voitureService.reserverVoiture(voiture)){
+
+            Panier panier = panierRepository.getById(id);
+            if(!panier.voitures.contains(voiture)){
+                panier.addVoitures(voiture);
+            }
+            panierRepository.save(panier);
+            return true;
+        }
+        return false;
     }
 }

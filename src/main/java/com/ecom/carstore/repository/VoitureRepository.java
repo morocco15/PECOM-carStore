@@ -28,4 +28,13 @@ public interface VoitureRepository extends JpaRepository<Voiture, Long> {
 
     @Query("select voiture from Voiture voiture ORDER BY voiture.miseEnVente DESC")
     List<Voiture> derniereVoitureAjouter();
+
+
+
+
+
+    @Query("select voiture.version from Voiture voiture where voiture.id=:id")
+    Integer getVoitureVersion(@Param("id") Long id);
+
+
 }

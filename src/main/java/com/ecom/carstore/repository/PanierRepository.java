@@ -9,4 +9,8 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PanierRepository extends JpaRepository<Panier, Long> {}
+public interface PanierRepository extends JpaRepository<Panier, Long> {
+
+
+
+}
