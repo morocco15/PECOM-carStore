@@ -1,7 +1,9 @@
 package com.ecom.carstore.web.rest;
 
+import com.ecom.carstore.domain.Commande;
 import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.repository.PanierRepository;
+import com.ecom.carstore.service.PanierService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,9 +35,11 @@ public class PanierResource {
     private String applicationName;
 
     private final PanierRepository panierRepository;
+    private final PanierService panierService;
 
-    public PanierResource(PanierRepository panierRepository) {
+    public PanierResource(PanierRepository panierRepository, PanierService panierService) {
         this.panierRepository = panierRepository;
+        this.panierService = panierService;
     }
 
     /**
@@ -47,15 +51,7 @@ public class PanierResource {
      */
     @PostMapping("/paniers")
     public ResponseEntity<Panier> createPanier(@RequestBody Panier panier) throws URISyntaxException {
-        log.debug("REST request to save Panier : {}", panier);
-        if (panier.getId() != null) {
-            throw new BadRequestAlertException("A new panier cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Panier result = panierRepository.save(panier);
-        return ResponseEntity
-            .created(new URI("/api/paniers/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return panierService.createPanier(panier);
     }
 
     /**
@@ -71,23 +67,7 @@ public class PanierResource {
     @PutMapping("/paniers/{id}")
     public ResponseEntity<Panier> updatePanier(@PathVariable(value = "id", required = false) final Long id, @RequestBody Panier panier)
         throws URISyntaxException {
-        log.debug("REST request to update Panier : {}, {}", id, panier);
-        if (panier.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, panier.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!panierRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Panier result = panierRepository.save(panier);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, panier.getId().toString()))
-            .body(result);
+        return panierService.updatePanier(id, panier);
     }
 
     /**
@@ -106,29 +86,7 @@ public class PanierResource {
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Panier panier
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Panier partially : {}, {}", id, panier);
-        if (panier.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, panier.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!panierRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<Panier> result = panierRepository
-            .findById(panier.getId())
-            .map(existingPanier -> {
-                return existingPanier;
-            })
-            .map(panierRepository::save);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, panier.getId().toString())
-        );
+        return panierService.updatePanier(id, panier);
     }
 
     /**
@@ -138,8 +96,7 @@ public class PanierResource {
      */
     @GetMapping("/paniers")
     public List<Panier> getAllPaniers() {
-        log.debug("REST request to get all Paniers");
-        return panierRepository.findAll();
+        return panierService.getAllPaniers();
     }
 
     /**
@@ -150,9 +107,7 @@ public class PanierResource {
      */
     @GetMapping("/paniers/{id}")
     public ResponseEntity<Panier> getPanier(@PathVariable Long id) {
-        log.debug("REST request to get Panier : {}", id);
-        Optional<Panier> panier = panierRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(panier);
+        return panierService.getPanier(id);
     }
 
     /**
@@ -163,11 +118,11 @@ public class PanierResource {
      */
     @DeleteMapping("/paniers/{id}")
     public ResponseEntity<Void> deletePanier(@PathVariable Long id) {
-        log.debug("REST request to delete Panier : {}", id);
-        panierRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
+        return panierService.deletePanier(id);
+    }
+
+    @PostMapping("/panierpayer")
+    public ResponseEntity<Commande> Payer(@RequestBody Panier panier, @RequestBody Commande commande) throws URISyntaxException {
+        return panierService.payer(panier, commande);
     }
 }
