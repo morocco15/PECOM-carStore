@@ -6,6 +6,6 @@ export const LISTEDESOUHAIT_ROUTE: Route = {
   path: '',
   component: ListedesouhaitComponent,
   data: {
-    pageTitle: 'Welcome, Java Hipster!',
+    pageTitle: 'Liste de souhait',
   },
 };
