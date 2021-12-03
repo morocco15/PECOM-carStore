@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   voiture2!: IVoiture;
   voiture3!: IVoiture;
   voiture4!: IVoiture;
+  username!: string;
 
   private readonly destroy$ = new Subject<void>();
 
@@ -36,12 +37,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  callServicePanier1(): void {
+    this.homeservice.ajouterVoiturePanier(this.username, this.voiture1).subscribe((res: Boolean) => {
+      //eslint-disable-next-line no-console
+      console.error(res);
+    });
+  }
+
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
     this.callService();
+    if (this.account) {
+      this.username = this.account.login;
+    }
   }
 
   login(): void {

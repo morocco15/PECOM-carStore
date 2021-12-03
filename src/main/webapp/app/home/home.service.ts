@@ -14,4 +14,8 @@ export class HomeService {
   public getQuatreDernieresVoitures(debut: number, fin: number): Observable<IVoiture[]> {
     return this.httpClient.get<IVoiture[]>(`${this.resourceUrl}/${debut}/${fin}`);
   }
+
+  public ajouterVoiturePanier(username: string, voiture: IVoiture) {
+    return this.httpClient.get<boolean>(`${this.resourceUrl}/${username}/${voiture}`);
+  }
 }
