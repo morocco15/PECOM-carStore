@@ -180,14 +180,15 @@ public class PanierResource {
     }
 
 
-    @PostMapping("/panier/{id}/{voiture}")
-    public boolean AjouterVoitureDansPanier(@PathVariable String username, @PathVariable Voiture voiture){
+    @PostMapping("/panier/{id}/{version}")
+    public boolean AjouterVoitureDansPanier(@PathVariable String username, @PathVariable Long id,@PathVariable int version){
 
 
         User user = userRepository.findOneByUsername(username);
-        if(voitureService.reserverVoiture(voiture)){
+        if(voitureService.reserverVoiture(id,version)){
 
             Panier panier = panierRepository.getById(user.getId());
+            Voiture voiture = voitureService.findOneById(id);
             if(!panier.voitures.contains(voiture)){
                 panier.addVoitures(voiture);
             }

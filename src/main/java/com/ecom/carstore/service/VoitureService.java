@@ -1,11 +1,16 @@
 package com.ecom.carstore.service;
 
+import com.ecom.carstore.domain.Panier;
+import com.ecom.carstore.domain.User;
 import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.domain.enumeration.Statut;
+import com.ecom.carstore.repository.PanierRepository;
+import com.ecom.carstore.repository.UserRepository;
 import com.ecom.carstore.repository.VoitureRepository;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -17,9 +22,12 @@ public class VoitureService {
 
     private final Logger log = LoggerFactory.getLogger(VoitureService.class);
 
+    @Autowired
     private VoitureRepository voitureRepository;
 
+
     public VoitureService(VoitureRepository voitureRepository) {
+
         this.voitureRepository = voitureRepository;
     }
 
@@ -27,12 +35,17 @@ public class VoitureService {
         return voitureRepository.derniereVoitureAjouter();
     }
 
-    private boolean statusModifiable(Voiture voiture) {
-        return voiture.getVersion() == voitureRepository.getVoitureVersion(voiture.getId());
+    public Voiture findOneById(Long id){
+        return voitureRepository.getById(id);
     }
 
-    public boolean reserverVoiture(Voiture voiture) {
-        if (voiture.getStatut() == Statut.LIBRE && statusModifiable(voiture)) {
+    private boolean statusModifiable(Long id,int version) {
+        return version == voitureRepository.getVoitureVersion(id);
+    }
+
+    public boolean reserverVoiture(Long id,int version) {
+        Voiture voiture = voitureRepository.getById(id);
+        if (voiture.getStatut() == Statut.LIBRE && statusModifiable(id,version)) {
             voiture.setStatut(Statut.RESERVER);
             voiture.setVersion(voiture.getVersion() + 1);
             voitureRepository.save(voiture);
@@ -41,8 +54,8 @@ public class VoitureService {
             return false;
         }
     }
-
     public void libererVoiture(Voiture voiture) {
+
         if (voiture.getStatut() == Statut.RESERVER) {
             voiture.setStatut(Statut.LIBRE);
             voiture.setVersion(voiture.getVersion() + 1);

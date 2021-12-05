@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   voiture3!: IVoiture;
   voiture4!: IVoiture;
   username!: string;
-
+  voitureChoisit!: IVoiture;
   private readonly destroy$ = new Subject<void>();
 
   constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService, private http: HttpClient) {}
@@ -37,11 +37,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  callServicePanier1(): void {
-    this.homeservice.ajouterVoiturePanier(this.username, this.voiture1).subscribe((res: boolean) => {
-      //eslint-disable-next-line no-console
-      console.error(res);
-    });
+  btnAction(id:number): void {
+    this.voitureChoisit = this.voiture1;
+    if(this.voitureChoisit.id!=null && this.voitureChoisit.version!=null){
+      this.homeservice.ajouterVoiturePanier(this.username, this.voitureChoisit.id,this.voitureChoisit.version).subscribe((res: boolean) => {
+        //eslint-disable-next-line no-console
+        console.error(res);
+      });
+    }
   }
 
   ngOnInit(): void {
