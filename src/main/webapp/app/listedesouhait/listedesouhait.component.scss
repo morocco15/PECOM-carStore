@@ -1,0 +1,40 @@
+.filPrincipal,
+.caracteristiqueproduit,
+.kilometrage,
+.carburant,
+.boiteDeVitesse,
+.boutons {
+  display: grid;
+}
+
+.ficheProduit,
+.nom,
+.caracteristiques {
+  display: flex;
+}
+.filPrincipal {
+  justify-content: center;
+}
+
+.kilometrage,
+.nom,
+.prix {
+  margin-left: 20px;
+}
+
+.carburant,
+.boiteDeVitesse {
+  margin-left: 35px;
+}
+
+img {
+  border-radius: 5%;
+}
+
+.boutons {
+  height: 10%;
+  margin-left: 20px;
+}
+button {
+  border-radius: 10%;
+}
