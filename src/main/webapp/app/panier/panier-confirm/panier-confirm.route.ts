@@ -6,6 +6,6 @@ export const PANIERCONFIRM_ROUTE: Route = {
   path: '',
   component: PanierConfirmComponent,
   data: {
-    pageTitle: 'Welcome, Java Hipster!',
+    pageTitle: 'Panier',
   },
 };

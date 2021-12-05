@@ -21,39 +21,32 @@ public class VoitureService {
 
     public VoitureService(VoitureRepository voitureRepository) {
         this.voitureRepository = voitureRepository;
-
     }
 
     public List<Voiture> getModelRecent(int debut, int fin) {
-
         return voitureRepository.derniereVoitureAjouter();
     }
 
-
-    private boolean statusModifiable(Voiture voiture){
-
-        return voiture.getVersion()==voitureRepository.getVoitureVersion(voiture.getId());
+    private boolean statusModifiable(Voiture voiture) {
+        return voiture.getVersion() == voitureRepository.getVoitureVersion(voiture.getId());
     }
 
-    public boolean reserverVoiture(Voiture voiture){
-        if(voiture.getStatut()== Statut.LIBRE && statusModifiable(voiture)){
+    public boolean reserverVoiture(Voiture voiture) {
+        if (voiture.getStatut() == Statut.LIBRE && statusModifiable(voiture)) {
             voiture.setStatut(Statut.RESERVER);
-            voiture.setVersion(voiture.getVersion()+1);
+            voiture.setVersion(voiture.getVersion() + 1);
             voitureRepository.save(voiture);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-    public void libererVoiture(Voiture voiture){
-        if(voiture.getStatut()==Statut.RESERVER){
+    public void libererVoiture(Voiture voiture) {
+        if (voiture.getStatut() == Statut.RESERVER) {
             voiture.setStatut(Statut.LIBRE);
-            voiture.setVersion(voiture.getVersion()+1);
+            voiture.setVersion(voiture.getVersion() + 1);
             voitureRepository.save(voiture);
         }
     }
-
-
 }

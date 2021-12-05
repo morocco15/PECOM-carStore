@@ -37,7 +37,8 @@ public class VoitureResource {
 
     private final VoitureRepository voitureRepository;
     private VoitureService voitureService;
-    public VoitureResource(VoitureRepository voitureRepository,VoitureService voitureService) {
+
+    public VoitureResource(VoitureRepository voitureRepository, VoitureService voitureService) {
         this.voitureRepository = voitureRepository;
         this.voitureService = voitureService;
     }
@@ -238,5 +239,4 @@ public class VoitureResource {
     public List<Voiture> getModelRecent(@PathVariable("debut") int debut, @PathVariable("fin") int fin) {
         return voitureService.getModelRecent(debut, fin);
     }
-
 }

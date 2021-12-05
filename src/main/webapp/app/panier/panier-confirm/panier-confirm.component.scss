@@ -1,87 +1,3 @@
-/*.confirmationCommande {
-  display: grid;
-  margin: auto;
-  width: 100%;
-  align-items: center;
-  background-color: #f5f5f5;
-}
-
-//.vendeur {}
-
-.titre {
-  padding-bottom: 3rem;
-}
-
-.article {
-  background-color: #f5f5f5;
-  display: grid;
-  grid-template-areas:
-    'image name'
-    'image marque'
-    'image price';
-  grid-template-rows: 5rem 1fr;
-  grid-gap: 0.5rem;
-  place-items: center;
-  padding: 0.5rem 1rem;
-}
-.article .product-image {
-  grid-area: image;
-  width: 10rem;
-  height: 10rem;
-  object-fit: contain;
-  //justify-self: start;
-}
-.product-bar .product-price {
-  grid-area: name;
-  justify-self: start;
-  font-weight: 400;
-}
-
-.product-bar .product-marque {
-  grid-area: marque;
-  justify-self: start;
-  font-weight: 400;
-}
-.product-bar .product-price {
-  grid-area: price;
-  justify-self: start;
-  font-weight: 400;
-}
-
-.container .toolbar {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.toolbar .total-price {
-  flex: 0 1 auto;
-  margin: 0 1rem;
-}
-.toolbar .pay {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #e02f29;
-  color: #fff;
-  padding: 0.5rem;
-  font-weight: 300;
-  flex: 1 1 25%;
-  font-size: 1.3rem;
-}
-.total-price .price-section {
-  color: #e02f29;
-  font-weight: 400;
-  font-size: 1.2rem;
-}
-.total-price .price-condition {
-  color: #e02f29;
-  font-weight: 400;
-}
-.content app-product-amount {
-  margin: 0.5rem 1rem;
-}*/
-
 .confirmationCommande {
   display: grid;
   margin: auto;
@@ -122,7 +38,7 @@
 }
 
 .paiement {
-  background: #e02f29;
+  background: #11a331;
   color: #fff;
   padding-bottom: 10px;
   padding-top: 10px;
@@ -130,10 +46,37 @@
   padding-right: 30px;
   font-weight: 300;
   font-size: 1.3rem;
-  margin: auto;
+  margin-left: auto;
+  margin-right: 5%;
   border-radius: 10%;
 }
 
 .paiement:hover {
-  background: #f82c25;
+  background: #1ada43;
+}
+
+.annuler {
+  background: #ca2620;
+  color: #fff;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-weight: 300;
+  font-size: 1.3rem;
+
+  border-radius: 10%;
+}
+
+.annuler:hover {
+  background: #fa2e27;
+}
+
+.nav-item {
+  margin-right: auto;
+  margin-left: 5%;
+}
+
+.nav-link {
+  padding: 0;
 }

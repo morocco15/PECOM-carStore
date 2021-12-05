@@ -6,6 +6,6 @@ export const FILDACTUALITE_ROUTE: Route = {
   path: '',
   component: FildactualiteComponent,
   data: {
-    pageTitle: 'Welcome, Java Hipster!',
+    pageTitle: "Fil d'actualité",
   },
 };

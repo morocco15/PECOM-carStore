@@ -32,7 +32,7 @@
         <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier">Ajouter dans mon panier</button>
+        <button class="boutonPanier" onclick()="callServicePanier1()">Ajouter dans mon panier</button>
         <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
@@ -60,7 +60,9 @@
         <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier">Ajouter dans mon panier</button>
+        <button class="boutonPanier">
+          Ajouter dans mon panier<strong>{{ username }}</strong>
+        </button>
         <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
       </div>
     </div>

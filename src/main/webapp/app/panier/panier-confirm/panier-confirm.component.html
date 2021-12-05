@@ -45,5 +45,13 @@
     <button class="paiement" (click)="handlePay()">
       <div style="font-weight: bold">Valider</div>
     </button>
+
+    <div class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a class="nav-link" routerLink="/panier">
+        <button class="annuler">
+          <div style="font-weight: bold">Retour au panier</div>
+        </button>
+      </a>
+    </div>
   </div>
 </div>

@@ -75,7 +75,6 @@ public class UtilisateurResource {
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Utilisateur utilisateur
     ) throws URISyntaxException {
-
         log.debug("REST request to update Utilisateur : {}, {}", id, utilisateur);
         if (utilisateur.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
