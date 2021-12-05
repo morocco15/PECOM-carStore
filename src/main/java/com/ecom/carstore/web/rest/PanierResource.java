@@ -1,8 +1,10 @@
 package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.Panier;
+import com.ecom.carstore.domain.User;
 import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.PanierRepository;
+import com.ecom.carstore.repository.UserRepository;
 import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -36,10 +38,12 @@ public class PanierResource {
 
     private final PanierRepository panierRepository;
     private VoitureService voitureService;
-    public PanierResource(PanierRepository panierRepository,VoitureService voitureService) {
+    private UserRepository userRepository;
+    public PanierResource(PanierRepository panierRepository,VoitureService voitureService,UserRepository userRepository) {
 
         this.panierRepository = panierRepository;
         this.voitureService = voitureService;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -176,12 +180,14 @@ public class PanierResource {
     }
 
 
-    public boolean AjouterVoitureDansPanier(@PathVariable Long id, @PathVariable Voiture voiture){
+    @PostMapping("/panier/{id}/{voiture}")
+    public boolean AjouterVoitureDansPanier(@PathVariable String username, @PathVariable Voiture voiture){
 
 
+        User user = userRepository.findOneByUsername(username);
         if(voitureService.reserverVoiture(voiture)){
 
-            Panier panier = panierRepository.getById(id);
+            Panier panier = panierRepository.getById(user.getId());
             if(!panier.voitures.contains(voiture)){
                 panier.addVoitures(voiture);
             }
