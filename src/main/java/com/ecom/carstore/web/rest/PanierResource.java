@@ -2,9 +2,11 @@ package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.domain.User;
+import com.ecom.carstore.domain.Utilisateur;
 import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.PanierRepository;
 import com.ecom.carstore.repository.UserRepository;
+import com.ecom.carstore.repository.UtilisateurRepository;
 import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -39,11 +41,13 @@ public class PanierResource {
     private final PanierRepository panierRepository;
     private VoitureService voitureService;
     private UserRepository userRepository;
-    public PanierResource(PanierRepository panierRepository,VoitureService voitureService,UserRepository userRepository) {
+    private UtilisateurRepository utilisateurRepository;
+    public PanierResource(PanierRepository panierRepository,VoitureService voitureService,UserRepository userRepository,UtilisateurRepository utilisateurRepository) {
 
         this.panierRepository = panierRepository;
         this.voitureService = voitureService;
         this.userRepository = userRepository;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
     /**
@@ -179,10 +183,29 @@ public class PanierResource {
             .build();
     }
 
+    @GetMapping("/panier/{username}/{id}/{version}")
+    @ResponseBody
+    public boolean AjouterVoitureDansPanier(@PathVariable("username") String username, @PathVariable("id") Long id,@PathVariable("version") int version){
 
-    @PostMapping("/panier/{id}/{version}")
-    public boolean AjouterVoitureDansPanier(@PathVariable String username, @PathVariable Long id,@PathVariable int version){
+        User user = userRepository.findOneByUsername(username);
 
+        if(user!=null){
+
+            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+            System.out.println("\n\n\n\n\n\n\n\n\n"+"username"+utilisateur.toString()+"\n\n\n\n\n\n\n\n\n");
+            Panier panier = utilisateur.getPanier();
+            Voiture voiture = voitureService.findOneById(id);
+            if(!panier.voitures.contains(voiture)){
+                panier.addVoitures(voiture);
+            }
+            panierRepository.save(panier);
+            return true;
+
+        }
+
+        return false;
+    }
+/*
 
         User user = userRepository.findOneByUsername(username);
         if(voitureService.reserverVoiture(id,version)){
@@ -195,8 +218,7 @@ public class PanierResource {
             panierRepository.save(panier);
             return true;
         }
+
         return false;
-    }
-
-
+ */
 }

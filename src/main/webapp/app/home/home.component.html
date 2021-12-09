@@ -13,7 +13,7 @@
         <div class="marque" style="font-weight: bold">
           <!--Requête pour obtenir la marque de la voiture-->
           <!--{{voiture[1].marque}}--><!--MercedesBenz&nbsp;-->
-          {{ voiture1.marque }}
+          {{ test }}
         </div>
         <div class="modele" style="font-weight: bold">
           <!--Requête pour obtenir le modèle de la voiture-->
@@ -28,11 +28,10 @@
       </div>
       <div class="image">
         <!--Requête pour récupérer l'image-->
-        {{ voiture1.image1 }}
         <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier" οnclick="btnAction(1)">Ajouter dans mon panier</button>
+        <button class="boutonPanier" (click) = "btnAction()" >Ajouter dans mon panier</button>
         <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
       </div>
     </div>

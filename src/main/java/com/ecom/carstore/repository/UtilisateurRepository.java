@@ -1,5 +1,6 @@
 package com.ecom.carstore.repository;
 
+import com.ecom.carstore.domain.User;
 import com.ecom.carstore.domain.Utilisateur;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {}
+public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
+    Utilisateur getByidcompte(User user);
+}

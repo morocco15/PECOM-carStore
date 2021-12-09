@@ -239,4 +239,24 @@ public class VoitureResource {
     public List<Voiture> getModelRecent(@PathVariable("debut") int debut, @PathVariable("fin") int fin) {
         return voitureService.getModelRecent(debut, fin);
     }
+
+
+    @GetMapping("/panier/{id}/{version}")
+    @ResponseBody
+    public boolean AjouterVoitureDansPanier(@PathVariable String username, @PathVariable Long id,@PathVariable int version){
+/*
+        User user = userRepository.findOneByUsername(username);
+        if(voitureService.reserverVoiture(id,version)){
+
+            Panier panier = panierRepository.getById(user.getId());
+            Voiture voiture = voitureService.findOneById(id);
+            if(!panier.voitures.contains(voiture)){
+                panier.addVoitures(voiture);
+            }
+            panierRepository.save(panier);
+            return true;
+        }
+ */
+        return false;
+    }
 }
