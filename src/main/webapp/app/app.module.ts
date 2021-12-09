@@ -24,7 +24,7 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
-import { PanierConfirmComponent } from './panier-confirm/panier-confirm.component';
+import { PanierConfirmComponent } from './panier/panier-confirm/panier-confirm.component';
 import { FildactualiteComponent } from './fildactualite/fildactualite.component';
 import { PanierComponent } from './panier/panier.component';
 
@@ -47,7 +47,7 @@ import { PanierComponent } from './panier/panier.component';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, PanierConfirmComponent],
+  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
   bootstrap: [MainComponent],
 })
 export class AppModule {

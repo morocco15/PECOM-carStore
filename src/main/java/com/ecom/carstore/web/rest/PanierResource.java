@@ -192,7 +192,6 @@ public class PanierResource {
         if(user!=null){
 
             Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
-            System.out.println("\n\n\n\n\n\n\n\n\n"+"username"+utilisateur.toString()+"\n\n\n\n\n\n\n\n\n");
             Panier panier = utilisateur.getPanier();
             Voiture voiture = voitureService.findOneById(id);
             if(!panier.voitures.contains(voiture)){

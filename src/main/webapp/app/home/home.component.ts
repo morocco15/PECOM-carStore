@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.test="return ok!!!"
         // eslint-disable-next-line no-console
         console.log(res)
+
       });
     }
 
