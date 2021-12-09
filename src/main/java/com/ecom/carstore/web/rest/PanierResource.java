@@ -2,8 +2,12 @@ package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.Commande;
 import com.ecom.carstore.domain.Panier;
+import com.ecom.carstore.domain.User;
+import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.PanierRepository;
+import com.ecom.carstore.repository.UserRepository;
 import com.ecom.carstore.service.PanierService;
+import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,9 +40,18 @@ public class PanierResource {
 
     private final PanierRepository panierRepository;
     private final PanierService panierService;
+    private VoitureService voitureService;
+    private UserRepository userRepository;
 
-    public PanierResource(PanierRepository panierRepository, PanierService panierService) {
+    public PanierResource(
+        PanierRepository panierRepository,
+        VoitureService voitureService,
+        UserRepository userRepository,
+        PanierService panierService
+    ) {
         this.panierRepository = panierRepository;
+        this.voitureService = voitureService;
+        this.userRepository = userRepository;
         this.panierService = panierService;
     }
 
@@ -125,4 +138,21 @@ public class PanierResource {
     public ResponseEntity<Commande> Payer(@RequestBody Panier panier, @RequestBody Commande commande) throws URISyntaxException {
         return panierService.payer(panier, commande);
     }
+    /*@GetMapping("/panier/{username}/{id}")
+    @ResponseBody
+    public boolean AjouterVoitureDansPanier(@PathVariable("username") String username, @PathVariable("id") Long id){
+        User user = userRepository.findOneByUsername(username);
+        if(true){
+
+            Panier panier = panierRepository.getById(user.getId());
+            Voiture voiture = voitureService.findOneById(id);
+            if(!panier.voitures.contains(voiture)){
+                panier.addVoitures(voiture);
+            }
+            panierRepository.save(panier);
+            return true;
+        }
+
+        return false;
+    }*/
 }
