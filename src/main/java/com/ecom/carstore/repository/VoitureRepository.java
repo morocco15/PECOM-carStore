@@ -27,14 +27,8 @@ public interface VoitureRepository extends JpaRepository<Voiture, Long> {
     Optional<Voiture> findOneWithEagerRelationships(@Param("id") Long id);
 
     @Query("select voiture from Voiture voiture ORDER BY voiture.miseEnVente DESC")
-    List<Voiture> derniereVoitureAjouter();
-
-
-
-
+    Page<Voiture> derniereVoitureAjouter(Pageable pageable);
 
     @Query("select voiture.version from Voiture voiture where voiture.id=:id")
     Integer getVoitureVersion(@Param("id") Long id);
-
-
 }

@@ -25,7 +25,6 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
 import { PanierConfirmComponent } from './panier-confirm/panier-confirm.component';
-import { ProductContainerComponent } from './product-container/product-container.component';
 import { FildactualiteComponent } from './fildactualite/fildactualite.component';
 import { PanierComponent } from './panier/panier.component';
 

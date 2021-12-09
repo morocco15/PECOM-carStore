@@ -8,7 +8,6 @@ import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { PanierConfirmComponent } from './panier-confirm/panier-confirm.component';
-import { ProductContainerComponent } from './product-container/product-container.component';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
@@ -16,8 +15,7 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
   imports: [
     RouterModule.forRoot(
       [
-        {path: 'panierconfirm', component: PanierConfirmComponent},
-        {path: 'productcontainer',component:ProductContainerComponent},
+        { path: 'panierconfirm', component: PanierConfirmComponent },
 
         {
           path: 'admin',

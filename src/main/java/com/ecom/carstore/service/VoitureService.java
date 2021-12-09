@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,39 +22,33 @@ public class VoitureService {
 
     public VoitureService(VoitureRepository voitureRepository) {
         this.voitureRepository = voitureRepository;
-
     }
 
     public List<Voiture> getModelRecent(int debut, int fin) {
-
-        return voitureRepository.derniereVoitureAjouter();
+        Page<Voiture> v = voitureRepository.derniereVoitureAjouter(PageRequest.of(debut, fin));
+        return v.getContent();
     }
 
-
-    private boolean statusModifiable(Voiture voiture){
-
-        return voiture.getVersion()==voitureRepository.getVoitureVersion(voiture.getId());
+    private boolean statusModifiable(Voiture voiture) {
+        return voiture.getVersion() == voitureRepository.getVoitureVersion(voiture.getId());
     }
 
-    public boolean reserverVoiture(Voiture voiture){
-        if(voiture.getStatut()== Statut.LIBRE && statusModifiable(voiture)){
+    public boolean reserverVoiture(Voiture voiture) {
+        if (voiture.getStatut() == Statut.LIBRE && statusModifiable(voiture)) {
             voiture.setStatut(Statut.RESERVER);
-            voiture.setVersion(voiture.getVersion()+1);
+            voiture.setVersion(voiture.getVersion() + 1);
             voitureRepository.save(voiture);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-    public void libererVoiture(Voiture voiture){
-        if(voiture.getStatut()==Statut.RESERVER){
+    public void libererVoiture(Voiture voiture) {
+        if (voiture.getStatut() == Statut.RESERVER) {
             voiture.setStatut(Statut.LIBRE);
-            voiture.setVersion(voiture.getVersion()+1);
+            voiture.setVersion(voiture.getVersion() + 1);
             voitureRepository.save(voiture);
         }
     }
-
-
 }

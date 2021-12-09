@@ -1,10 +1,8 @@
 package com.ecom.carstore.service;
 
 import com.ecom.carstore.config.Constants;
-import com.ecom.carstore.domain.Authority;
-import com.ecom.carstore.domain.User;
-import com.ecom.carstore.repository.AuthorityRepository;
-import com.ecom.carstore.repository.UserRepository;
+import com.ecom.carstore.domain.*;
+import com.ecom.carstore.repository.*;
 import com.ecom.carstore.security.AuthoritiesConstants;
 import com.ecom.carstore.security.SecurityUtils;
 import com.ecom.carstore.service.dto.AdminUserDTO;
@@ -41,16 +39,32 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
+    private final UtilisateurRepository utilisateurRepository;
+
+    private final SouhaitRepository souhaitRepository;
+
+    private final PanierRepository panierRepository;
+
+    private final CarteBancaireRepository carteBancaireRepository;
+
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
-        CacheManager cacheManager
+        CacheManager cacheManager,
+        UtilisateurRepository utilisateurRepository,
+        SouhaitRepository souhaitRepository,
+        PanierRepository panierRepository,
+        CarteBancaireRepository carteBancaireRepository
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.utilisateurRepository = utilisateurRepository;
+        this.souhaitRepository = souhaitRepository;
+        this.panierRepository = panierRepository;
+        this.carteBancaireRepository = carteBancaireRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -131,6 +145,20 @@ public class UserService {
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         this.clearUserCaches(newUser);
+
+        //création des entiti unique a chaque User
+        Utilisateur utilisateur = new Utilisateur();
+        Souhait souhait = new Souhait();
+        Panier panier = new Panier();
+
+        utilisateur.setIdcompte(newUser);
+        utilisateur.setSouhait(souhait);
+        utilisateur.setPanier(panier);
+
+        utilisateurRepository.save(utilisateur);
+        panierRepository.save(panier);
+        souhaitRepository.save(souhait);
+
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -139,6 +167,9 @@ public class UserService {
         if (existingUser.isActivated()) {
             return false;
         }
+
+        deleteUtilisateur(existingUser);
+
         userRepository.delete(existingUser);
         userRepository.flush();
         this.clearUserCaches(existingUser);
@@ -174,8 +205,10 @@ public class UserService {
                 .collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
+
         userRepository.save(user);
         this.clearUserCaches(user);
+
         log.debug("Created Information for User: {}", user);
         return user;
     }
@@ -218,10 +251,35 @@ public class UserService {
             .map(AdminUserDTO::new);
     }
 
+    private void deleteUtilisateur(User user) {
+        if (utilisateurRepository.existsByidcompte(user)) {
+            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+
+            Panier panier = utilisateur.getPanier();
+            if (panier != null) {
+                panierRepository.delete(panier);
+            }
+
+            Souhait souhait = utilisateur.getSouhait();
+            if (souhait != null) {
+                souhaitRepository.delete(souhait);
+            }
+
+            CarteBancaire carteBancaire = utilisateur.getIdPaiment();
+            if (carteBancaire != null) {
+                carteBancaireRepository.delete(carteBancaire);
+            }
+
+            utilisateur.setIdcompte(null);
+            utilisateurRepository.save(utilisateur);
+        }
+    }
+
     public void deleteUser(String login) {
         userRepository
             .findOneByLogin(login)
             .ifPresent(user -> {
+                deleteUtilisateur(user);
                 userRepository.delete(user);
                 this.clearUserCaches(user);
                 log.debug("Deleted User: {}", user);
