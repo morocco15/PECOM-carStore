@@ -1,0 +1,80 @@
+.Panier,
+.caracteristiqueproduit,
+.kilometrage,
+.carburant,
+.boiteDeVitesse {
+  display: grid;
+}
+
+.FicheProduit,
+.nom,
+.caracteristiques {
+  display: flex;
+}
+
+.nom {
+  margin-left: 20px;
+}
+.kilometrage {
+  margin-left: 30px;
+}
+
+.carburant,
+.boiteDeVitesse,
+.prix {
+  margin-left: 100px;
+}
+
+img {
+  border-radius: 5%;
+  margin-left: 35px;
+}
+
+.Titre {
+  font-size: 40px;
+  text-align: center;
+}
+
+.FicheProduit {
+  background-color: rgb(214, 222, 233);
+  border: 1px solid grey;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#nomCarac {
+  font-size: 14px;
+}
+
+#carac {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.Commandes {
+  display: flex;
+}
+
+#toutSelectionner {
+  margin-left: 10px;
+}
+
+#supprimer,
+#deplacerFavoris,
+#selectionne {
+  margin-left: 70px;
+}
+
+.boutonValide {
+  text-align: center;
+  border: 0;
+  border-radius: 10px;
+  background-color: rgb(11, 192, 26);
+  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+  width: 170px;
+  margin: 0 auto;
+}
+
+.boutonValide:hover {
+  background-color: rgb(11, 228, 26);
+}

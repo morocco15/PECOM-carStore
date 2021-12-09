@@ -25,7 +25,7 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./vendeur/vendeur.module').then(m => m.VendeurModule),
       },
       {
-        path: 'panier',
+        path: 'paniers',
         data: { pageTitle: 'Paniers' },
         loadChildren: () => import('./panier/panier.module').then(m => m.PanierModule),
       },

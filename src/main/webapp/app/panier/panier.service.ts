@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { IVoiture, Voiture } from '../entities/voiture/voiture.model';
 
 @Injectable({ providedIn: 'root' })
-export class HomeService {
+export class PanierService {
   private resourceUrl = this.applicationConfigService.getEndpointFor('api/voiture');
 
   constructor(private httpClient: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
@@ -14,8 +14,4 @@ export class HomeService {
   public getQuatreDernieresVoitures(debut: number, fin: number): Observable<IVoiture[]> {
     return this.httpClient.get<IVoiture[]>(`${this.resourceUrl}/${debut}/${fin}`);
   }
-
-  /*public ajouterVoiturePanier(username: string, id:number): Observable<boolean> {
-    return this.httpClient.get<boolean>(`${this.resourceUrl}/${username}/${id}`);
-  }*/
 }

@@ -60,7 +60,8 @@ export class Voiture implements IVoiture {
     public panier?: IPanier | null,
     public vendeur?: IVendeur | null,
     public souhaits?: ISouhait[] | null
-  ) {}
+  ) //ajouter description de 1 ligne, description complète, année, ville, code postal
+  {}
 }
 
 export function getVoitureIdentifier(voiture: IVoiture): number | undefined {

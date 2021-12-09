@@ -1,0 +1,57 @@
+<div class="confirmationCommande">
+  <div class="titre">
+    <span class="nom" style="font-weight: bold; font-size: 25px">Confirmation de votre commande</span>
+  </div>
+
+  <div class="section">
+    <div class="nomVendeur">
+      <span style="font-weight: bold">Nom du vendeur ：</span> Xubeï<!--Requête pour obtenir le nom du vendeur-->
+    </div>
+
+    <!-- <img src="item.variant.productVarImages[0].imgUrl" alt="" class="product-image"> -->
+    <img src="" alt="" class="article-image" height="199.5px" width="355.5px" />
+
+    <!--Barre de produits Afficher dynamiquement, les produits Le produit sélectionné provient de l'interface précédente-->
+    <div class="article">
+      <div class="marqueArticle">
+        <!-- <div class="product-name">{{ item.variant.product.title }}</div> -->
+        <!--Requête pour obtenir la marque de la voiture du panier-->
+        <span style="font-weight: bold">Marque ：</span> Marque_voiture
+      </div>
+
+      <div class="modeleArticle">
+        <!--Requête pour obtenir le modèle de la voiture du panier-->
+        <span style="font-weight: bold">Modèle ：</span>Modèle_voiture
+      </div>
+
+      <div class="prixArticle">
+        <!--<span>{{ item.variant.price | currency: 'CNY' }}</span>-->
+        <!--Requête pour obtenir le prix de la voiture du panier-->
+        <span style="font-weight: bold">Prix：</span> 1330 €
+      </div>
+    </div>
+  </div>
+
+  <div class="sectionPaiement">
+    <div class="prixTotal">
+      <span style="font-weight: bold">Paiement total ：</span>
+      <span class="prix">
+        <!-- {{totalPrice$ | async | currency: 'CNY'}} -->
+        <!--Script pour additioner tous les prix des articles dans le panier-->
+        1330 €
+      </span>
+    </div>
+
+    <button class="paiement" (click)="handlePay()">
+      <div style="font-weight: bold">Valider</div>
+    </button>
+
+    <div class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a class="nav-link" routerLink="/panier">
+        <button class="annuler">
+          <div style="font-weight: bold">Retour au panier</div>
+        </button>
+      </a>
+    </div>
+  </div>
+</div>

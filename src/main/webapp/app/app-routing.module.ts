@@ -7,6 +7,8 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
+import { PanierConfirmComponent } from '././panier/panier-confirm/panier-confirm.component';
+import { ArticleComponent } from './article/article.component';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
@@ -14,6 +16,15 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
   imports: [
     RouterModule.forRoot(
       [
+        {
+          path: 'panier/panierconfirm',
+          component: PanierConfirmComponent,
+        },
+        {
+          path: 'article',
+          component: ArticleComponent,
+        },
+
         {
           path: 'admin',
           data: {
@@ -25,6 +36,22 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
         {
           path: 'account',
           loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+        },
+        {
+          path: 'fildactualite',
+          loadChildren: () => import('./fildactualite/fildactualite.module').then(m => m.FildactualiteModule),
+        },
+        {
+          path: 'panier',
+          loadChildren: () => import('./panier/panier.module').then(m => m.PanierModule),
+        },
+        {
+          path: 'listedesouhait',
+          loadChildren: () => import('./listedesouhait/listedesouhait.module').then(m => m.ListedesouhaitModule),
+        },
+        {
+          path: 'panierconfirm',
+          loadChildren: () => import('././panier/panier-confirm/panier-confirm.module').then(m => m.PanierConfirmModule),
         },
         {
           path: 'login',
