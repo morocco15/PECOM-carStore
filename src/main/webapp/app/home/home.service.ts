@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { IVoiture, Voiture } from '../entities/voiture/voiture.model';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {

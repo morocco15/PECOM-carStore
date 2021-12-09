@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,8 @@ public class VoitureService {
     }
 
     public List<Voiture> getModelRecent(int debut, int fin) {
-        return voitureRepository.derniereVoitureAjouter();
+        Page<Voiture> v = voitureRepository.derniereVoitureAjouter(PageRequest.of(debut, fin));
+        return v.getContent();
     }
 
     public Voiture findOneById(Long id){
@@ -62,4 +64,6 @@ public class VoitureService {
             voitureRepository.save(voiture);
         }
     }
+
+
 }

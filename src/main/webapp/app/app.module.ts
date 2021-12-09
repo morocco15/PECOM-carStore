@@ -24,11 +24,9 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
+import { PanierConfirmComponent } from './panier-confirm/panier-confirm.component';
 import { FildactualiteComponent } from './fildactualite/fildactualite.component';
 import { PanierComponent } from './panier/panier.component';
-//import { PanierConfirmComponent } from './panier/panier-confirm/panier-confirm.component';
-import { ArticleComponent } from './article/article.component';
-import { ListedesouhaitComponent } from './listedesouhait/listedesouhait.component';
 
 @NgModule({
   imports: [
@@ -49,7 +47,7 @@ import { ListedesouhaitComponent } from './listedesouhait/listedesouhait.compone
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, ArticleComponent],
+  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, PanierConfirmComponent],
   bootstrap: [MainComponent],
 })
 export class AppModule {
