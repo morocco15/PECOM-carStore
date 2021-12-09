@@ -50,7 +50,7 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./marque/marque.module').then(m => m.MarqueModule),
       },
       {
-        path: 'panier',
+        path: 'paniers',
         data: { pageTitle: 'Paniers' },
         loadChildren: () => import('./panier/panier.module').then(m => m.PanierModule),
       },
