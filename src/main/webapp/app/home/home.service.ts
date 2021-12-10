@@ -17,4 +17,5 @@ export class HomeService {
   public ajouterVoiturePanier(username: string, id:number,version:number): Observable<boolean> {
     return this.httpClient.get<boolean>(`${this.resourceUrl}/${username}/${id}/${version}`);
   }
+
 }

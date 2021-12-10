@@ -42,10 +42,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByIdNotNullAndActivatedIsTrue(Pageable pageable);
 
-
-    //@Query("select voiture from Voiture voiture left join fetch voiture.categories where voiture.id =:id")
     @Query("select distinct user from User user where user.login=:username")
-    User findOneByUsername(@Param("username")String username);
-
+    User findOneByUsername(@Param("username") String username);
 
 }
