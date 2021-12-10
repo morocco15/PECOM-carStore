@@ -8,6 +8,8 @@ import com.ecom.carstore.repository.PanierRepository;
 import com.ecom.carstore.repository.UserRepository;
 import com.ecom.carstore.repository.UtilisateurRepository;
 import com.ecom.carstore.service.PanierService;
+import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.service.PanierService;
 import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;

@@ -42,8 +42,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   btnAction(voiture:IVoiture): void {
     // eslint-disable-next-line no-console
-
-    //this.voitureChoisit = this.voiture1;
     this.voitureChoisit = voiture;
     if(this.voitureChoisit.id!=null && this.voitureChoisit.version!=null){
       this.panierservice.ajouterVoiturePanier(this.username, this.voitureChoisit.id,this.voitureChoisit.version).subscribe((res: boolean) => {
@@ -56,6 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
   }
+
 
   ngOnInit(): void {
 
