@@ -1,23 +1,27 @@
 package com.ecom.carstore.service;
 
+import static java.time.ZonedDateTime.now;
+
 import com.ecom.carstore.domain.Commande;
 import com.ecom.carstore.domain.Panier;
+import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.enumeration.Livraison;
+import com.ecom.carstore.domain.enumeration.Statut;
 import com.ecom.carstore.repository.CommandeRepository;
 import com.ecom.carstore.repository.PanierRepository;
+import com.ecom.carstore.repository.VoitureRepository;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
@@ -34,10 +38,12 @@ public class PanierService {
 
     private PanierRepository panierRepository;
     private CommandeRepository commandeRepository;
+    private final VoitureRepository voitureRepository;
 
-    public PanierService(PanierRepository panierRepository, CommandeRepository commandeRepository) {
+    public PanierService(PanierRepository panierRepository, CommandeRepository commandeRepository, VoitureRepository voitureRepository) {
         this.panierRepository = panierRepository;
         this.commandeRepository = commandeRepository;
+        this.voitureRepository = voitureRepository;
     }
 
     public ResponseEntity<Panier> createPanier(Panier panier) throws URISyntaxException {
@@ -118,12 +124,28 @@ public class PanierService {
             .build();
     }
 
-    public ResponseEntity<Commande> payer(Panier panier, Commande commande) throws URISyntaxException {
-        panierRepository.delete(panier);
-        Commande result = commandeRepository.save(commande);
-        return ResponseEntity
-            .created(new URI("/api/commandes/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+    public int payer(Long idpanier, String livraison) {
+        if (!panierRepository.existsById(idpanier)) {
+            return 300;
+        }
+        Panier panier = panierRepository.getById(idpanier);
+        Set<Voiture> voitures = panier.getVoitures();
+        if (voitures.isEmpty()) {
+            return 300;
+        }
+        Commande commande = new Commande();
+        for (Voiture v : voitures) {
+            v.setStatut(Statut.VENDU);
+            commande.addVoitures(v);
+            voitureRepository.save(v);
+        }
+        commande.setAcheteur(panier.getUtilisateur());
+        commande.setDateCommande(now());
+        commande.setModeLivraison(Livraison.valueOf(livraison));
+        commandeRepository.save(commande);
+        voitures.clear();
+        panier.setVoitures(voitures);
+        panierRepository.save(panier);
+        return 200;
     }
 }

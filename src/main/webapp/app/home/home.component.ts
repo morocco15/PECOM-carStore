@@ -9,7 +9,7 @@ import { HomeService } from './home.service';
 
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
-import {PanierService} from "../panier/panier.service";
+import { PanierService } from '../panier/panier.service';
 
 @Component({
   selector: 'jhi-home',
@@ -27,7 +27,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagetest!: string;
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService,private panierservice: PanierService, private http: HttpClient) {}
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private homeservice: HomeService,
+    private panierservice: PanierService,
+    private http: HttpClient
+  ) {}
 
   callService(): void {
     this.homeservice.getQuatreDernieresVoitures(0, 4).subscribe((res: IVoiture[]) => {
@@ -40,30 +46,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  btnAction(voiture:IVoiture): void {
+  btnAction(voiture: IVoiture): void {
     // eslint-disable-next-line no-console
     this.voitureChoisit = voiture;
-    if(this.voitureChoisit.id!=null && this.voitureChoisit.version!=null){
-      this.panierservice.ajouterVoiturePanier(this.username, this.voitureChoisit.id,this.voitureChoisit.version).subscribe((res: boolean) => {
-        //eslint-disable-next-line no-console
-        console.error(res);
-        // eslint-disable-next-line no-console
-        console.log(res)
-
-      });
+    if (this.voitureChoisit.id != null && this.voitureChoisit.version != null) {
+      this.panierservice
+        .ajouterVoiturePanier(this.username, this.voitureChoisit.id, this.voitureChoisit.version)
+        .subscribe((res: boolean) => {
+          //eslint-disable-next-line no-console
+          console.error(res);
+          // eslint-disable-next-line no-console
+          console.log(res);
+        });
     }
-
   }
 
-
   ngOnInit(): void {
-    this.test="null";
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
     this.callService();
-    this.imagetest="https://cars-store.oss-eu-central-1.aliyuncs.com/1.jpeg";
+    this.imagetest = 'https://cars-store.oss-eu-central-1.aliyuncs.com/1.jpeg';
     if (this.account) {
       this.username = this.account.login;
     }

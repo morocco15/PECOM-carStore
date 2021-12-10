@@ -1,13 +1,9 @@
 package com.ecom.carstore.web.rest;
 
-import com.ecom.carstore.domain.Panier;
-import com.ecom.carstore.domain.User;
-import com.ecom.carstore.domain.Utilisateur;
-import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.*;
 import com.ecom.carstore.repository.PanierRepository;
 import com.ecom.carstore.repository.UserRepository;
 import com.ecom.carstore.repository.UtilisateurRepository;
-import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.service.PanierService;
 import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
@@ -16,8 +12,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,17 +37,24 @@ public class PanierResource {
     private String applicationName;
 
     private final PanierRepository panierRepository;
+    private final PanierService panierService;
 
     private VoitureService voitureService;
     private UserRepository userRepository;
     private UtilisateurRepository utilisateurRepository;
-    public PanierResource(PanierRepository panierRepository,VoitureService voitureService,UserRepository userRepository,UtilisateurRepository utilisateurRepository) {
 
+    public PanierResource(
+        PanierRepository panierRepository,
+        PanierService panierService,
+        VoitureService voitureService,
+        UserRepository userRepository,
+        UtilisateurRepository utilisateurRepository
+    ) {
         this.panierRepository = panierRepository;
+        this.panierService = panierService;
         this.voitureService = voitureService;
         this.userRepository = userRepository;
         this.utilisateurRepository = utilisateurRepository;
-
     }
 
     /**
@@ -191,14 +192,17 @@ public class PanierResource {
 
     @GetMapping("/panier/{username}/{id}/{version}")
     @ResponseBody
-    public boolean AjouterVoitureDansPanier(@PathVariable("username") String username, @PathVariable("id") Long id,@PathVariable("version") int version){
-
+    public boolean AjouterVoitureDansPanier(
+        @PathVariable("username") String username,
+        @PathVariable("id") Long id,
+        @PathVariable("version") int version
+    ) {
         User user = userRepository.findOneByUsername(username);
-        if(user!=null && voitureService.reserverVoiture(id,version)){
+        if (user != null && voitureService.reserverVoiture(id, version)) {
             Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
             Panier panier = utilisateur.getPanier();
             Voiture voiture = voitureService.findOneById(id);
-            if(!panier.voitures.contains(voiture)){
+            if (!panier.voitures.contains(voiture)) {
                 panier.addVoitures(voiture);
             }
             panierRepository.save(panier);
@@ -206,7 +210,8 @@ public class PanierResource {
         }
         return false;
     }
-/*
+
+    /*
 
         User user = userRepository.findOneByUsername(username);
         if(voitureService.reserverVoiture(id,version)){
@@ -220,11 +225,11 @@ public class PanierResource {
             return true;
         }
 
-        return false;
+        return false;O
  */
     @GetMapping("/getpanier/{username}")
     @ResponseBody
-    public List<Voiture> getPanier(@PathVariable("username") String username){
+    public List<Voiture> getPanier(@PathVariable("username") String username) {
         List<Voiture> voitures = null;
         /*
         User user = userRepository.findOneByUsername(username);
@@ -243,21 +248,10 @@ public class PanierResource {
          */
         return voitures;
     }
-    /*@GetMapping("/panier/{username}/{id}")
+
+    @GetMapping("/payerpanier/{idpanier}/{livraison}")
     @ResponseBody
-    public boolean AjouterVoitureDansPanier(@PathVariable("username") String username, @PathVariable("id") Long id){
-        User user = userRepository.findOneByUsername(username);
-        if(true){
-
-            Panier panier = panierRepository.getById(user.getId());
-            Voiture voiture = voitureService.findOneById(id);
-            if(!panier.voitures.contains(voiture)){
-                panier.addVoitures(voiture);
-            }
-            panierRepository.save(panier);
-            return true;
-        }
-
-        return false;
-    }*/
+    public int payer(@PathVariable("idpanier") long idpanier, @PathVariable("livraison") String livraison) {
+        return panierService.payer(idpanier, livraison);
+    }
 }
