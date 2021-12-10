@@ -14,6 +14,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -216,16 +218,25 @@ public class PanierResource {
 
         return false;
  */
-    @GetMapping("/panier/{username}")
+    @GetMapping("/getpanier/{username}")
     @ResponseBody
     public List<Voiture> getPanier(@PathVariable("username") String username){
-
+        List<Voiture> voitures = null;
+        /*
         User user = userRepository.findOneByUsername(username);
         if(user!=null){
             Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
             Panier panier = utilisateur.getPanier();
-            return (List<Voiture>) panier.getVoitures();
+            if(panier==null){
+                return voitures;
+            }else {
+
+
+            }
+            return voitures;
         }
-        return null;
+
+         */
+        return voitures;
     }
 }

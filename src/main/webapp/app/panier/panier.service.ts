@@ -8,7 +8,7 @@ import { IVoiture, Voiture } from '../entities/voiture/voiture.model';
 @Injectable({ providedIn: 'root' })
 export class PanierService {
   private resourceUrl = this.applicationConfigService.getEndpointFor('api/panier');
-
+  private resourceUrl2 = this.applicationConfigService.getEndpointFor('api/getpanier');
   constructor(private httpClient: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   public getQuatreDernieresVoitures(debut: number, fin: number): Observable<IVoiture[]> {
@@ -20,6 +20,6 @@ export class PanierService {
   }
 
   public getVoituresDuPanier(username: string):Observable<IVoiture[]>{
-    return this.httpClient.get<IVoiture[]>(`${this.resourceUrl}/${username}`);
+    return this.httpClient.get<IVoiture[]>(`${this.resourceUrl2}/${username}`);
   }
 }
