@@ -22,6 +22,7 @@ export class PanierComponent implements OnInit {
   voiture4!: IVoiture;
   username!: string;
   voitures!: IVoiture[];
+
   private readonly destroy$ = new Subject<void>();
 
   constructor(

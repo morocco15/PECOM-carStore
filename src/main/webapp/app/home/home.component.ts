@@ -58,6 +58,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
