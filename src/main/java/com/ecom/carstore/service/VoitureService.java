@@ -26,28 +26,26 @@ public class VoitureService {
     @Autowired
     private VoitureRepository voitureRepository;
 
-
     public VoitureService(VoitureRepository voitureRepository) {
-
         this.voitureRepository = voitureRepository;
     }
 
     public List<Voiture> getModelRecent(int debut, int fin) {
-        Page<Voiture> v = voitureRepository.derniereVoitureAjouter(PageRequest.of(debut, fin));
+        Page<Voiture> v = voitureRepository.derniereVoitureAjouter(Statut.LIBRE, PageRequest.of(debut, fin));
         return v.getContent();
     }
 
-    public Voiture findOneById(Long id){
+    public Voiture findOneById(Long id) {
         return voitureRepository.getById(id);
     }
 
-    private boolean statusModifiable(Long id,int version) {
+    private boolean statusModifiable(Long id, int version) {
         return version == voitureRepository.getVoitureVersion(id);
     }
 
-    public boolean reserverVoiture(Long id,int version) {
+    public boolean reserverVoiture(Long id, int version) {
         Voiture voiture = voitureRepository.getById(id);
-        if (voiture.getStatut() == Statut.LIBRE && statusModifiable(id,version)) {
+        if (voiture.getStatut() == Statut.LIBRE && statusModifiable(id, version)) {
             voiture.setStatut(Statut.RESERVER);
             voiture.setVersion(voiture.getVersion() + 1);
             voitureRepository.save(voiture);
@@ -56,14 +54,12 @@ public class VoitureService {
             return false;
         }
     }
-    public void libererVoiture(Voiture voiture) {
 
+    public void libererVoiture(Voiture voiture) {
         if (voiture.getStatut() == Statut.RESERVER) {
             voiture.setStatut(Statut.LIBRE);
             voiture.setVersion(voiture.getVersion() + 1);
             voitureRepository.save(voiture);
         }
     }
-
-
 }
