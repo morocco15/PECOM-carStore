@@ -157,30 +157,38 @@ describe('Voiture e2e test', () => {
 
       cy.get(`[data-cy="prix"]`).type('81363').should('have.value', '81363');
 
-      cy.setFieldImageAsBytesOfEntity('image1', 'integration-test.png', 'image/png');
+      cy.get(`[data-cy="image1"]`).type('dynamic Awesome').should('have.value', 'dynamic Awesome');
 
-      cy.setFieldImageAsBytesOfEntity('image2', 'integration-test.png', 'image/png');
+      cy.get(`[data-cy="image2"]`).type('Hat Cotton du').should('have.value', 'Hat Cotton du');
 
-      cy.setFieldImageAsBytesOfEntity('image3', 'integration-test.png', 'image/png');
+      cy.get(`[data-cy="image3"]`).type('challenge a').should('have.value', 'challenge a');
 
-      cy.get(`[data-cy="statut"]`).select('LIBRE');
+      cy.get(`[data-cy="statut"]`).select('VENDU');
 
-      cy.get(`[data-cy="miseEnVente"]`).type('2021-11-12T06:01').should('have.value', '2021-11-12T06:01');
+      cy.get(`[data-cy="version"]`).type('59911').should('have.value', '59911');
 
-      cy.get(`[data-cy="etat"]`).select('ENDOMMAGE');
+      cy.get(`[data-cy="miseEnVente"]`).type('2021-11-11T19:51').should('have.value', '2021-11-11T19:51');
 
-      cy.get(`[data-cy="porte"]`).type('0').should('have.value', '0');
+      cy.get(`[data-cy="etat"]`).select('NONROULANT');
 
-      cy.get(`[data-cy="boiteVitesse"]`).type('8598').should('have.value', '8598');
+      cy.get(`[data-cy="porte"]`).type('2').should('have.value', '2');
 
-      cy.get(`[data-cy="co2"]`).type('58390').should('have.value', '58390');
+      cy.get(`[data-cy="boiteVitesse"]`).select('AUTOMATIQUE');
 
-      cy.get(`[data-cy="chevaux"]`).type('3894').should('have.value', '3894');
+      cy.get(`[data-cy="co2"]`).type('28999').should('have.value', '28999');
 
-      cy.get(`[data-cy="carburant"]`).select('ELECTRIQUE');
+      cy.get(`[data-cy="chevaux"]`).type('83108').should('have.value', '83108');
 
-      // since cypress clicks submit too fast before the blob fields are validated
-      cy.wait(200); // eslint-disable-line cypress/no-unnecessary-waiting
+      cy.get(`[data-cy="carburant"]`).select('ESSENCE');
+
+      cy.get(`[data-cy="annees"]`).type('2021-11-12T00:23').should('have.value', '2021-11-12T00:23');
+
+      cy.get(`[data-cy="ville"]`).type('forecast Berkshire redefine').should('have.value', 'forecast Berkshire redefine');
+
+      cy.get(`[data-cy="codePostal"]`).type('85064').should('have.value', '85064');
+
+      cy.get(`[data-cy="description"]`).type('Pays-Bas multi-byte panel').should('have.value', 'Pays-Bas multi-byte panel');
+
       cy.get(entityCreateSaveButtonSelector).click();
 
       cy.wait('@postEntityRequest').then(({ response }) => {

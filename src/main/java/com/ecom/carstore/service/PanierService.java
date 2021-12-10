@@ -2,17 +2,18 @@ package com.ecom.carstore.service;
 
 import com.ecom.carstore.domain.Commande;
 import com.ecom.carstore.domain.Panier;
+import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.CommandeRepository;
 import com.ecom.carstore.repository.PanierRepository;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -125,5 +126,14 @@ public class PanierService {
             .created(new URI("/api/commandes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    public List<Voiture> getVoitures(Panier panier) {
+        //Page<Voiture> v = panierRepository.getVoituresDuPanier(panier);
+        //return v.getContent();
+
+        Set<Voiture> voitures = panier.getVoitures();
+        List<Voiture> res = new ArrayList<Voiture>(voitures);
+        return res;
     }
 }

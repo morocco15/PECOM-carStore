@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -10,9 +10,6 @@ import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 import { IVoiture, Voiture } from '../voiture.model';
 import { VoitureService } from '../service/voiture.service';
-import { AlertError } from 'app/shared/alert/alert-error.model';
-import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
-import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { IMarque } from 'app/entities/marque/marque.model';
 import { MarqueService } from 'app/entities/marque/service/marque.service';
 import { ICategorie } from 'app/entities/categorie/categorie.model';
@@ -25,6 +22,7 @@ import { IVendeur } from 'app/entities/vendeur/vendeur.model';
 import { VendeurService } from 'app/entities/vendeur/service/vendeur.service';
 import { Statut } from 'app/entities/enumerations/statut.model';
 import { Etat } from 'app/entities/enumerations/etat.model';
+import { BoiteDeVitesse } from 'app/entities/enumerations/boite-de-vitesse.model';
 import { Carburant } from 'app/entities/enumerations/carburant.model';
 
 @Component({
@@ -35,6 +33,7 @@ export class VoitureUpdateComponent implements OnInit {
   isSaving = false;
   statutValues = Object.keys(Statut);
   etatValues = Object.keys(Etat);
+  boiteDeVitesseValues = Object.keys(BoiteDeVitesse);
   carburantValues = Object.keys(Carburant);
 
   marquesSharedCollection: IMarque[] = [];
@@ -48,12 +47,10 @@ export class VoitureUpdateComponent implements OnInit {
     model: [],
     prix: [],
     image1: [],
-    image1ContentType: [],
     image2: [],
-    image2ContentType: [],
     image3: [],
-    image3ContentType: [],
     statut: [],
+    version: [],
     miseEnVente: [],
     etat: [],
     porte: [null, [Validators.max(5)]],
@@ -61,6 +58,10 @@ export class VoitureUpdateComponent implements OnInit {
     co2: [],
     chevaux: [],
     carburant: [],
+    annees: [],
+    ville: [],
+    codePostal: [],
+    description: [],
     marque: [],
     categories: [],
     commande: [],
@@ -69,15 +70,12 @@ export class VoitureUpdateComponent implements OnInit {
   });
 
   constructor(
-    protected dataUtils: DataUtils,
-    protected eventManager: EventManager,
     protected voitureService: VoitureService,
     protected marqueService: MarqueService,
     protected categorieService: CategorieService,
     protected commandeService: CommandeService,
     protected panierService: PanierService,
     protected vendeurService: VendeurService,
-    protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -87,37 +85,13 @@ export class VoitureUpdateComponent implements OnInit {
       if (voiture.id === undefined) {
         const today = dayjs().startOf('day');
         voiture.miseEnVente = today;
+        voiture.annees = today;
       }
 
       this.updateForm(voiture);
 
       this.loadRelationshipsOptions();
     });
-  }
-
-  byteSize(base64String: string): string {
-    return this.dataUtils.byteSize(base64String);
-  }
-
-  openFile(base64String: string, contentType: string | null | undefined): void {
-    this.dataUtils.openFile(base64String, contentType);
-  }
-
-  setFileData(event: Event, field: string, isImage: boolean): void {
-    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
-      error: (err: FileLoadError) =>
-        this.eventManager.broadcast(new EventWithContent<AlertError>('carStoreApp.error', { message: err.message })),
-    });
-  }
-
-  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
-    this.editForm.patchValue({
-      [field]: null,
-      [fieldContentType]: null,
-    });
-    if (idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
-      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
-    }
   }
 
   previousState(): void {
@@ -190,12 +164,10 @@ export class VoitureUpdateComponent implements OnInit {
       model: voiture.model,
       prix: voiture.prix,
       image1: voiture.image1,
-      image1ContentType: voiture.image1ContentType,
       image2: voiture.image2,
-      image2ContentType: voiture.image2ContentType,
       image3: voiture.image3,
-      image3ContentType: voiture.image3ContentType,
       statut: voiture.statut,
+      version: voiture.version,
       miseEnVente: voiture.miseEnVente ? voiture.miseEnVente.format(DATE_TIME_FORMAT) : null,
       etat: voiture.etat,
       porte: voiture.porte,
@@ -203,6 +175,10 @@ export class VoitureUpdateComponent implements OnInit {
       co2: voiture.co2,
       chevaux: voiture.chevaux,
       carburant: voiture.carburant,
+      annees: voiture.annees ? voiture.annees.format(DATE_TIME_FORMAT) : null,
+      ville: voiture.ville,
+      codePostal: voiture.codePostal,
+      description: voiture.description,
       marque: voiture.marque,
       categories: voiture.categories,
       commande: voiture.commande,
@@ -271,13 +247,11 @@ export class VoitureUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       model: this.editForm.get(['model'])!.value,
       prix: this.editForm.get(['prix'])!.value,
-      image1ContentType: this.editForm.get(['image1ContentType'])!.value,
       image1: this.editForm.get(['image1'])!.value,
-      image2ContentType: this.editForm.get(['image2ContentType'])!.value,
       image2: this.editForm.get(['image2'])!.value,
-      image3ContentType: this.editForm.get(['image3ContentType'])!.value,
       image3: this.editForm.get(['image3'])!.value,
       statut: this.editForm.get(['statut'])!.value,
+      version: this.editForm.get(['version'])!.value,
       miseEnVente: this.editForm.get(['miseEnVente'])!.value
         ? dayjs(this.editForm.get(['miseEnVente'])!.value, DATE_TIME_FORMAT)
         : undefined,
@@ -287,6 +261,10 @@ export class VoitureUpdateComponent implements OnInit {
       co2: this.editForm.get(['co2'])!.value,
       chevaux: this.editForm.get(['chevaux'])!.value,
       carburant: this.editForm.get(['carburant'])!.value,
+      annees: this.editForm.get(['annees'])!.value ? dayjs(this.editForm.get(['annees'])!.value, DATE_TIME_FORMAT) : undefined,
+      ville: this.editForm.get(['ville'])!.value,
+      codePostal: this.editForm.get(['codePostal'])!.value,
+      description: this.editForm.get(['description'])!.value,
       marque: this.editForm.get(['marque'])!.value,
       categories: this.editForm.get(['categories'])!.value,
       commande: this.editForm.get(['commande'])!.value,

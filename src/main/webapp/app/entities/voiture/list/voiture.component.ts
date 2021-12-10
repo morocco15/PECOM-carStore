@@ -5,7 +5,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IVoiture } from '../voiture.model';
 import { VoitureService } from '../service/voiture.service';
 import { VoitureDeleteDialogComponent } from '../delete/voiture-delete-dialog.component';
-import { DataUtils } from 'app/core/util/data-util.service';
 
 @Component({
   selector: 'jhi-voiture',
@@ -15,7 +14,7 @@ export class VoitureComponent implements OnInit {
   voitures?: IVoiture[];
   isLoading = false;
 
-  constructor(protected voitureService: VoitureService, protected dataUtils: DataUtils, protected modalService: NgbModal) {}
+  constructor(protected voitureService: VoitureService, protected modalService: NgbModal) {}
 
   loadAll(): void {
     this.isLoading = true;
@@ -37,14 +36,6 @@ export class VoitureComponent implements OnInit {
 
   trackId(index: number, item: IVoiture): number {
     return item.id!;
-  }
-
-  byteSize(base64String: string): string {
-    return this.dataUtils.byteSize(base64String);
-  }
-
-  openFile(base64String: string, contentType: string | null | undefined): void {
-    return this.dataUtils.openFile(base64String, contentType);
   }
 
   delete(voiture: IVoiture): void {

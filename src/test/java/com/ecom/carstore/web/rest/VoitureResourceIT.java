@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.ecom.carstore.IntegrationTest;
 import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.enumeration.BoiteDeVitesse;
 import com.ecom.carstore.domain.enumeration.Carburant;
 import com.ecom.carstore.domain.enumeration.Etat;
 import com.ecom.carstore.domain.enumeration.Statut;
@@ -35,7 +36,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link VoitureResource} REST controller.
@@ -52,23 +52,20 @@ class VoitureResourceIT {
     private static final Long DEFAULT_PRIX = 1L;
     private static final Long UPDATED_PRIX = 2L;
 
-    private static final byte[] DEFAULT_IMAGE_1 = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_IMAGE_1 = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_IMAGE_1_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_IMAGE_1_CONTENT_TYPE = "image/png";
+    private static final String DEFAULT_IMAGE_1 = "AAAAAAAAAA";
+    private static final String UPDATED_IMAGE_1 = "BBBBBBBBBB";
 
-    private static final byte[] DEFAULT_IMAGE_2 = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_IMAGE_2 = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_IMAGE_2_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_IMAGE_2_CONTENT_TYPE = "image/png";
+    private static final String DEFAULT_IMAGE_2 = "AAAAAAAAAA";
+    private static final String UPDATED_IMAGE_2 = "BBBBBBBBBB";
 
-    private static final byte[] DEFAULT_IMAGE_3 = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_IMAGE_3 = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_IMAGE_3_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_IMAGE_3_CONTENT_TYPE = "image/png";
+    private static final String DEFAULT_IMAGE_3 = "AAAAAAAAAA";
+    private static final String UPDATED_IMAGE_3 = "BBBBBBBBBB";
 
     private static final Statut DEFAULT_STATUT = Statut.RESERVER;
     private static final Statut UPDATED_STATUT = Statut.LIBRE;
+
+    private static final Integer DEFAULT_VERSION = 1;
+    private static final Integer UPDATED_VERSION = 2;
 
     private static final ZonedDateTime DEFAULT_MISE_EN_VENTE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_MISE_EN_VENTE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
@@ -79,8 +76,8 @@ class VoitureResourceIT {
     private static final Integer DEFAULT_PORTE = 5;
     private static final Integer UPDATED_PORTE = 4;
 
-    private static final Integer DEFAULT_BOITE_VITESSE = 1;
-    private static final Integer UPDATED_BOITE_VITESSE = 2;
+    private static final BoiteDeVitesse DEFAULT_BOITE_VITESSE = BoiteDeVitesse.AUTOMATIQUE;
+    private static final BoiteDeVitesse UPDATED_BOITE_VITESSE = BoiteDeVitesse.MANUELLE;
 
     private static final Integer DEFAULT_CO_2 = 1;
     private static final Integer UPDATED_CO_2 = 2;
@@ -90,6 +87,18 @@ class VoitureResourceIT {
 
     private static final Carburant DEFAULT_CARBURANT = Carburant.ESSENCE;
     private static final Carburant UPDATED_CARBURANT = Carburant.DIESEL;
+
+    private static final ZonedDateTime DEFAULT_ANNEES = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_ANNEES = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
+    private static final String DEFAULT_VILLE = "AAAAAAAAAA";
+    private static final String UPDATED_VILLE = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_CODE_POSTAL = 1;
+    private static final Integer UPDATED_CODE_POSTAL = 2;
+
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/voitures";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -122,19 +131,21 @@ class VoitureResourceIT {
             .model(DEFAULT_MODEL)
             .prix(DEFAULT_PRIX)
             .image1(DEFAULT_IMAGE_1)
-            .image1ContentType(DEFAULT_IMAGE_1_CONTENT_TYPE)
             .image2(DEFAULT_IMAGE_2)
-            .image2ContentType(DEFAULT_IMAGE_2_CONTENT_TYPE)
             .image3(DEFAULT_IMAGE_3)
-            .image3ContentType(DEFAULT_IMAGE_3_CONTENT_TYPE)
             .statut(DEFAULT_STATUT)
+            .version(DEFAULT_VERSION)
             .miseEnVente(DEFAULT_MISE_EN_VENTE)
             .etat(DEFAULT_ETAT)
             .porte(DEFAULT_PORTE)
             .boiteVitesse(DEFAULT_BOITE_VITESSE)
             .co2(DEFAULT_CO_2)
             .chevaux(DEFAULT_CHEVAUX)
-            .carburant(DEFAULT_CARBURANT);
+            .carburant(DEFAULT_CARBURANT)
+            .annees(DEFAULT_ANNEES)
+            .ville(DEFAULT_VILLE)
+            .codePostal(DEFAULT_CODE_POSTAL)
+            .description(DEFAULT_DESCRIPTION);
         return voiture;
     }
 
@@ -149,19 +160,21 @@ class VoitureResourceIT {
             .model(UPDATED_MODEL)
             .prix(UPDATED_PRIX)
             .image1(UPDATED_IMAGE_1)
-            .image1ContentType(UPDATED_IMAGE_1_CONTENT_TYPE)
             .image2(UPDATED_IMAGE_2)
-            .image2ContentType(UPDATED_IMAGE_2_CONTENT_TYPE)
             .image3(UPDATED_IMAGE_3)
-            .image3ContentType(UPDATED_IMAGE_3_CONTENT_TYPE)
             .statut(UPDATED_STATUT)
+            .version(UPDATED_VERSION)
             .miseEnVente(UPDATED_MISE_EN_VENTE)
             .etat(UPDATED_ETAT)
             .porte(UPDATED_PORTE)
             .boiteVitesse(UPDATED_BOITE_VITESSE)
             .co2(UPDATED_CO_2)
             .chevaux(UPDATED_CHEVAUX)
-            .carburant(UPDATED_CARBURANT);
+            .carburant(UPDATED_CARBURANT)
+            .annees(UPDATED_ANNEES)
+            .ville(UPDATED_VILLE)
+            .codePostal(UPDATED_CODE_POSTAL)
+            .description(UPDATED_DESCRIPTION);
         return voiture;
     }
 
@@ -186,12 +199,10 @@ class VoitureResourceIT {
         assertThat(testVoiture.getModel()).isEqualTo(DEFAULT_MODEL);
         assertThat(testVoiture.getPrix()).isEqualTo(DEFAULT_PRIX);
         assertThat(testVoiture.getImage1()).isEqualTo(DEFAULT_IMAGE_1);
-        assertThat(testVoiture.getImage1ContentType()).isEqualTo(DEFAULT_IMAGE_1_CONTENT_TYPE);
         assertThat(testVoiture.getImage2()).isEqualTo(DEFAULT_IMAGE_2);
-        assertThat(testVoiture.getImage2ContentType()).isEqualTo(DEFAULT_IMAGE_2_CONTENT_TYPE);
         assertThat(testVoiture.getImage3()).isEqualTo(DEFAULT_IMAGE_3);
-        assertThat(testVoiture.getImage3ContentType()).isEqualTo(DEFAULT_IMAGE_3_CONTENT_TYPE);
         assertThat(testVoiture.getStatut()).isEqualTo(DEFAULT_STATUT);
+        assertThat(testVoiture.getVersion()).isEqualTo(DEFAULT_VERSION);
         assertThat(testVoiture.getMiseEnVente()).isEqualTo(DEFAULT_MISE_EN_VENTE);
         assertThat(testVoiture.getEtat()).isEqualTo(DEFAULT_ETAT);
         assertThat(testVoiture.getPorte()).isEqualTo(DEFAULT_PORTE);
@@ -199,6 +210,10 @@ class VoitureResourceIT {
         assertThat(testVoiture.getCo2()).isEqualTo(DEFAULT_CO_2);
         assertThat(testVoiture.getChevaux()).isEqualTo(DEFAULT_CHEVAUX);
         assertThat(testVoiture.getCarburant()).isEqualTo(DEFAULT_CARBURANT);
+        assertThat(testVoiture.getAnnees()).isEqualTo(DEFAULT_ANNEES);
+        assertThat(testVoiture.getVille()).isEqualTo(DEFAULT_VILLE);
+        assertThat(testVoiture.getCodePostal()).isEqualTo(DEFAULT_CODE_POSTAL);
+        assertThat(testVoiture.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -233,20 +248,22 @@ class VoitureResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(voiture.getId().intValue())))
             .andExpect(jsonPath("$.[*].model").value(hasItem(DEFAULT_MODEL)))
             .andExpect(jsonPath("$.[*].prix").value(hasItem(DEFAULT_PRIX.intValue())))
-            .andExpect(jsonPath("$.[*].image1ContentType").value(hasItem(DEFAULT_IMAGE_1_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].image1").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE_1))))
-            .andExpect(jsonPath("$.[*].image2ContentType").value(hasItem(DEFAULT_IMAGE_2_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].image2").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE_2))))
-            .andExpect(jsonPath("$.[*].image3ContentType").value(hasItem(DEFAULT_IMAGE_3_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].image3").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE_3))))
+            .andExpect(jsonPath("$.[*].image1").value(hasItem(DEFAULT_IMAGE_1)))
+            .andExpect(jsonPath("$.[*].image2").value(hasItem(DEFAULT_IMAGE_2)))
+            .andExpect(jsonPath("$.[*].image3").value(hasItem(DEFAULT_IMAGE_3)))
             .andExpect(jsonPath("$.[*].statut").value(hasItem(DEFAULT_STATUT.toString())))
+            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
             .andExpect(jsonPath("$.[*].miseEnVente").value(hasItem(sameInstant(DEFAULT_MISE_EN_VENTE))))
             .andExpect(jsonPath("$.[*].etat").value(hasItem(DEFAULT_ETAT.toString())))
             .andExpect(jsonPath("$.[*].porte").value(hasItem(DEFAULT_PORTE)))
-            .andExpect(jsonPath("$.[*].boiteVitesse").value(hasItem(DEFAULT_BOITE_VITESSE)))
+            .andExpect(jsonPath("$.[*].boiteVitesse").value(hasItem(DEFAULT_BOITE_VITESSE.toString())))
             .andExpect(jsonPath("$.[*].co2").value(hasItem(DEFAULT_CO_2)))
             .andExpect(jsonPath("$.[*].chevaux").value(hasItem(DEFAULT_CHEVAUX)))
-            .andExpect(jsonPath("$.[*].carburant").value(hasItem(DEFAULT_CARBURANT.toString())));
+            .andExpect(jsonPath("$.[*].carburant").value(hasItem(DEFAULT_CARBURANT.toString())))
+            .andExpect(jsonPath("$.[*].annees").value(hasItem(sameInstant(DEFAULT_ANNEES))))
+            .andExpect(jsonPath("$.[*].ville").value(hasItem(DEFAULT_VILLE)))
+            .andExpect(jsonPath("$.[*].codePostal").value(hasItem(DEFAULT_CODE_POSTAL)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -281,20 +298,22 @@ class VoitureResourceIT {
             .andExpect(jsonPath("$.id").value(voiture.getId().intValue()))
             .andExpect(jsonPath("$.model").value(DEFAULT_MODEL))
             .andExpect(jsonPath("$.prix").value(DEFAULT_PRIX.intValue()))
-            .andExpect(jsonPath("$.image1ContentType").value(DEFAULT_IMAGE_1_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image1").value(Base64Utils.encodeToString(DEFAULT_IMAGE_1)))
-            .andExpect(jsonPath("$.image2ContentType").value(DEFAULT_IMAGE_2_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image2").value(Base64Utils.encodeToString(DEFAULT_IMAGE_2)))
-            .andExpect(jsonPath("$.image3ContentType").value(DEFAULT_IMAGE_3_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image3").value(Base64Utils.encodeToString(DEFAULT_IMAGE_3)))
+            .andExpect(jsonPath("$.image1").value(DEFAULT_IMAGE_1))
+            .andExpect(jsonPath("$.image2").value(DEFAULT_IMAGE_2))
+            .andExpect(jsonPath("$.image3").value(DEFAULT_IMAGE_3))
             .andExpect(jsonPath("$.statut").value(DEFAULT_STATUT.toString()))
+            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
             .andExpect(jsonPath("$.miseEnVente").value(sameInstant(DEFAULT_MISE_EN_VENTE)))
             .andExpect(jsonPath("$.etat").value(DEFAULT_ETAT.toString()))
             .andExpect(jsonPath("$.porte").value(DEFAULT_PORTE))
-            .andExpect(jsonPath("$.boiteVitesse").value(DEFAULT_BOITE_VITESSE))
+            .andExpect(jsonPath("$.boiteVitesse").value(DEFAULT_BOITE_VITESSE.toString()))
             .andExpect(jsonPath("$.co2").value(DEFAULT_CO_2))
             .andExpect(jsonPath("$.chevaux").value(DEFAULT_CHEVAUX))
-            .andExpect(jsonPath("$.carburant").value(DEFAULT_CARBURANT.toString()));
+            .andExpect(jsonPath("$.carburant").value(DEFAULT_CARBURANT.toString()))
+            .andExpect(jsonPath("$.annees").value(sameInstant(DEFAULT_ANNEES)))
+            .andExpect(jsonPath("$.ville").value(DEFAULT_VILLE))
+            .andExpect(jsonPath("$.codePostal").value(DEFAULT_CODE_POSTAL))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
     @Test
@@ -320,19 +339,21 @@ class VoitureResourceIT {
             .model(UPDATED_MODEL)
             .prix(UPDATED_PRIX)
             .image1(UPDATED_IMAGE_1)
-            .image1ContentType(UPDATED_IMAGE_1_CONTENT_TYPE)
             .image2(UPDATED_IMAGE_2)
-            .image2ContentType(UPDATED_IMAGE_2_CONTENT_TYPE)
             .image3(UPDATED_IMAGE_3)
-            .image3ContentType(UPDATED_IMAGE_3_CONTENT_TYPE)
             .statut(UPDATED_STATUT)
+            .version(UPDATED_VERSION)
             .miseEnVente(UPDATED_MISE_EN_VENTE)
             .etat(UPDATED_ETAT)
             .porte(UPDATED_PORTE)
             .boiteVitesse(UPDATED_BOITE_VITESSE)
             .co2(UPDATED_CO_2)
             .chevaux(UPDATED_CHEVAUX)
-            .carburant(UPDATED_CARBURANT);
+            .carburant(UPDATED_CARBURANT)
+            .annees(UPDATED_ANNEES)
+            .ville(UPDATED_VILLE)
+            .codePostal(UPDATED_CODE_POSTAL)
+            .description(UPDATED_DESCRIPTION);
 
         restVoitureMockMvc
             .perform(
@@ -349,12 +370,10 @@ class VoitureResourceIT {
         assertThat(testVoiture.getModel()).isEqualTo(UPDATED_MODEL);
         assertThat(testVoiture.getPrix()).isEqualTo(UPDATED_PRIX);
         assertThat(testVoiture.getImage1()).isEqualTo(UPDATED_IMAGE_1);
-        assertThat(testVoiture.getImage1ContentType()).isEqualTo(UPDATED_IMAGE_1_CONTENT_TYPE);
         assertThat(testVoiture.getImage2()).isEqualTo(UPDATED_IMAGE_2);
-        assertThat(testVoiture.getImage2ContentType()).isEqualTo(UPDATED_IMAGE_2_CONTENT_TYPE);
         assertThat(testVoiture.getImage3()).isEqualTo(UPDATED_IMAGE_3);
-        assertThat(testVoiture.getImage3ContentType()).isEqualTo(UPDATED_IMAGE_3_CONTENT_TYPE);
         assertThat(testVoiture.getStatut()).isEqualTo(UPDATED_STATUT);
+        assertThat(testVoiture.getVersion()).isEqualTo(UPDATED_VERSION);
         assertThat(testVoiture.getMiseEnVente()).isEqualTo(UPDATED_MISE_EN_VENTE);
         assertThat(testVoiture.getEtat()).isEqualTo(UPDATED_ETAT);
         assertThat(testVoiture.getPorte()).isEqualTo(UPDATED_PORTE);
@@ -362,6 +381,10 @@ class VoitureResourceIT {
         assertThat(testVoiture.getCo2()).isEqualTo(UPDATED_CO_2);
         assertThat(testVoiture.getChevaux()).isEqualTo(UPDATED_CHEVAUX);
         assertThat(testVoiture.getCarburant()).isEqualTo(UPDATED_CARBURANT);
+        assertThat(testVoiture.getAnnees()).isEqualTo(UPDATED_ANNEES);
+        assertThat(testVoiture.getVille()).isEqualTo(UPDATED_VILLE);
+        assertThat(testVoiture.getCodePostal()).isEqualTo(UPDATED_CODE_POSTAL);
+        assertThat(testVoiture.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test
@@ -432,7 +455,12 @@ class VoitureResourceIT {
         Voiture partialUpdatedVoiture = new Voiture();
         partialUpdatedVoiture.setId(voiture.getId());
 
-        partialUpdatedVoiture.image1(UPDATED_IMAGE_1).image1ContentType(UPDATED_IMAGE_1_CONTENT_TYPE).etat(UPDATED_ETAT).co2(UPDATED_CO_2);
+        partialUpdatedVoiture
+            .image1(UPDATED_IMAGE_1)
+            .miseEnVente(UPDATED_MISE_EN_VENTE)
+            .boiteVitesse(UPDATED_BOITE_VITESSE)
+            .carburant(UPDATED_CARBURANT)
+            .ville(UPDATED_VILLE);
 
         restVoitureMockMvc
             .perform(
@@ -449,19 +477,21 @@ class VoitureResourceIT {
         assertThat(testVoiture.getModel()).isEqualTo(DEFAULT_MODEL);
         assertThat(testVoiture.getPrix()).isEqualTo(DEFAULT_PRIX);
         assertThat(testVoiture.getImage1()).isEqualTo(UPDATED_IMAGE_1);
-        assertThat(testVoiture.getImage1ContentType()).isEqualTo(UPDATED_IMAGE_1_CONTENT_TYPE);
         assertThat(testVoiture.getImage2()).isEqualTo(DEFAULT_IMAGE_2);
-        assertThat(testVoiture.getImage2ContentType()).isEqualTo(DEFAULT_IMAGE_2_CONTENT_TYPE);
         assertThat(testVoiture.getImage3()).isEqualTo(DEFAULT_IMAGE_3);
-        assertThat(testVoiture.getImage3ContentType()).isEqualTo(DEFAULT_IMAGE_3_CONTENT_TYPE);
         assertThat(testVoiture.getStatut()).isEqualTo(DEFAULT_STATUT);
-        assertThat(testVoiture.getMiseEnVente()).isEqualTo(DEFAULT_MISE_EN_VENTE);
-        assertThat(testVoiture.getEtat()).isEqualTo(UPDATED_ETAT);
+        assertThat(testVoiture.getVersion()).isEqualTo(DEFAULT_VERSION);
+        assertThat(testVoiture.getMiseEnVente()).isEqualTo(UPDATED_MISE_EN_VENTE);
+        assertThat(testVoiture.getEtat()).isEqualTo(DEFAULT_ETAT);
         assertThat(testVoiture.getPorte()).isEqualTo(DEFAULT_PORTE);
-        assertThat(testVoiture.getBoiteVitesse()).isEqualTo(DEFAULT_BOITE_VITESSE);
-        assertThat(testVoiture.getCo2()).isEqualTo(UPDATED_CO_2);
+        assertThat(testVoiture.getBoiteVitesse()).isEqualTo(UPDATED_BOITE_VITESSE);
+        assertThat(testVoiture.getCo2()).isEqualTo(DEFAULT_CO_2);
         assertThat(testVoiture.getChevaux()).isEqualTo(DEFAULT_CHEVAUX);
-        assertThat(testVoiture.getCarburant()).isEqualTo(DEFAULT_CARBURANT);
+        assertThat(testVoiture.getCarburant()).isEqualTo(UPDATED_CARBURANT);
+        assertThat(testVoiture.getAnnees()).isEqualTo(DEFAULT_ANNEES);
+        assertThat(testVoiture.getVille()).isEqualTo(UPDATED_VILLE);
+        assertThat(testVoiture.getCodePostal()).isEqualTo(DEFAULT_CODE_POSTAL);
+        assertThat(testVoiture.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -480,19 +510,21 @@ class VoitureResourceIT {
             .model(UPDATED_MODEL)
             .prix(UPDATED_PRIX)
             .image1(UPDATED_IMAGE_1)
-            .image1ContentType(UPDATED_IMAGE_1_CONTENT_TYPE)
             .image2(UPDATED_IMAGE_2)
-            .image2ContentType(UPDATED_IMAGE_2_CONTENT_TYPE)
             .image3(UPDATED_IMAGE_3)
-            .image3ContentType(UPDATED_IMAGE_3_CONTENT_TYPE)
             .statut(UPDATED_STATUT)
+            .version(UPDATED_VERSION)
             .miseEnVente(UPDATED_MISE_EN_VENTE)
             .etat(UPDATED_ETAT)
             .porte(UPDATED_PORTE)
             .boiteVitesse(UPDATED_BOITE_VITESSE)
             .co2(UPDATED_CO_2)
             .chevaux(UPDATED_CHEVAUX)
-            .carburant(UPDATED_CARBURANT);
+            .carburant(UPDATED_CARBURANT)
+            .annees(UPDATED_ANNEES)
+            .ville(UPDATED_VILLE)
+            .codePostal(UPDATED_CODE_POSTAL)
+            .description(UPDATED_DESCRIPTION);
 
         restVoitureMockMvc
             .perform(
@@ -509,12 +541,10 @@ class VoitureResourceIT {
         assertThat(testVoiture.getModel()).isEqualTo(UPDATED_MODEL);
         assertThat(testVoiture.getPrix()).isEqualTo(UPDATED_PRIX);
         assertThat(testVoiture.getImage1()).isEqualTo(UPDATED_IMAGE_1);
-        assertThat(testVoiture.getImage1ContentType()).isEqualTo(UPDATED_IMAGE_1_CONTENT_TYPE);
         assertThat(testVoiture.getImage2()).isEqualTo(UPDATED_IMAGE_2);
-        assertThat(testVoiture.getImage2ContentType()).isEqualTo(UPDATED_IMAGE_2_CONTENT_TYPE);
         assertThat(testVoiture.getImage3()).isEqualTo(UPDATED_IMAGE_3);
-        assertThat(testVoiture.getImage3ContentType()).isEqualTo(UPDATED_IMAGE_3_CONTENT_TYPE);
         assertThat(testVoiture.getStatut()).isEqualTo(UPDATED_STATUT);
+        assertThat(testVoiture.getVersion()).isEqualTo(UPDATED_VERSION);
         assertThat(testVoiture.getMiseEnVente()).isEqualTo(UPDATED_MISE_EN_VENTE);
         assertThat(testVoiture.getEtat()).isEqualTo(UPDATED_ETAT);
         assertThat(testVoiture.getPorte()).isEqualTo(UPDATED_PORTE);
@@ -522,6 +552,10 @@ class VoitureResourceIT {
         assertThat(testVoiture.getCo2()).isEqualTo(UPDATED_CO_2);
         assertThat(testVoiture.getChevaux()).isEqualTo(UPDATED_CHEVAUX);
         assertThat(testVoiture.getCarburant()).isEqualTo(UPDATED_CARBURANT);
+        assertThat(testVoiture.getAnnees()).isEqualTo(UPDATED_ANNEES);
+        assertThat(testVoiture.getVille()).isEqualTo(UPDATED_VILLE);
+        assertThat(testVoiture.getCodePostal()).isEqualTo(UPDATED_CODE_POSTAL);
+        assertThat(testVoiture.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test
