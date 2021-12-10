@@ -23,6 +23,7 @@ export class PanierComponent implements OnInit {
   username!: string;
   voitures!: IVoiture[];
   paniers?: IPanier[];
+
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -55,6 +56,18 @@ export class PanierComponent implements OnInit {
       console.log(this.voitures[0].model)
     })
   }
+/*
+  supprimerVoitureChoisite(idVoiture:number) :void{
+    this.panierservice.supprimerVoitureDuPanier(this.username,idVoiture).subscribe((res: boolean)=>{
+      console.error(res);
+      // eslint-disable-next-line no-console
+      console.log(res);
+    });
+  }
+/////////////////////////////////////mache pas encore!!!!!
+ */
+
+
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
@@ -63,24 +76,10 @@ export class PanierComponent implements OnInit {
     if (this.account) {
       this.username = this.account.login;
     }
+
     this.getPanier();
+
   }
 
-  /*test(): void{
-    //var toutSelectionne = document.getElementById("toutselectionne");
-    //var voiture1 = document.getElementById("voiture1");
-    //var voiture2 = document.getElementById("voiture2");
-    //var toutSelectionne = document.querySelector('input[value="toutselectionne"]');
-    var voiture1 = document.querySelector('input[value="voiture1"]');
-    var voiture2 = document.querySelector('input[value="voiture2"]');
-    //if (document.querySelector('input[value="toutselectionne"]').checked === true){
-    if (document.getElementById("toutselectionne").checked === true){
-      voiture1.checked=true;
-      voiture2.checked=true;
-    }
-    else{
-      voiture1.checked=false;
-      voiture2.checked=false;
-    }
-  }*/
+
 }

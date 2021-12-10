@@ -22,4 +22,9 @@ export class PanierService {
   public getVoituresDuPanier(username: string):Observable<IVoiture[]>{
     return this.httpClient.get<IVoiture[]>(`${this.resourceUrl2}/${username}`);
   }
+
+  public supprimerVoitureDuPanier(username: string,idVoiture:number):Observable<boolean>{
+    return this.httpClient.get<boolean>(`${this.resourceUrl2}/${username}/${idVoiture}`);
+  }
+
 }

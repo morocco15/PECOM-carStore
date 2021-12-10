@@ -1,10 +1,8 @@
 package com.ecom.carstore.service;
 
-import com.ecom.carstore.domain.Commande;
-import com.ecom.carstore.domain.Panier;
-import com.ecom.carstore.domain.Voiture;
-import com.ecom.carstore.repository.CommandeRepository;
-import com.ecom.carstore.repository.PanierRepository;
+import com.ecom.carstore.domain.*;
+import com.ecom.carstore.domain.enumeration.Statut;
+import com.ecom.carstore.repository.*;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -36,10 +34,19 @@ public class PanierService {
 
     private PanierRepository panierRepository;
     private CommandeRepository commandeRepository;
-
-    public PanierService(PanierRepository panierRepository, CommandeRepository commandeRepository) {
+    private UserRepository userRepository;
+    private UtilisateurRepository utilisateurRepository;
+    private VoitureService voitureService;
+    public PanierService(PanierRepository panierRepository,
+                         CommandeRepository commandeRepository,
+                         UserRepository userRepository,
+                         UtilisateurRepository utilisateurRepository,
+                         VoitureService voitureService) {
         this.panierRepository = panierRepository;
         this.commandeRepository = commandeRepository;
+        this.userRepository = userRepository;
+        this.utilisateurRepository = utilisateurRepository;
+        this.voitureService = voitureService;
     }
 
     public ResponseEntity<Panier> createPanier(Panier panier) throws URISyntaxException {
@@ -139,4 +146,40 @@ public class PanierService {
         List<Voiture> res = new ArrayList<Voiture>(voitures); ;
         return res;
     }
+
+
+    public boolean supprimerVoitureDuPanier(String username,Long idVoiture){
+        User user = userRepository.findOneByUsername(username);
+        if(user!=null){
+            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+            Panier panier = utilisateur.getPanier();
+            Voiture voiture = voitureService.findOneById(idVoiture);
+            if(panier!=null && voiture!=null){
+                if(panier.getVoitures().contains(voiture)){
+                    panier.removeVoitures(voiture);
+                    voitureService.libererVoiture(voiture);
+                    return true;
+                }else {
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
 }
+/*
+        User user = userRepository.findOneByUsername(username);
+        if(user!=null){
+            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+            Panier panier = utilisateur.getPanier();
+            if(panier==null){
+                return voitures;
+            }else {
+                return panierService.getVoitures(panier);
+                //return voitures;
+            }
+        }
+        return voitures;
+ */

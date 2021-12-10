@@ -241,4 +241,11 @@ public class PanierResource {
         }
         return voitures;
     }
+
+    @GetMapping("/getpanier/{username}/{idVoiture}")
+    @ResponseBody
+    public boolean SupprimerVoitureDuPanier(@PathVariable("username") String username,@PathVariable("idVoiture") Long idVoiture){
+        return panierService.supprimerVoitureDuPanier(username,idVoiture);
+    }
+
 }
