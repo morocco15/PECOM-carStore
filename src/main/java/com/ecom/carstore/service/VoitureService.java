@@ -31,7 +31,7 @@ public class VoitureService {
     }
 
     public List<Voiture> getModelRecent(int debut, int fin) {
-        Page<Voiture> v = voitureRepository.derniereVoitureAjouter(PageRequest.of(debut, fin));
+        Page<Voiture> v = voitureRepository.derniereVoitureAjouter(Statut.LIBRE, PageRequest.of(debut, fin));
         return v.getContent();
     }
 

@@ -2,6 +2,7 @@ package com.ecom.carstore.repository;
 
 import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.enumeration.Statut;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -27,9 +28,9 @@ public interface VoitureRepository extends JpaRepository<Voiture, Long> {
     @Query("select voiture from Voiture voiture left join fetch voiture.categories where voiture.id =:id")
     Optional<Voiture> findOneWithEagerRelationships(@Param("id") Long id);
 
-    @Query("select voiture from Voiture voiture ORDER BY voiture.miseEnVente DESC")
-    Page<Voiture> derniereVoitureAjouter(Pageable pageable);
+    @Query("select voiture from Voiture voiture where voiture.statut =:statut ORDER BY voiture.miseEnVente DESC")
+    Page<Voiture> derniereVoitureAjouter(@Param("statut") Statut statut, Pageable pageable);
 
-    @Query("select voiture.version from Voiture voiture where voiture.id=:id")
+    @Query("select voiture.version from Voiture voiture where voiture.id=:id ")
     Integer getVoitureVersion(@Param("id") Long id);
 }

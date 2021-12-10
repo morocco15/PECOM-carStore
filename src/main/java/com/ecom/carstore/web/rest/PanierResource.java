@@ -1,12 +1,16 @@
 package com.ecom.carstore.web.rest;
 
+import com.ecom.carstore.domain.*;
 import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.domain.User;
 import com.ecom.carstore.domain.Utilisateur;
 import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.PanierRepository;
+import com.ecom.carstore.repository.PanierRepository;
 import com.ecom.carstore.repository.UserRepository;
+import com.ecom.carstore.repository.UserRepository;
+import com.ecom.carstore.repository.UtilisateurRepository;
 import com.ecom.carstore.repository.UtilisateurRepository;
 import com.ecom.carstore.service.PanierService;
 import com.ecom.carstore.service.PanierService;
@@ -56,6 +60,7 @@ public class PanierResource {
         PanierService panierService
     ) {
         this.panierRepository = panierRepository;
+        this.panierService = panierService;
         this.voitureService = voitureService;
         this.userRepository = userRepository;
         this.utilisateurRepository = utilisateurRepository;
@@ -233,5 +238,11 @@ public class PanierResource {
             }
         }
         return voitures;
+    }
+
+    @GetMapping("/payerpanier/{idpanier}/{livraison}")
+    @ResponseBody
+    public int payer(@PathVariable("idpanier") long idpanier, @PathVariable("livraison") String livraison) {
+        return panierService.payer(idpanier, livraison);
     }
 }
