@@ -188,21 +188,16 @@ public class PanierResource {
     public boolean AjouterVoitureDansPanier(@PathVariable("username") String username, @PathVariable("id") Long id,@PathVariable("version") int version){
 
         User user = userRepository.findOneByUsername(username);
-
-        if(user!=null){
-
+        if(user!=null && voitureService.reserverVoiture(id,version)){
             Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
             Panier panier = utilisateur.getPanier();
-
             Voiture voiture = voitureService.findOneById(id);
             if(!panier.voitures.contains(voiture)){
                 panier.addVoitures(voiture);
             }
             panierRepository.save(panier);
             return true;
-
         }
-
         return false;
     }
 /*
@@ -221,4 +216,16 @@ public class PanierResource {
 
         return false;
  */
+    @GetMapping("/panier/{username}")
+    @ResponseBody
+    public List<Voiture> getPanier(@PathVariable("username") String username){
+
+        User user = userRepository.findOneByUsername(username);
+        if(user!=null){
+            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+            Panier panier = utilisateur.getPanier();
+            return (List<Voiture>) panier.getVoitures();
+        }
+        return null;
+    }
 }

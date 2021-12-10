@@ -19,4 +19,7 @@ export class PanierService {
     return this.httpClient.get<boolean>(`${this.resourceUrl}/${username}/${id}/${version}`);
   }
 
+  public getVoituresDuPanier(username: string):Observable<IVoiture[]>{
+    return this.httpClient.get<IVoiture[]>(`${this.resourceUrl}/${username}`);
+  }
 }

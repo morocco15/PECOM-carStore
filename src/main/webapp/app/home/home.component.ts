@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   username!: string;
   voitureChoisit!: IVoiture;
   test!: string;
-
+  imagetest!: string;
   private readonly destroy$ = new Subject<void>();
 
   constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService,private panierservice: PanierService, private http: HttpClient) {}
@@ -41,11 +41,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  btnAction(): void {
+  btnAction(voiture:IVoiture): void {
     this.test="clic ok"
     // eslint-disable-next-line no-console
 
-    this.voitureChoisit = this.voiture1;
+    //this.voitureChoisit = this.voiture1;
+    this.voitureChoisit = voiture;
     if(this.voitureChoisit.id!=null && this.voitureChoisit.version!=null){
       this.test="voiture Ok!!";
       this.panierservice.ajouterVoiturePanier(this.username, this.voitureChoisit.id,this.voitureChoisit.version).subscribe((res: boolean) => {
@@ -67,6 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
     this.callService();
+    this.imagetest="https://cars-store.oss-eu-central-1.aliyuncs.com/1.jpeg";
     if (this.account) {
       this.username = this.account.login;
     }
