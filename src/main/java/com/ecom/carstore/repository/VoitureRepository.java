@@ -1,5 +1,6 @@
 package com.ecom.carstore.repository;
 
+import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.domain.Voiture;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,6 @@ public interface VoitureRepository extends JpaRepository<Voiture, Long> {
 
     @Query("select voiture.version from Voiture voiture where voiture.id=:id")
     Integer getVoitureVersion(@Param("id") Long id);
-
 
 
 }

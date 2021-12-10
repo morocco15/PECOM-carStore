@@ -49,6 +49,8 @@ export class PanierComponent implements OnInit {
       this.voitures = res;
       // eslint-disable-next-line no-console
       console.log(this.voitures.length)
+      // eslint-disable-next-line no-console
+      console.log(this.voitures[0].id)
     })
   }
   ngOnInit(): void {

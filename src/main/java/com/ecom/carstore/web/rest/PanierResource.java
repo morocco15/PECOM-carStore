@@ -7,6 +7,7 @@ import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.PanierRepository;
 import com.ecom.carstore.repository.UserRepository;
 import com.ecom.carstore.repository.UtilisateurRepository;
+import com.ecom.carstore.service.PanierService;
 import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -44,12 +45,14 @@ public class PanierResource {
     private VoitureService voitureService;
     private UserRepository userRepository;
     private UtilisateurRepository utilisateurRepository;
-    public PanierResource(PanierRepository panierRepository,VoitureService voitureService,UserRepository userRepository,UtilisateurRepository utilisateurRepository) {
+    private PanierService panierService;
+    public PanierResource(PanierRepository panierRepository,VoitureService voitureService,UserRepository userRepository,UtilisateurRepository utilisateurRepository,PanierService panierService) {
 
         this.panierRepository = panierRepository;
         this.voitureService = voitureService;
         this.userRepository = userRepository;
         this.utilisateurRepository = utilisateurRepository;
+        this.panierService = panierService;
     }
 
     /**
@@ -222,7 +225,7 @@ public class PanierResource {
     @ResponseBody
     public List<Voiture> getPanier(@PathVariable("username") String username){
         List<Voiture> voitures = null;
-        /*
+
         User user = userRepository.findOneByUsername(username);
         if(user!=null){
             Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
@@ -230,13 +233,10 @@ public class PanierResource {
             if(panier==null){
                 return voitures;
             }else {
-
-
+                return panierService.getVoitures(panier);
+                //return voitures;
             }
-            return voitures;
         }
-
-         */
         return voitures;
     }
 }
