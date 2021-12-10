@@ -28,7 +28,7 @@
       </div>
       <div class="image">
         <!--Requête pour récupérer l'image-->
-        <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+        <img [src]="voiture1.image1" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
         <button class="boutonPanier" (click) = "btnAction(voiture1)" >Ajouter dans mon panier</button>
@@ -56,7 +56,7 @@
       </div>
       <div class="image">
         <!--Requête pour récupérer l'image-->
-        <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+        <img [src]="voiture2.image1" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
         <button class="boutonPanier" (click) = "btnAction(voiture2)">Ajouter dans mon panier</button>
@@ -69,7 +69,7 @@
     <div class="voiture2">
       <div class="image">
         <!--Requête pour récupérer l'image-->
-        <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+        <img [src]="voiture3.image1" height="199.5px" width="355.5px" />
       </div>
       <div class="prix" style="text-align: center">
         <!--Requete pour obtenir le prix-->
@@ -97,7 +97,7 @@
     <div class="voiture2">
       <div class="image">
         <!--Requête pour récupérer l'image-->
-        <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+        <img [src]="voiture4.image1" height="199.5px" width="355.5px" />
       </div>
       <div class="prix" style="text-align: center">
         <!--Requete pour obtenir le prix-->
@@ -117,7 +117,7 @@
         </div>
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier"(click) = "btnAction(voiture3)">Ajouter dans mon panier</button>
+        <button class="boutonPanier"(click) = "btnAction(voiture4)">Ajouter dans mon panier</button>
         <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
       </div>
     </div>

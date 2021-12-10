@@ -8,7 +8,7 @@ import { Account } from 'app/core/auth/account.model';
 import { PanierService } from './panier.service';
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
-
+import { IPanier } from 'app/entities/panier/panier.model';
 @Component({
   selector: 'jhi-panier',
   templateUrl: './panier.component.html',
@@ -22,7 +22,7 @@ export class PanierComponent implements OnInit {
   voiture4!: IVoiture;
   username!: string;
   voitures!: IVoiture[];
-
+  paniers?: IPanier[];
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -42,7 +42,9 @@ export class PanierComponent implements OnInit {
       this.voiture4 = res[3];
     });
   }
-
+  trackId(index: number, item: IPanier): number {
+    return item.id!;
+  }
   getPanier(): void {
     this.panierservice.getVoituresDuPanier(this.username).subscribe((res: IVoiture[])=>{
       console.error(res);
@@ -50,7 +52,7 @@ export class PanierComponent implements OnInit {
       // eslint-disable-next-line no-console
       console.log(this.voitures.length)
       // eslint-disable-next-line no-console
-      console.log(this.voitures[0].id)
+      console.log(this.voitures[0].model)
     })
   }
   ngOnInit(): void {
