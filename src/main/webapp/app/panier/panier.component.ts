@@ -9,7 +9,6 @@ import { PanierService } from './panier.service';
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
 import { IPanier } from 'app/entities/panier/panier.model';
-
 @Component({
   selector: 'jhi-panier',
   templateUrl: './panier.component.html',
@@ -24,7 +23,6 @@ export class PanierComponent implements OnInit {
   paniers?: IPanier[];
   username!: string;
   voitures!: IVoiture[];
-
   private readonly destroy$ = new Subject<void>();
 
   constructor(
