@@ -49,7 +49,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   btnAction(voiture: IVoiture): void {
     // eslint-disable-next-line no-console
+    console.log('erreur?');
     this.voitureChoisit = voiture;
+
     if (this.voitureChoisit.id != null && this.voitureChoisit.version != null) {
       //eslint-disable-next-line no-console
       console.error(this.voitureChoisit.id);
