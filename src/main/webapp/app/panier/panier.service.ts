@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IVoiture, Voiture } from '../entities/voiture/voiture.model';
+import { IVoiture } from '../entities/voiture/voiture.model';
+import { IPanier } from 'app/entities/panier/panier.model';
 
 @Injectable({ providedIn: 'root' })
 export class PanierService {

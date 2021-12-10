@@ -8,6 +8,7 @@ import { Account } from 'app/core/auth/account.model';
 import { HomeService } from './home.service';
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
+import { NavbarComponent } from '../layouts/navbar/navbar.component';
 
 @Component({
   selector: 'jhi-home',
@@ -37,26 +38,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.voiture4 = res[3];
     });
   }
-
-  /*btnAction(voiture:IVoiture): void {
-    //eslint-disable-next-line no-console
-    console.log("ça marche");
-    //eslint-disable-next-line no-console
-    console.log(voiture.id);
-    //eslint-disable-next-line no-console
-    console.log(this.username);
-    // eslint-disable-next-line no-console
-    if(voiture.id!=null && this.voitureChoisit.version!=null){
-      //eslint-disable-next-line no-console
-      console.log("ça marche bien");
-      this.homeservice.ajouterVoiturePanier(this.username, voiture.id).subscribe((res: boolean) => {
-        //eslint-disable-next-line no-console
-        console.log(this.username);
-        //eslint-disable-next-line no-console
-        console.log(voiture.id);
-      });
-    }
-  }*/
 
   ngOnInit(): void {
     this.accountService

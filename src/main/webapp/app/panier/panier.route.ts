@@ -6,6 +6,6 @@ export const PANIER_ROUTE: Route = {
   path: '',
   component: PanierComponent,
   data: {
-    pageTitle: 'Welcome, Java Hipster!',
+    pageTitle: 'Panier',
   },
 };

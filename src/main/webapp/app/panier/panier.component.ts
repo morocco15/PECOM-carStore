@@ -8,6 +8,7 @@ import { Account } from 'app/core/auth/account.model';
 import { PanierService } from './panier.service';
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
+import { IPanier } from 'app/entities/panier/panier.model';
 
 @Component({
   selector: 'jhi-panier',
@@ -20,6 +21,8 @@ export class PanierComponent implements OnInit {
   voiture2!: IVoiture;
   voiture3!: IVoiture;
   voiture4!: IVoiture;
+  paniers?: IPanier[];
+  voitures!: IVoiture[];
 
   private readonly destroy$ = new Subject<void>();
 
@@ -41,25 +44,11 @@ export class PanierComponent implements OnInit {
     });
   }
 
+  trackId(index: number, item: IPanier): number {
+    return item.id!;
+  }
+
   ngOnInit(): void {
     //
   }
-
-  /*test(): void{
-    //var toutSelectionne = document.getElementById("toutselectionne");
-    //var voiture1 = document.getElementById("voiture1");
-    //var voiture2 = document.getElementById("voiture2");
-    //var toutSelectionne = document.querySelector('input[value="toutselectionne"]');
-    var voiture1 = document.querySelector('input[value="voiture1"]');
-    var voiture2 = document.querySelector('input[value="voiture2"]');
-    //if (document.querySelector('input[value="toutselectionne"]').checked === true){
-    if (document.getElementById("toutselectionne").checked === true){
-      voiture1.checked=true;
-      voiture2.checked=true;
-    }
-    else{
-      voiture1.checked=false;
-      voiture2.checked=false;
-    }
-  }*/
 }
