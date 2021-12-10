@@ -1,11 +1,13 @@
 package com.ecom.carstore.web.rest;
 
-import com.ecom.carstore.domain.Commande;
 import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.domain.User;
+import com.ecom.carstore.domain.Utilisateur;
 import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.repository.PanierRepository;
 import com.ecom.carstore.repository.UserRepository;
+import com.ecom.carstore.repository.UtilisateurRepository;
+import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.service.PanierService;
 import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
@@ -14,6 +16,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,20 +43,17 @@ public class PanierResource {
     private String applicationName;
 
     private final PanierRepository panierRepository;
-    private final PanierService panierService;
+
     private VoitureService voitureService;
     private UserRepository userRepository;
+    private UtilisateurRepository utilisateurRepository;
+    public PanierResource(PanierRepository panierRepository,VoitureService voitureService,UserRepository userRepository,UtilisateurRepository utilisateurRepository) {
 
-    public PanierResource(
-        PanierRepository panierRepository,
-        VoitureService voitureService,
-        UserRepository userRepository,
-        PanierService panierService
-    ) {
         this.panierRepository = panierRepository;
         this.voitureService = voitureService;
         this.userRepository = userRepository;
-        this.panierService = panierService;
+        this.utilisateurRepository = utilisateurRepository;
+
     }
 
     /**
@@ -64,7 +65,15 @@ public class PanierResource {
      */
     @PostMapping("/paniers")
     public ResponseEntity<Panier> createPanier(@RequestBody Panier panier) throws URISyntaxException {
-        return panierService.createPanier(panier);
+        log.debug("REST request to save Panier : {}", panier);
+        if (panier.getId() != null) {
+            throw new BadRequestAlertException("A new panier cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Panier result = panierRepository.save(panier);
+        return ResponseEntity
+            .created(new URI("/api/paniers/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -80,7 +89,23 @@ public class PanierResource {
     @PutMapping("/paniers/{id}")
     public ResponseEntity<Panier> updatePanier(@PathVariable(value = "id", required = false) final Long id, @RequestBody Panier panier)
         throws URISyntaxException {
-        return panierService.updatePanier(id, panier);
+        log.debug("REST request to update Panier : {}, {}", id, panier);
+        if (panier.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(id, panier.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!panierRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
+        Panier result = panierRepository.save(panier);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, panier.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -99,7 +124,29 @@ public class PanierResource {
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Panier panier
     ) throws URISyntaxException {
-        return panierService.updatePanier(id, panier);
+        log.debug("REST request to partial update Panier partially : {}, {}", id, panier);
+        if (panier.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(id, panier.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!panierRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
+        Optional<Panier> result = panierRepository
+            .findById(panier.getId())
+            .map(existingPanier -> {
+                return existingPanier;
+            })
+            .map(panierRepository::save);
+
+        return ResponseUtil.wrapOrNotFound(
+            result,
+            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, panier.getId().toString())
+        );
     }
 
     /**
@@ -109,7 +156,8 @@ public class PanierResource {
      */
     @GetMapping("/paniers")
     public List<Panier> getAllPaniers() {
-        return panierService.getAllPaniers();
+        log.debug("REST request to get all Paniers");
+        return panierRepository.findAll();
     }
 
     /**
@@ -120,7 +168,9 @@ public class PanierResource {
      */
     @GetMapping("/paniers/{id}")
     public ResponseEntity<Panier> getPanier(@PathVariable Long id) {
-        return panierService.getPanier(id);
+        log.debug("REST request to get Panier : {}", id);
+        Optional<Panier> panier = panierRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(panier);
     }
 
     /**
@@ -131,12 +181,67 @@ public class PanierResource {
      */
     @DeleteMapping("/paniers/{id}")
     public ResponseEntity<Void> deletePanier(@PathVariable Long id) {
-        return panierService.deletePanier(id);
+        log.debug("REST request to delete Panier : {}", id);
+        panierRepository.deleteById(id);
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+            .build();
     }
 
-    @PostMapping("/panierpayer")
-    public ResponseEntity<Commande> Payer(@RequestBody Panier panier, @RequestBody Commande commande) throws URISyntaxException {
-        return panierService.payer(panier, commande);
+    @GetMapping("/panier/{username}/{id}/{version}")
+    @ResponseBody
+    public boolean AjouterVoitureDansPanier(@PathVariable("username") String username, @PathVariable("id") Long id,@PathVariable("version") int version){
+
+        User user = userRepository.findOneByUsername(username);
+        if(user!=null && voitureService.reserverVoiture(id,version)){
+            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+            Panier panier = utilisateur.getPanier();
+            Voiture voiture = voitureService.findOneById(id);
+            if(!panier.voitures.contains(voiture)){
+                panier.addVoitures(voiture);
+            }
+            panierRepository.save(panier);
+            return true;
+        }
+        return false;
+    }
+/*
+
+        User user = userRepository.findOneByUsername(username);
+        if(voitureService.reserverVoiture(id,version)){
+
+            Panier panier = panierRepository.getById(user.getId());
+            Voiture voiture = voitureService.findOneById(id);
+            if(!panier.voitures.contains(voiture)){
+                panier.addVoitures(voiture);
+            }
+            panierRepository.save(panier);
+            return true;
+        }
+
+        return false;
+ */
+    @GetMapping("/getpanier/{username}")
+    @ResponseBody
+    public List<Voiture> getPanier(@PathVariable("username") String username){
+        List<Voiture> voitures = null;
+        /*
+        User user = userRepository.findOneByUsername(username);
+        if(user!=null){
+            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+            Panier panier = utilisateur.getPanier();
+            if(panier==null){
+                return voitures;
+            }else {
+
+
+            }
+            return voitures;
+        }
+
+         */
+        return voitures;
     }
     /*@GetMapping("/panier/{username}/{id}")
     @ResponseBody

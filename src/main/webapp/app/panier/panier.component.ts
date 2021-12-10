@@ -20,7 +20,8 @@ export class PanierComponent implements OnInit {
   voiture2!: IVoiture;
   voiture3!: IVoiture;
   voiture4!: IVoiture;
-
+  username!: string;
+  voitures!: IVoiture[];
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -41,8 +42,23 @@ export class PanierComponent implements OnInit {
     });
   }
 
+  getPanier(): void {
+    this.panierservice.getVoituresDuPanier(this.username).subscribe((res: IVoiture[])=>{
+      console.error(res);
+      this.voitures = res;
+      // eslint-disable-next-line no-console
+      console.log(this.voitures.length)
+    })
+  }
   ngOnInit(): void {
-    //
+    this.accountService
+      .getAuthenticationState()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(account => (this.account = account));
+    if (this.account) {
+      this.username = this.account.login;
+    }
+    this.getPanier();
   }
 
   /*test(): void{

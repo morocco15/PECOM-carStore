@@ -66,15 +66,23 @@ img {
 }
 
 .boutonValide {
-  text-align: center;
-  border: 0;
-  border-radius: 10px;
-  background-color: rgb(11, 192, 26);
+  color: #fff;
+  border-radius: 10%;
+  background: #11a331;
   box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
-  width: 170px;
-  margin: 0 auto;
+  width: 300px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-weight: 300;
+  font-size: 1.3rem;
 }
 
 .boutonValide:hover {
-  background-color: rgb(11, 228, 26);
+  background: #1ada43;
+}
+
+.nav-item {
+  margin: 0 auto;
 }

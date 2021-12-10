@@ -32,17 +32,22 @@ entity Voiture {
 	id Long unique,
 	model String,
     prix Long,
-    image1 ImageBlob,
-    image2 ImageBlob,
-    image3 ImageBlob,
+    image1 String,
+    image2 String,
+    image3 String,
     statut Statut,
+	version Integer,
     miseEnVente ZonedDateTime,
     etat Etat,
     porte Integer max(5),
-    boiteVitesse Integer,
+    boiteVitesse BoiteDeVitesse,
     co2 Integer,
     chevaux Integer,
-    carburant Carburant
+    carburant Carburant,
+    annees ZonedDateTime,
+    ville String,
+    codePostal Integer,
+    description String,
 }
 entity Categorie {
     categorie String
@@ -64,7 +69,9 @@ enum Etat {
     NONROULANT, ENDOMMAGE, ROULANT
 }
 
-
+enum BoiteDeVitesse{
+	AUTOMATIQUE, MANUELLE
+}
 
 
 
@@ -78,7 +85,7 @@ relationship OneToOne {
     Panier{utilisateur} to Utilisateur{panier},
     Souhait{utilisateur} to Utilisateur{souhait},
 
-    
+
 }
 
 relationship ManyToOne {
@@ -90,7 +97,7 @@ relationship OneToMany {
 	Commande{Voitures} to Voiture,
     Panier{voitures} to Voiture,
     Vendeur{voitures} to Voiture
-    
+
 }
 relationship ManyToMany{
 	Voiture{categories} to Categorie{voitures},

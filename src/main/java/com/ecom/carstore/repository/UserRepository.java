@@ -44,4 +44,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select distinct user from User user where user.login=:username")
     User findOneByUsername(@Param("username") String username);
+
 }

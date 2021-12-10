@@ -28,12 +28,10 @@
       </div>
       <div class="image">
         <!--Requête pour récupérer l'image-->
-        {{ voiture1.image1 }}
         <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier">Ajouter dans mon panier</button>
-        <!--(click)="btnAction(voiture1)"-->
+        <button class="boutonPanier" (click) = "btnAction(voiture1)" >Ajouter dans mon panier</button>
         <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
@@ -61,7 +59,7 @@
         <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier">Ajouter dans mon panier</button>
+        <button class="boutonPanier" (click) = "btnAction(voiture2)">Ajouter dans mon panier</button>
         <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
@@ -91,7 +89,7 @@
         </div>
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier">Ajouter dans mon panier</button>
+        <button class="boutonPanier"(click) = "btnAction(voiture3)">Ajouter dans mon panier</button>
         <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
@@ -119,7 +117,7 @@
         </div>
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier">Ajouter dans mon panier</button>
+        <button class="boutonPanier"(click) = "btnAction(voiture3)">Ajouter dans mon panier</button>
         <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
