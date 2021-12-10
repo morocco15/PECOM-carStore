@@ -51,6 +51,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     // eslint-disable-next-line no-console
     this.voitureChoisit = voiture;
     if (this.voitureChoisit.id != null && this.voitureChoisit.version != null) {
+      //eslint-disable-next-line no-console
+      console.error(this.voitureChoisit.id);
       this.panierservice
         .ajouterVoiturePanier(this.username, this.voitureChoisit.id, this.voitureChoisit.version)
         .subscribe((res: boolean) => {

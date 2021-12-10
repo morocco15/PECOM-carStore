@@ -59,6 +59,7 @@ export class PanierComponent implements OnInit {
       console.log(this.voitures[0].id);
     });
   }
+
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
