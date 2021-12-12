@@ -57,13 +57,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    //this.test="null";
+ 
+ 
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
     this.callService();
     this.imagetest="https://cars-store.oss-eu-central-1.aliyuncs.com/1.jpeg";
+    //"../../../content/images/amg-c63-gt.jpg"
     if (this.account) {
       this.username = this.account.login;
     }
