@@ -29,6 +29,7 @@ import { FildactualiteComponent } from './fildactualite/fildactualite.component'
 import { PanierComponent } from './panier/panier.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { HintComponent } from './hint/hint.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { HintComponent } from './hint/hint.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
     HttpClientModule,
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
-    MatDialogModule
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [
     Title,

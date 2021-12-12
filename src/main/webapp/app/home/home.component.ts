@@ -10,6 +10,8 @@ import { HomeService } from './home.service';
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
 import {PanierService} from "../panier/panier.service";
+import { MatDialog } from '@angular/material/dialog';
+import { HintComponent } from 'app/hint/hint.component';
 
 @Component({
   selector: 'jhi-home',
@@ -27,8 +29,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagetest!: string;
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService,private panierservice: PanierService, private http: HttpClient) {}
+  constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService,private panierservice: PanierService, private http: HttpClient,public dialog: MatDialog) {}
 
+  
+  
   callService(): void {
     this.homeservice.getQuatreDernieresVoitures(0, 4).subscribe((res: IVoiture[]) => {
       //eslint-disable-next-line no-console
@@ -55,20 +59,31 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
+  /////////////////////
+  panierAction():void
+  {
+    this.dialog.open(HintComponent, {data:"ajouter au panier"}); 
+  }
 
-  ngOnInit(): void {
+
+  ngOnInit(): void 
+  {
  
- 
+    
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
     this.callService();
+    //this.dialog.open(HintComponent, {data:"ajouter au panier"});
     this.imagetest="https://cars-store.oss-eu-central-1.aliyuncs.com/1.jpeg";
     //"../../../content/images/amg-c63-gt.jpg"
     if (this.account) {
       this.username = this.account.login;
     }
+
+    
+     
   }
 
   login(): void {
