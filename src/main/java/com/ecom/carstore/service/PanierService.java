@@ -168,18 +168,11 @@ public class PanierService {
         }
         return false;
     }
+
+
+
+
 }
-/*
-        User user = userRepository.findOneByUsername(username);
-        if(user!=null){
-            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
-            Panier panier = utilisateur.getPanier();
-            if(panier==null){
-                return voitures;
-            }else {
-                return panierService.getVoitures(panier);
-                //return voitures;
-            }
-        }
-        return voitures;
- */
+
+
+

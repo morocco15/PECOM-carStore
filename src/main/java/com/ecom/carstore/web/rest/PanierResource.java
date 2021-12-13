@@ -248,4 +248,5 @@ public class PanierResource {
         return panierService.supprimerVoitureDuPanier(username,idVoiture);
     }
 
+
 }

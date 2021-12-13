@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { PanierService } from './panier.service';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
 import { IPanier } from 'app/entities/panier/panier.model';
 @Component({
@@ -14,16 +14,10 @@ import { IPanier } from 'app/entities/panier/panier.model';
   templateUrl: './panier.component.html',
   styleUrls: ['./panier.component.scss'],
 })
-export class PanierComponent implements OnInit {
+export class PanierComponent implements OnInit ,OnDestroy{
   account: Account | null = null;
-  voiture1!: IVoiture;
-  voiture2!: IVoiture;
-  voiture3!: IVoiture;
-  voiture4!: IVoiture;
   username!: string;
   voitures!: IVoiture[];
-  paniers?: IPanier[];
-
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -33,16 +27,6 @@ export class PanierComponent implements OnInit {
     private http: HttpClient
   ) {}
 
-  callService(): void {
-    this.panierservice.getQuatreDernieresVoitures(0, 4).subscribe((res: IVoiture[]) => {
-      //eslint-disable-next-line no-console
-      console.error(res);
-      this.voiture1 = res[0];
-      this.voiture2 = res[1];
-      this.voiture3 = res[2];
-      this.voiture4 = res[3];
-    });
-  }
   trackId(index: number, item: IPanier): number {
     return item.id!;
   }
@@ -52,21 +36,26 @@ export class PanierComponent implements OnInit {
       this.voitures = res;
       // eslint-disable-next-line no-console
       console.log(this.voitures.length)
-      // eslint-disable-next-line no-console
-      console.log(this.voitures[0].model)
+
     })
   }
-/*
-  supprimerVoitureChoisite(idVoiture:number) :void{
-    this.panierservice.supprimerVoitureDuPanier(this.username,idVoiture).subscribe((res: boolean)=>{
-      console.error(res);
-      // eslint-disable-next-line no-console
-      console.log(res);
-    });
-  }
-/////////////////////////////////////mache pas encore!!!!!
- */
 
+  supprimerVoitureChoisite(idVoiture:number|undefined) :void{
+    // eslint-disable-next-line eqeqeq
+    if(idVoiture!=undefined) {
+      this.panierservice.supprimerVoitureDuPanier(this.username, idVoiture).subscribe((res: boolean) => {
+        console.error(res);
+        // eslint-disable-next-line no-console
+        console.log("affichier le resultat du suppression:");
+        // eslint-disable-next-line no-console
+        console.log(res);
+        if(res){
+          this.getPanier();
+        }
+      });
+
+    }
+  }
 
   ngOnInit(): void {
     this.accountService
@@ -76,10 +65,13 @@ export class PanierComponent implements OnInit {
     if (this.account) {
       this.username = this.account.login;
     }
-
+    this.voitures=[];
     this.getPanier();
-
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
 }

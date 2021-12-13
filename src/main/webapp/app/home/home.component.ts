@@ -10,6 +10,7 @@ import { HomeService } from './home.service';
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
 import {PanierService} from "../panier/panier.service";
+import {SouhaitService} from "../listedesouhait/listedesouhait.service";
 
 @Component({
   selector: 'jhi-home',
@@ -27,7 +28,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagetest!: string;
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService,private panierservice: PanierService, private http: HttpClient) {}
+  constructor(private accountService: AccountService,
+              private router: Router,
+              private homeservice: HomeService,
+              private panierservice: PanierService,
+              private souhaitservice: SouhaitService,
+              private http: HttpClient) {}
 
   callService(): void {
     this.homeservice.getQuatreDernieresVoitures(0, 4).subscribe((res: IVoiture[]) => {
@@ -49,12 +55,23 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.error(res);
         // eslint-disable-next-line no-console
         console.log(res)
-
       });
     }
-
   }
 
+  btnActionSouhait(voiture:IVoiture):void{
+    if(voiture.id!=null){
+      this.souhaitservice.ajouterVoitureSouhait(this.username,voiture.id).subscribe((res:boolean)=>{
+        console.error(res);
+        // eslint-disable-next-line no-console
+        console.log(res)
+      })
+      // eslint-disable-next-line no-console
+      console.log("clic ok!")
+    }
+
+
+  }
 
   ngOnInit(): void {
 

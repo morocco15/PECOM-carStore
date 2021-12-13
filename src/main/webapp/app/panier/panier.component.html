@@ -17,7 +17,7 @@
           <input type="checkbox" class="checkboxvoiture1" id="voiture1" />
           <div class="image">
             <!--Requête pour récupérer l'image-->
-            <img [src]="voiture" height="199.5px" width="355.5px" />
+            <img [src]="voiture.image1" height="199.5px" width="355.5px" (click)="supprimerVoitureChoisite(voiture.id)"/>
           </div>
           <div class="caracteristiqueproduit">
             <!--grid-->
@@ -39,14 +39,14 @@
                               L'année est à ajouter dans le model de voiture.
                           </div>-->
               <div class="kilometrage">
-                <div id="nomCarac">Kilométrage</div>
+                <div id="nomCarac">Kilométrage </div>
                 <!--Requête pour obtenir le kilométrage de la voiture-->
                 <div id="carac">500000 km</div>
               </div>
               <div class="carburant">
                 <div id="nomCarac">Carburant</div>
                 <!--Requête pour obtenir le carburant de la voiture-->
-                <div id="carac">{{ voiture.carburant }}</div>
+                <div id="carac">{{ voiture.carburant }} </div>
               </div>
               <div class="boiteDeVitesse">
                 <div id="nomCarac">Boîte de vitesse</div>

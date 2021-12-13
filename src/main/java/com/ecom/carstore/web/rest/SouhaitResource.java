@@ -1,7 +1,10 @@
 package com.ecom.carstore.web.rest;
 
-import com.ecom.carstore.domain.Souhait;
+import com.ecom.carstore.domain.*;
 import com.ecom.carstore.repository.SouhaitRepository;
+import com.ecom.carstore.repository.UserRepository;
+import com.ecom.carstore.repository.UtilisateurRepository;
+import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,9 +36,17 @@ public class SouhaitResource {
     private String applicationName;
 
     private final SouhaitRepository souhaitRepository;
-
-    public SouhaitResource(SouhaitRepository souhaitRepository) {
+    private final UserRepository userRepository;
+    private final UtilisateurRepository utilisateurRepository;
+    private final VoitureService voitureService;
+    public SouhaitResource(SouhaitRepository souhaitRepository,
+                           UserRepository userRepository,
+                           UtilisateurRepository utilisateurRepository,
+                           VoitureService voitureService) {
         this.souhaitRepository = souhaitRepository;
+        this.userRepository = userRepository;
+        this.utilisateurRepository = utilisateurRepository;
+        this.voitureService = voitureService;
     }
 
     /**
@@ -170,5 +181,27 @@ public class SouhaitResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/souhait/{username}/{id}")
+    @ResponseBody
+    public boolean AjouterVoitureDansSouhait(@PathVariable("username") String username, @PathVariable("id") Long id) {
+        User user = userRepository.findOneByUsername(username);
+        if(user!=null){
+            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+            Souhait souhait = utilisateur.getSouhait();
+            Voiture voiture = voitureService.findOneById(id);
+            if(souhait!=null && voiture!=null){
+                if(souhait.getVoitures().contains(voiture)){
+                    return false;
+                }else {
+                    souhait.addVoitures(voiture);
+                    return true;
+                }
+            }else {
+                return false;
+            }
+        }
+        return false;
     }
 }
