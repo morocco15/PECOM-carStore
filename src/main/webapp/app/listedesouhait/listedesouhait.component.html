@@ -1,52 +1,70 @@
-<div class="filPrincipal">
-  <!--grid-->
-  <div class="ficheProduit">
-    <!--flex-->
-    <div class="image">
-      <!--Requête pour récupérer l'image-->
-      <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+<!DOCTYPE html>
+<html lang="fr">
+  <head></head>
+  <body>
+    <div class="table-responsive">
+      <Table responsive>
+        <thead>
+          <tr>
+            <th scope="col"><span>Liste de souhait</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let voiture of voitures; trackBy: trackId">
+            <td>
+              <div class="filPrincipal">
+                <div class="ficheProduit">
+                  <div class="image">
+                    <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+                    <!--<img [src]="voiture.image1" height="199.5px" width="355.5px" />-->
+                  </div>
+                  <div class="caracteristiqueproduit">
+                    <div class="nom">
+                      <div class="marque" style="font-weight: bold">
+                        Mercedes-Benz&nbsp;
+                        <!--{{ voiture.marque }}-->
+                      </div>
+                      <div class="modele" style="font-weight: bold">
+                        amg c63 gt s
+                        <!--{{ voiture.model }}-->
+                      </div>
+                    </div>
+                    <div class="prix">
+                      199 999 €
+                      <!--<div id="carac" style="font-size: larger">{{ voiture.prix }} €</div>-->
+                    </div>
+                    <div class="caracteristiques">
+                      <!--<div class="année">
+                                          L'année est à ajouter dans le model de voiture.
+                                      </div>-->
+                      <div class="kilometrage">
+                        <div>Kilométrage</div>
+                        <div>135 000 km</div>
+                      </div>
+                      <div class="carburant">
+                        <div>Carburant</div>
+                        <div>Essence</div>
+                        <!--<div id="carac">{{ voiture.carburant }}</div>-->
+                      </div>
+                      <div class="boiteDeVitesse">
+                        <div>Boîte de vitesse</div>
+                        <div>automatique</div>
+                        <!--<div id="carac">{{ voiture.boiteVitesse }}</div>-->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="boutons">
+                    <button class="boutonAjouterPanier" type="button" style="margin-bottom: 10px; margin-top: 20px">
+                      Ajouter dans le panier
+                    </button>
+                    <button class="boutonSupprimerListeSouhait" type="button">Supprimer de la liste de souhait</button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </Table>
     </div>
-    <div class="caracteristiqueproduit">
-      <!--grid-->
-      <div class="nom">
-        <!--flex-->
-        <div class="marque" style="font-weight: bold">
-          <!--Requête pour obtenir la marque de la voiture-->
-          Mercedes-Benz&nbsp;
-        </div>
-        <div class="modele" style="font-weight: bold">
-          <!--Requête pour obtenir le modèle de la voiture-->
-          amg c63 gt s
-        </div>
-      </div>
-      <div class="prix">
-        <!--Requête pour obtenir le prix de la voiture-->
-        199 999 €
-      </div>
-      <div class="caracteristiques">
-        <!--<div class="année">
-                            L'année est à ajouter dans le model de voiture.
-                        </div>-->
-        <div class="kilometrage">
-          <div>Kilométrage</div>
-          <!--Requête pour obtenir le kilométrage de la voiture-->
-          <div>135 000 km</div>
-        </div>
-        <div class="carburant">
-          <div>Carburant</div>
-          <!--Requête pour obtenir le carburant de la voiture-->
-          <div>Essence</div>
-        </div>
-        <div class="boiteDeVitesse">
-          <div>Boîte de vitesse</div>
-          <!--Requête pour obtenir la boîte de vitesse de la voiture-->
-          <div>automatique</div>
-        </div>
-      </div>
-    </div>
-    <div class="boutons">
-      <button class="boutonAjouterPanier" type="button" style="margin-bottom: 10px; margin-top: 20px">Ajouter dans le panier</button>
-      <button class="boutonSupprimerListeSouhait" type="button">Supprimer de la liste de souhait</button>
-    </div>
-  </div>
-</div>
+  </body>
+</html>
