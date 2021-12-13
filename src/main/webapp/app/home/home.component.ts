@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable,timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -12,6 +12,7 @@ import { IVoiture } from 'app/entities/voiture/voiture.model';
 import {PanierService} from "../panier/panier.service";
 import { MatDialog } from '@angular/material/dialog';
 import { HintComponent } from 'app/hint/hint.component';
+
 
 @Component({
   selector: 'jhi-home',
@@ -54,16 +55,37 @@ export class HomeComponent implements OnInit, OnDestroy {
         // eslint-disable-next-line no-console
         console.log(res)
 
+        //la reaction pour click le button 'ajouter'
+        if(res === true)
+        {
+          this.dialog.open(HintComponent, {data:"Ajouter au panier!"}); 
+        }
+        else
+        {
+          this.dialog.open(HintComponent, {data:"Déja réservé"}); 
+        }
+
+        timer(2000) .subscribe(()=>
+        {
+          this.dialog.closeAll();
+        })
+
       });
     }
 
   }
 
-  /////////////////////
-  panierAction():void
-  {
-    this.dialog.open(HintComponent, {data:"ajouter au panier"}); 
-  }
+  ////losque on click le buttion 'ajouter au panier',il y a une dialog
+  // panierAction():void
+  // {
+  //   this.dialog.open(HintComponent, {data:"Ajouter au panier!"}); 
+
+  //   //setTimeout(3000);
+  //   timer(2000) .subscribe(()=>
+  //   {
+  //     this.dialog.closeAll();
+  //   })
+  // }
 
 
   ngOnInit(): void 
