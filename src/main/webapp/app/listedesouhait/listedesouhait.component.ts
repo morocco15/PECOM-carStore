@@ -62,14 +62,12 @@ export class ListedesouhaitComponent implements OnInit {
   }
   deplacerAuPanier(voiture:IVoiture):void{
     if(voiture.id!=null&&voiture.version!=null){
+      // eslint-disable-next-line no-console
+      console.log(this.username);
+      // eslint-disable-next-line no-console
+      console.log(voiture.model);
       this.homeService.ajouterVoiturePanier(this.username,voiture.id,voiture.version).subscribe((res:boolean)=>{
         console.error(res);
-        // eslint-disable-next-line no-console
-        console.log("resultat du deplacement");
-        // eslint-disable-next-line no-console
-        console.log(res);
-        // eslint-disable-next-line no-console
-        console.log(voiture.id);
         this.supprimerVoiture(voiture.id);
       })
     }

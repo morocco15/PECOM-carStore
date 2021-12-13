@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   voiture4!: IVoiture;
   username!: string;
   voitureChoisit!: IVoiture;
-  imagetest!: string;
   private readonly destroy$ = new Subject<void>();
 
   constructor(private accountService: AccountService,
@@ -80,8 +79,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
     this.callService();
-    this.imagetest="https://cars-store.oss-eu-central-1.aliyuncs.com/1.jpeg";
-    //"../../../content/images/amg-c63-gt.jpg"
     if (this.account) {
       this.username = this.account.login;
     }
