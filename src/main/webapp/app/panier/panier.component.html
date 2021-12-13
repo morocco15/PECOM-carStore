@@ -47,7 +47,7 @@
                   <div class="prix">
                     <div id="carac" style="font-size: larger">{{ voiture.prix }} €</div>
                   </div>
-                  <button class="boutonSupprimer">Supprimer la voiture du panier</button>
+                  <button class="boutonSupprimer"(click)="supprimerVoitureChoisite(voiture.id)">Supprimer la voiture du panier</button>
                   <button class="boutonFavoris">Déplacer vers la liste de souhait</button>
                 </div>
               </div>

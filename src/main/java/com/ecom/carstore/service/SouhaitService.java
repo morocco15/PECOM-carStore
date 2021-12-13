@@ -57,11 +57,29 @@ public class SouhaitService {
     }
 
     public boolean supprimerVoitureDuSouhait(String username,Long idVoiture){
-
-
-
+        User user = userRepository.findOneByUsername(username);
+        if(user!=null) {
+            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+            Souhait souhait = utilisateur.getSouhait();
+            //Voiture voiture = souhaitContains(souhait,idVoiture);
+            Voiture voiture = voitureService.findOneById(idVoiture);//il faut modifier
+            if(souhait.getVoitures().contains(voiture)){
+                souhait.removeVoitures(voiture);
+                return true;
+            }else {
+                return false;
+            }
+        }
         return false;
     }
+    public Voiture souhaitContains(Souhait souhait,Long idVoiture){
+        for(Voiture voiture:souhait.getVoitures()){
+            if(voiture.getId()==idVoiture)
+                return voiture;
+        }
+        return null;
+    }
+
     public List<Voiture> getSouhait(String username){
         List<Voiture> voitures = null;
         User user = userRepository.findOneByUsername(username);
