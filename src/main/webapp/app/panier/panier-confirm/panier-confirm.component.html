@@ -13,10 +13,6 @@
           <tr *ngFor="let voiture of voitures; trackBy: trackId">
             <td>
               <div class="confirmationCommande">
-                <div class="titre">
-                  <span class="nom" style="font-weight: bold; font-size: 25px">Confirmation de votre commande</span>
-                </div>
-
                 <div class="section">
                   <div class="nomVendeur">
                     <span style="font-weight: bold">Nom du vendeur ：</span> Xubeï<!--Requête pour obtenir le nom du vendeur-->
@@ -26,19 +22,19 @@
                   <img [src]="voiture.image1" alt="" class="article-image" height="199.5px" width="355.5px" />
 
                   <!--Barre de produits Afficher dynamiquement, les produits Le produit sélectionné provient de l'interface précédente-->
-                  <div class="article">
+                  <div class="article" id="carac">
                     <div class="marqueArticle">
                       <!-- <div class="product-name">{{ item.variant.product.title }}</div> -->
                       <!--Requête pour obtenir la marque de la voiture du panier-->
                       <span style="font-weight: bold">Marque ：</span> {{ voiture.marque }}
                     </div>
 
-                    <div class="modeleArticle">
+                    <div class="modeleArticle" id="carac">
                       <!--Requête pour obtenir le modèle de la voiture du panier-->
                       <span style="font-weight: bold">Modèle ：</span> {{ voiture.model }}
                     </div>
 
-                    <div class="prixArticle">
+                    <div class="prixArticle" id="carac">
                       <!--<span>{{ item.variant.price | currency: 'CNY' }}</span>-->
                       <!--Requête pour obtenir le prix de la voiture du panier-->
                       <span style="font-weight: bold">Prix：</span> {{ voiture.prix }} €
@@ -52,9 +48,7 @@
         <div class="sectionPaiement">
           <div class="prixTotal">
             <span style="font-weight: bold">Paiement total ：</span>
-            <span class="prix">
-              {{ sommeTotale }}
-            </span>
+            <span class="prix"> {{ sommeTotale }} € </span>
           </div>
 
           <button class="paiement" (click)="handlePay()">

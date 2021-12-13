@@ -2,7 +2,8 @@
 .caracteristiqueproduit,
 .kilometrage,
 .carburant,
-.boiteDeVitesse {
+.boiteDeVitesse,
+.boutons {
   display: grid;
 }
 
@@ -85,4 +86,20 @@ img {
 
 .nav-item {
   margin: 0 auto;
+}
+
+.caracteristiqueproduit {
+  margin-right: 50px;
+}
+
+.boutonSupprimer {
+  height: 35px;
+  border-radius: 10px;
+  background-color: rgb(231, 80, 80);
+}
+
+.boutonFavoris {
+  height: 35px;
+  border-radius: 10px;
+  background-color: rgb(231, 80, 80);
 }
