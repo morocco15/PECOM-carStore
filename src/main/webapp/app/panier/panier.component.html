@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head> </head>
-  <body>
-    <div class="table-responsive">
-      <Table responsive>
-        <thead>
-          <tr>
-            <th scope="col"><span>Panier</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let voiture of voitures; trackBy: trackId">
-            <td>
-              <div class="FicheProduit">
-                <div class="image">
-                  <img [src]="voiture.image1" height="199.5px" width="355.5px" />
-                </div>
-                <div class="caracteristiqueproduit">
-                  <div class="nom">
-                    <div class="marque" style="font-weight: bold">
-                      {{ voiture.marque }}
-                    </div>
-                    <div class="modele" style="font-weight: bold">
-                      {{ voiture.model }}
-                    </div>
-                  </div>
-                  <div class="caracteristiques">
-                    <!--<div class="année">
-                              L'année est à ajouter dans le model de voiture.
-                          </div>-->
-                    <div class="kilometrage">
-                      <div id="nomCarac">Kilométrage</div>
-                      <div id="carac">500000 km</div>
-                    </div>
-                    <div class="carburant">
-                      <div id="nomCarac">Carburant</div>
-                      <div id="carac">{{ voiture.carburant }}</div>
-                    </div>
-                    <div class="boiteDeVitesse">
-                      <div id="nomCarac">Boîte de vitesse</div>
-                      <div id="carac">{{ voiture.boiteVitesse }}</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="boutons">
-                  <div class="prix">
-                    <div id="carac" style="font-size: larger">{{ voiture.prix }} €</div>
-                  </div>
-                  <button class="boutonSupprimer">Supprimer la voiture du panier</button>
-                  <button class="boutonFavoris">Déplacer vers la liste de souhait</button>
-                </div>
+<head> </head>
+<body>
+<div class="table-responsive">
+  <Table responsive>
+    <thead>
+    <tr>
+      <th scope="col"><span>Panier</span></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let voiture of voitures; trackBy: trackId">
+      <td>
+        <div class="FicheProduit">
+          <div class="image">
+            <img [src]="voiture.image1" height="199.5px" width="355.5px" />
+          </div>
+          <div class="caracteristiqueproduit">
+            <div class="nom">
+              <div class="marque" style="font-weight: bold">
+                {{ voiture.marque }}
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-    </div>
-    <div class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      <a class="nav-link" routerLink="panierconfirm">
-        <button class="boutonValide" type="button">Valider le paiement</button>
-      </a>
-    </div>
-  </body>
+              <div class="modele" style="font-weight: bold">
+                {{ voiture.model }}
+              </div>
+            </div>
+            <div class="caracteristiques">
+              <!--<div class="année">
+                        L'année est à ajouter dans le model de voiture.
+                    </div>-->
+              <div class="kilometrage">
+                <div id="nomCarac">Kilométrage</div>
+                <div id="carac">500000 km</div>
+              </div>
+              <div class="carburant">
+                <div id="nomCarac">Carburant</div>
+                <div id="carac">{{ voiture.carburant }}</div>
+              </div>
+              <div class="boiteDeVitesse">
+                <div id="nomCarac">Boîte de vitesse</div>
+                <div id="carac">{{ voiture.boiteVitesse }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="boutons">
+            <div class="prix">
+              <div id="carac" style="font-size: larger">{{ voiture.prix }} €</div>
+            </div>
+            <button class="boutonSupprimer"(click)="supprimerVoitureChoisite(voiture.id)" >Supprimer la voiture du panier</button>
+            <button class="boutonFavoris">Déplacer vers la liste de souhait</button>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </Table>
+</div>
+<div class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <a class="nav-link" routerLink="panierconfirm">
+    <button class="boutonValide" type="button">Valider le paiement</button>
+  </a>
+</div>
+</body>
 </html>

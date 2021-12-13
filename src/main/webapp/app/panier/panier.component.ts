@@ -31,6 +31,8 @@ export class PanierComponent implements OnInit ,OnDestroy{
     return item.id!;
   }
   getPanier(): void {
+    // eslint-disable-next-line no-console
+    console.log("this.voitures.length")
     this.panierservice.getVoituresDuPanier(this.username).subscribe((res: IVoiture[])=>{
       console.error(res);
       this.voitures = res;
@@ -65,7 +67,6 @@ export class PanierComponent implements OnInit ,OnDestroy{
     if (this.account) {
       this.username = this.account.login;
     }
-    this.voitures=[];
     this.getPanier();
   }
 
