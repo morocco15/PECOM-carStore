@@ -10,7 +10,7 @@ export class HomeService {
 
   constructor(private httpClient: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  public getQuatreDernieresVoitures(debut: number, fin: number): Observable<IVoiture[]> {
+  public getVoituresRecentes(debut: number, fin: number): Observable<IVoiture[]> {
     return this.httpClient.get<IVoiture[]>(`${this.resourceUrl}/${debut}/${fin}`);
   }
 

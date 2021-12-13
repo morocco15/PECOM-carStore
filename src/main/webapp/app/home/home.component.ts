@@ -9,8 +9,8 @@ import { HomeService } from './home.service';
 
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
-import {PanierService} from "../panier/panier.service";
-import {SouhaitService} from "../listedesouhait/listedesouhait.service";
+import { PanierService } from '../panier/panier.service';
+import { SouhaitService } from '../listedesouhait/listedesouhait.service';
 
 @Component({
   selector: 'jhi-home',
@@ -27,15 +27,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   voitureChoisit!: IVoiture;
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService,
-              private router: Router,
-              private homeservice: HomeService,
-              private panierservice: PanierService,
-              private souhaitservice: SouhaitService,
-              private http: HttpClient) {}
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private homeservice: HomeService,
+    private panierservice: PanierService,
+    private souhaitservice: SouhaitService,
+    private http: HttpClient
+  ) {}
 
   callService(): void {
-    this.homeservice.getQuatreDernieresVoitures(0, 4).subscribe((res: IVoiture[]) => {
+    this.homeservice.getVoituresRecentes(0, 4).subscribe((res: IVoiture[]) => {
       //eslint-disable-next-line no-console
       console.error(res);
       this.voiture1 = res[0];
@@ -45,35 +47,34 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  btnAction(voiture:IVoiture): void {
+  btnAction(voiture: IVoiture): void {
     // eslint-disable-next-line no-console
     this.voitureChoisit = voiture;
-    if(this.voitureChoisit.id!=null && this.voitureChoisit.version!=null){
-      this.panierservice.ajouterVoiturePanier(this.username, this.voitureChoisit.id,this.voitureChoisit.version).subscribe((res: boolean) => {
-        //eslint-disable-next-line no-console
-        console.error(res);
-        // eslint-disable-next-line no-console
-        console.log(res)
-      });
+    if (this.voitureChoisit.id != null && this.voitureChoisit.version != null) {
+      this.panierservice
+        .ajouterVoiturePanier(this.username, this.voitureChoisit.id, this.voitureChoisit.version)
+        .subscribe((res: boolean) => {
+          //eslint-disable-next-line no-console
+          console.error(res);
+          // eslint-disable-next-line no-console
+          console.log(res);
+        });
     }
   }
 
-  btnActionSouhait(voiture:IVoiture):void{
-    if(voiture.id!=null){
-      this.souhaitservice.ajouterVoitureSouhait(this.username,voiture.id).subscribe((res:boolean)=>{
+  btnActionSouhait(voiture: IVoiture): void {
+    if (voiture.id != null) {
+      this.souhaitservice.ajouterVoitureSouhait(this.username, voiture.id).subscribe((res: boolean) => {
         console.error(res);
         // eslint-disable-next-line no-console
-        console.log(res)
-      })
+        console.log(res);
+      });
       // eslint-disable-next-line no-console
-      console.log("clic ok!")
+      console.log('clic ok!');
     }
-
-
   }
 
   ngOnInit(): void {
-
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
