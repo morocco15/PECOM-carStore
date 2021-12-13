@@ -36,13 +36,15 @@ export class NavbarComponent implements OnInit {
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
     this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
-    //const texte = document.getElementById("menuConnexion")
+    /*const texte = document.getElementById("menuConnexion")
     //eslint-disable-next-line no-console
     //console.log(texte?.textContent);
-    //texte!.textContent="Paramètres";
+    texte!.textContent="Paramètres";
     //eslint-disable-next-line no-console
-    /*console.log("je suis authentifié");
-    if(this.accountService.isAuthenticated()){
+    console.log("je suis authentifié");
+    //eslint-disable-next-line no-console
+    console.log(this.accountService.isAuthenticated());*/
+    /*if(this.accountService.isAuthenticated()){
       texte!.textContent="Paramètres";
       //eslint-disable-next-line no-console
       console.log("je suis authentifié");
@@ -56,13 +58,21 @@ export class NavbarComponent implements OnInit {
 
   /*ngAfterViewInit(): void {
     //eslint-disable-next-line no-console
-    console.log("---ngAfterViewInit() Demo---");
+    //console.log("---ngAfterViewInit() Demo---");
     const texte = document.getElementById("menuConnexion")
     //eslint-disable-next-line no-console
-    console.log(texte?.textContent);
+    //console.log(texte?.textContent);
+    texte!.textContent="Paramètres";
+    //eslint-disable-next-line no-console
+    console.log("je suis authentifié");
+    //eslint-disable-next-line no-console
+    console.log(this.accountService.isAuthenticated());
+    /*const texte = document.getElementById("menuConnexion")
+    //eslint-disable-next-line no-console
+    //console.log(texte?.textContent);
     //texte!.textContent="Paramètres";
     //eslint-disable-next-line no-console
-    console.log(texte?.textContent);
+    //console.log(texte?.textContent);
     if(this.accountService.isAuthenticated()){
       texte!.textContent="Paramètres";
       //eslint-disable-next-line no-console
@@ -72,8 +82,8 @@ export class NavbarComponent implements OnInit {
       texte!.textContent="Connexion";
       //eslint-disable-next-line no-console
       console.log("je ne suis pas authentifié");
-    }
-  }*/
+    }*/
+  //}
 
   collapseNavbar(): void {
     this.isNavbarCollapsed = true;
@@ -81,6 +91,8 @@ export class NavbarComponent implements OnInit {
 
   login(): void {
     this.router.navigate(['/login']);
+    //const texte = document.getElementById("menuConnexion")
+    //texte!.textContent="Paramètres";
   }
 
   logout(): void {
