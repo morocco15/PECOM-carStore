@@ -4,6 +4,7 @@ import com.ecom.carstore.domain.*;
 import com.ecom.carstore.repository.SouhaitRepository;
 import com.ecom.carstore.repository.UserRepository;
 import com.ecom.carstore.repository.UtilisateurRepository;
+import com.ecom.carstore.service.SouhaitService;
 import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -36,14 +37,17 @@ public class SouhaitResource {
     private String applicationName;
 
     private final SouhaitRepository souhaitRepository;
+    private final SouhaitService souhaitService;
     private final UserRepository userRepository;
     private final UtilisateurRepository utilisateurRepository;
     private final VoitureService voitureService;
     public SouhaitResource(SouhaitRepository souhaitRepository,
+                           SouhaitService souhaitService,
                            UserRepository userRepository,
                            UtilisateurRepository utilisateurRepository,
                            VoitureService voitureService) {
         this.souhaitRepository = souhaitRepository;
+        this.souhaitService = souhaitService;
         this.userRepository = userRepository;
         this.utilisateurRepository = utilisateurRepository;
         this.voitureService = voitureService;
@@ -186,22 +190,16 @@ public class SouhaitResource {
     @GetMapping("/souhait/{username}/{id}")
     @ResponseBody
     public boolean AjouterVoitureDansSouhait(@PathVariable("username") String username, @PathVariable("id") Long id) {
-        User user = userRepository.findOneByUsername(username);
-        if(user!=null){
-            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
-            Souhait souhait = utilisateur.getSouhait();
-            Voiture voiture = voitureService.findOneById(id);
-            if(souhait!=null && voiture!=null){
-                if(souhait.getVoitures().contains(voiture)){
-                    return false;
-                }else {
-                    souhait.addVoitures(voiture);
-                    return true;
-                }
-            }else {
-                return false;
-            }
-        }
-        return false;
+        return souhaitService.ajouterVoitureDansSouhait(username,id);
+    }
+    @GetMapping("/souhait/{username}")
+    @ResponseBody
+    public List<Voiture> getPanier(@PathVariable("username") String username){
+        return souhaitService.getSouhait(username);
+    }
+    @GetMapping("/souhait_sup/{username}/{id}")
+    @ResponseBody
+    public boolean SupprimerVoitureDuSouhait(@PathVariable("username") String username, @PathVariable("id") Long id) {
+        return souhaitService.supprimerVoitureDuSouhait(username,id);
     }
 }

@@ -17,7 +17,7 @@
           <input type="checkbox" class="checkboxvoiture1" id="voiture1" />
           <div class="image">
             <!--Requête pour récupérer l'image-->
-            <img [src]="voiture.image1" height="199.5px" width="355.5px" (click)="supprimerVoitureChoisite(voiture.id)"/>
+            <img [src]="voiture.image1" height="199.5px" width="355.5px" />
           </div>
           <div class="caracteristiqueproduit">
             <!--grid-->
@@ -59,6 +59,7 @@
               </div>
             </div>
           </div>
+          <button class="boutonSupprimer" (click)="supprimerVoitureChoisite(voiture.id)">Bouton</button>
         </div>
       </td>
     </tr>
