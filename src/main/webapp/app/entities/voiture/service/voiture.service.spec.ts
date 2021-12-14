@@ -43,10 +43,11 @@ describe('Voiture Service', () => {
       co2: 0,
       chevaux: 0,
       carburant: Carburant.ESSENCE,
-      annees: currentDate,
+      annees: 0,
       ville: 'AAAAAAA',
       codePostal: 0,
       description: 'AAAAAAA',
+      kilometrage: 0,
     };
   });
 
@@ -55,7 +56,6 @@ describe('Voiture Service', () => {
       const returnedFromService = Object.assign(
         {
           miseEnVente: currentDate.format(DATE_TIME_FORMAT),
-          annees: currentDate.format(DATE_TIME_FORMAT),
         },
         elemDefault
       );
@@ -72,7 +72,6 @@ describe('Voiture Service', () => {
         {
           id: 0,
           miseEnVente: currentDate.format(DATE_TIME_FORMAT),
-          annees: currentDate.format(DATE_TIME_FORMAT),
         },
         elemDefault
       );
@@ -80,7 +79,6 @@ describe('Voiture Service', () => {
       const expected = Object.assign(
         {
           miseEnVente: currentDate,
-          annees: currentDate,
         },
         returnedFromService
       );
@@ -110,10 +108,11 @@ describe('Voiture Service', () => {
           co2: 1,
           chevaux: 1,
           carburant: 'BBBBBB',
-          annees: currentDate.format(DATE_TIME_FORMAT),
+          annees: 1,
           ville: 'BBBBBB',
           codePostal: 1,
           description: 'BBBBBB',
+          kilometrage: 1,
         },
         elemDefault
       );
@@ -121,7 +120,6 @@ describe('Voiture Service', () => {
       const expected = Object.assign(
         {
           miseEnVente: currentDate,
-          annees: currentDate,
         },
         returnedFromService
       );
@@ -145,6 +143,7 @@ describe('Voiture Service', () => {
           chevaux: 1,
           codePostal: 1,
           description: 'BBBBBB',
+          kilometrage: 1,
         },
         new Voiture()
       );
@@ -154,7 +153,6 @@ describe('Voiture Service', () => {
       const expected = Object.assign(
         {
           miseEnVente: currentDate,
-          annees: currentDate,
         },
         returnedFromService
       );
@@ -184,10 +182,11 @@ describe('Voiture Service', () => {
           co2: 1,
           chevaux: 1,
           carburant: 'BBBBBB',
-          annees: currentDate.format(DATE_TIME_FORMAT),
+          annees: 1,
           ville: 'BBBBBB',
           codePostal: 1,
           description: 'BBBBBB',
+          kilometrage: 1,
         },
         elemDefault
       );
@@ -195,7 +194,6 @@ describe('Voiture Service', () => {
       const expected = Object.assign(
         {
           miseEnVente: currentDate,
-          annees: currentDate,
         },
         returnedFromService
       );
@@ -245,7 +243,7 @@ describe('Voiture Service', () => {
       });
 
       it('should add only unique Voiture to an array', () => {
-        const voitureArray: IVoiture[] = [{ id: 123 }, { id: 456 }, { id: 97568 }];
+        const voitureArray: IVoiture[] = [{ id: 123 }, { id: 456 }, { id: 52280 }];
         const voitureCollection: IVoiture[] = [{ id: 123 }];
         expectedResult = service.addVoitureToCollectionIfMissing(voitureCollection, ...voitureArray);
         expect(expectedResult).toHaveLength(3);

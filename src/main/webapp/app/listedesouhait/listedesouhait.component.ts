@@ -21,12 +21,14 @@ export class ListedesouhaitComponent implements OnInit {
   voitures!: IVoiture[];
   account: Account | null = null;
   username!: string;
+  voitureChoisit!:IVoiture;
   private readonly destroy$ = new Subject<void>();
+
   constructor(
     private accountService: AccountService,
     private router: Router,
     private souhaitService: SouhaitService,
-    private homeService: HomeService,
+    private panierService: PanierService,
     private http: HttpClient) {
   }
 
@@ -61,14 +63,11 @@ export class ListedesouhaitComponent implements OnInit {
     }
   }
   deplacerAuPanier(voiture:IVoiture):void{
-    if(voiture.id!=null&&voiture.version!=null){
-      // eslint-disable-next-line no-console
-      console.log(this.username);
-      // eslint-disable-next-line no-console
-      console.log(voiture.model);
-      this.homeService.ajouterVoiturePanier(this.username,voiture.id,voiture.version).subscribe((res:boolean)=>{
+    this.voitureChoisit=voiture;
+    this.supprimerVoiture(this.voitureChoisit.id);
+    if(this.voitureChoisit.id!=null&&this.voitureChoisit.version!=null){
+      this.panierService.ajouterVoiturePanier(this.username,this.voitureChoisit.id,this.voitureChoisit.version).subscribe((res:boolean)=>{
         console.error(res);
-        this.supprimerVoiture(voiture.id);
       })
     }
   }
