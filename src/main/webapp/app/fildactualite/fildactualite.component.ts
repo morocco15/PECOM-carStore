@@ -8,7 +8,7 @@ import { Account } from 'app/core/auth/account.model';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
 import { IPanier } from 'app/entities/panier/panier.model';
-
+//import { ModalController } from 'ionic-angular';
 import { HomeService } from 'app/home/home.service';
 
 @Component({
@@ -23,6 +23,7 @@ export class FildactualiteComponent implements OnInit {
   debut = 0;
   fin = 10;
   coef = 1;
+  sendURL!: string;
   private readonly destroy$ = new Subject<void>();
 
   constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService, private http: HttpClient) {}
@@ -47,6 +48,16 @@ export class FildactualiteComponent implements OnInit {
       this.voitures = res;
       this.coef++;
     });
+    /*sendvalue(model:string|undefined|null):void{
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,eqeqeq
+    if(model!=undefined || model!=null) {
+      this.sendURL = encodeURI("value=" + model);
+      // eslint-disable-next-line no-console
+      console.log("this.sendURL")
+      // eslint-disable-next-line no-console
+      console.log(this.sendURL)
+      window.location.href = this.sendURL;
+    }*/
   }
 
   ngOnInit(): void {

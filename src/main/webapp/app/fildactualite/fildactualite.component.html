@@ -20,13 +20,16 @@
                     <!--Requête pour récupérer l'image-->
                     <img [src]="voiture.image1" height="199.5px" width="355.5px" />
                   </div>
+
                   <div class="caracteristiqueproduit">
                     <div class="nom">
                       <div class="marque" style="font-weight: bold">
                         {{ voiture.marque }}
                       </div>
-                      <div class="modele" style="font-weight: bold">
-                        {{ voiture.model }}
+                      <div class="model" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link" routerLink="/article">
+                          {{ voiture.model }}
+                        </a>
                       </div>
                     </div>
                     <div class="prix">{{ voiture.prix }} €</div>
