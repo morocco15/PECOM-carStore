@@ -3,15 +3,17 @@
   <head></head>
   <body>
     <div class="table-responsive">
-      <Table responsive>
+      <Table responsive style="width: 100%">
         <thead>
           <tr>
-            <th scope="col"><span>Fil d'actualité</span></th>
+            <th scope="col" style="text-align: center; font-size: 35px; padding-bottom: 15px; border-bottom: solid 2px black">
+              <span>Fil d'actualité</span>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let voiture of voitures; trackBy: trackId">
-            <td>
+            <td style="padding-top: 30px">
               <div class="filPrincipal">
                 <div class="ficheProduit">
                   <div class="image">
@@ -53,6 +55,10 @@
           </tr>
         </tbody>
       </Table>
+    </div>
+    <div style="display: flex; justify-content: center; margin-top: 50px">
+      <button (click)="afficherplus()" style="border-radius: 10px; margin-right: 10px">Charger plus de voiture</button>
+      <button (click)="callService()" style="border-radius: 10px; margin-left: 10px">Revenir au début</button>
     </div>
   </body>
 </html>

@@ -3,10 +3,12 @@
   <head></head>
   <body>
     <div class="table-responsive">
-      <Table responsive>
+      <Table responsive style="width: 100%">
         <thead>
           <tr>
-            <th scope="col"><span>Liste de souhait</span></th>
+            <th scope="col" style="text-align: center; font-size: 35px; padding-bottom: 15px; border-bottom: solid 2px black">
+              <span>Liste de souhait</span>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -30,7 +32,7 @@
                       <div id="carac" style="font-size: larger">{{ voiture.prix }} €</div>
                     </div>
                     <div class="caracteristiques">
-                      <div class="année">{{ voiture.annees}}</div>
+                      <div class="année">{{ voiture.annees }}</div>
                       <div class="kilometrage">
                         <div>Kilométrage</div>
                         <div>135 000 km</div>
@@ -48,10 +50,17 @@
                     </div>
                   </div>
                   <div class="boutons">
-                    <button class="boutonAjouterPanier" type="button" style="margin-bottom: 10px; margin-top: 20px"(click)="deplacerAuPanier(voiture)" >
+                    <button
+                      class="boutonAjouterPanier"
+                      type="button"
+                      style="margin-bottom: 10px; margin-top: 20px"
+                      (click)="deplacerAuPanier(voiture)"
+                    >
                       Deplacer vers le panier
                     </button>
-                    <button class="boutonSupprimerListeSouhait"(click)="supprimerVoiture(voiture.id)">Supprimer de la liste de souhait</button>
+                    <button class="boutonSupprimerListeSouhait" (click)="supprimerVoiture(voiture.id)">
+                      Supprimer de la liste de souhait
+                    </button>
                   </div>
                 </div>
               </div>
