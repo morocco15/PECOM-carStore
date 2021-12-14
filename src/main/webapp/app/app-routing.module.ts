@@ -21,11 +21,6 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
           component: PanierConfirmComponent,
         },
         {
-          path: 'article',
-          component: ArticleComponent,
-        },
-
-        {
           path: 'admin',
           data: {
             authorities: [Authority.ADMIN],
@@ -36,6 +31,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
         {
           path: 'account',
           loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+        },
+        {
+          path: 'article',
+          loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
         },
         {
           path: 'fildactualite',
