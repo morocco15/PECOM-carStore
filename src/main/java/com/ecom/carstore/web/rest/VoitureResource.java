@@ -262,9 +262,9 @@ public class VoitureResource {
     public List<Voiture> limiteEtat(@PathVariable("etat") Etat etat) {
         return voitureService.limiteEtat(etat);
     }
-    /*@PostMapping("limiteCategorie/{categorie}")
-    public List<Voiture> limiteEtat(@PathVariable("categorie") Categorie categorie){
-        return voitureService.limiteCategorie(categorie);
-    }*/
 
+    @GetMapping("limiteCategorie/{categorie}")
+    public List<Voiture> limiteEtat(@PathVariable("categorie") String categorie) {
+        return voitureService.limiteCategorie(categorie);
+    }
 }

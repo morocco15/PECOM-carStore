@@ -80,7 +80,8 @@ public class VoitureService {
     public List<Voiture> limiteEtat(Etat etat) {
         return voitureRepository.limiteEtat(etat);
     }
-    /*public List<Voiture> limiteCategorie(Categorie categorie) {
+
+    public List<Voiture> limiteCategorie(String categorie) {
         return voitureRepository.limiteCategorie(categorie);
-    }*/
+    }
 }

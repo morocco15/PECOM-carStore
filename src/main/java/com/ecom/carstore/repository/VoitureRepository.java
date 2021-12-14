@@ -47,6 +47,11 @@ public interface VoitureRepository extends JpaRepository<Voiture, Long> {
 
     @Query("select v from Voiture as v where v.etat = :etat")
     List<Voiture> limiteEtat(@Param("etat") Etat etat);
-    /*@Query("select v from Voiture as v where :categorie in v.categories")
-    List<Voiture> limiteCategorie(@Param("categorie")Categorie categorie);*/
+
+    //select v.* from Voiture as v join rel_voiture__categories r on v.id=r.voiture_id join Categorie as c on r.categories_id=c.id where c.categorie = 'Account mindshare'
+    @Query(
+        value = "select v.* from Voiture as v join rel_voiture__categories r on v.id=r.voiture_id join Categorie as c on r.categories_id=c.id where c.categorie = :categorie",
+        nativeQuery = true
+    )
+    List<Voiture> limiteCategorie(@Param("categorie") String categorie);
 }
