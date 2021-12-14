@@ -199,7 +199,7 @@ public class PanierResource {
             Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
             Panier panier = utilisateur.getPanier();
             Voiture voiture = voitureService.findOneById(id);
-            if(!panier.voitures.contains(voiture)){
+            if(!panier.getVoitures().contains(voiture)){
                 panier.addVoitures(voiture);
             }
             panierRepository.save(panier);

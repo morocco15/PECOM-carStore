@@ -44,10 +44,11 @@ entity Voiture {
     co2 Integer,
     chevaux Integer,
     carburant Carburant,
-    annees ZonedDateTime,
+    annees Integer,
     ville String,
     codePostal Integer,
     description String,
+    kilometrage Integer,
 }
 entity Categorie {
     categorie String

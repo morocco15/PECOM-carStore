@@ -62,6 +62,7 @@ export class VoitureUpdateComponent implements OnInit {
     ville: [],
     codePostal: [],
     description: [],
+    kilometrage: [],
     marque: [],
     categories: [],
     commande: [],
@@ -85,7 +86,6 @@ export class VoitureUpdateComponent implements OnInit {
       if (voiture.id === undefined) {
         const today = dayjs().startOf('day');
         voiture.miseEnVente = today;
-        voiture.annees = today;
       }
 
       this.updateForm(voiture);
@@ -175,10 +175,11 @@ export class VoitureUpdateComponent implements OnInit {
       co2: voiture.co2,
       chevaux: voiture.chevaux,
       carburant: voiture.carburant,
-      annees: voiture.annees ? voiture.annees.format(DATE_TIME_FORMAT) : null,
+      annees: voiture.annees,
       ville: voiture.ville,
       codePostal: voiture.codePostal,
       description: voiture.description,
+      kilometrage: voiture.kilometrage,
       marque: voiture.marque,
       categories: voiture.categories,
       commande: voiture.commande,
@@ -261,10 +262,11 @@ export class VoitureUpdateComponent implements OnInit {
       co2: this.editForm.get(['co2'])!.value,
       chevaux: this.editForm.get(['chevaux'])!.value,
       carburant: this.editForm.get(['carburant'])!.value,
-      annees: this.editForm.get(['annees'])!.value ? dayjs(this.editForm.get(['annees'])!.value, DATE_TIME_FORMAT) : undefined,
+      annees: this.editForm.get(['annees'])!.value,
       ville: this.editForm.get(['ville'])!.value,
       codePostal: this.editForm.get(['codePostal'])!.value,
       description: this.editForm.get(['description'])!.value,
+      kilometrage: this.editForm.get(['kilometrage'])!.value,
       marque: this.editForm.get(['marque'])!.value,
       categories: this.editForm.get(['categories'])!.value,
       commande: this.editForm.get(['commande'])!.value,
