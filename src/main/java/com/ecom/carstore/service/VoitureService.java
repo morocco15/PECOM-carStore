@@ -1,8 +1,10 @@
 package com.ecom.carstore.service;
 
+import com.ecom.carstore.domain.Categorie;
 import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.domain.User;
 import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.enumeration.Etat;
 import com.ecom.carstore.domain.enumeration.Statut;
 import com.ecom.carstore.repository.PanierRepository;
 import com.ecom.carstore.repository.UserRepository;
@@ -62,4 +64,23 @@ public class VoitureService {
             voitureRepository.save(voiture);
         }
     }
+
+    public List<Voiture> maxPrix(Long max) {
+        return voitureRepository.maxPrix(max);
+    }
+
+    public List<Voiture> minPrix(Long min) {
+        return voitureRepository.minPrix(min);
+    }
+
+    public List<Voiture> limitePrix(Long min, Long max) {
+        return voitureRepository.limitePrix(min, max);
+    }
+
+    public List<Voiture> limiteEtat(Etat etat) {
+        return voitureRepository.limiteEtat(etat);
+    }
+    /*public List<Voiture> limiteCategorie(Categorie categorie) {
+        return voitureRepository.limiteCategorie(categorie);
+    }*/
 }

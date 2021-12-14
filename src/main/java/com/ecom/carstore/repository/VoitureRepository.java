@@ -1,7 +1,10 @@
 package com.ecom.carstore.repository;
 
+import com.ecom.carstore.domain.Categorie;
 import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.enumeration.Etat;
+import com.ecom.carstore.domain.enumeration.Statut;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -33,5 +36,17 @@ public interface VoitureRepository extends JpaRepository<Voiture, Long> {
     @Query("select voiture.version from Voiture voiture where voiture.id=:id")
     Integer getVoitureVersion(@Param("id") Long id);
 
+    @Query("select v from Voiture as v where v.prix <= :max")
+    List<Voiture> maxPrix(@Param("max") Long max);
 
+    @Query("select v from Voiture as v where v.prix >= :min")
+    List<Voiture> minPrix(@Param("min") Long min);
+
+    @Query("select v from Voiture as v where v.prix >= :min and v.prix <= :max")
+    List<Voiture> limitePrix(@Param("min") Long min, @Param("max") Long max);
+
+    @Query("select v from Voiture as v where v.etat = :etat")
+    List<Voiture> limiteEtat(@Param("etat") Etat etat);
+    /*@Query("select v from Voiture as v where :categorie in v.categories")
+    List<Voiture> limiteCategorie(@Param("categorie")Categorie categorie);*/
 }
