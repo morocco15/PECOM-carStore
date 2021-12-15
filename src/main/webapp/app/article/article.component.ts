@@ -39,10 +39,7 @@ export class ArticleComponent implements OnInit {
       this.panierservice
         .ajouterVoiturePanier(this.username, this.voitureChoisit.id, this.voitureChoisit.version)
         .subscribe((res: boolean) => {
-          //eslint-disable-next-line no-console
-          console.error(res);
-          // eslint-disable-next-line no-console
-          console.log(res);
+          //
         });
     }
   }
@@ -50,9 +47,7 @@ export class ArticleComponent implements OnInit {
   AjouterSouhait(): void {
     if (this.voitureChoisit.id != null) {
       this.souhaitservice.ajouterVoitureSouhait(this.username, this.voitureChoisit.id).subscribe((res: boolean) => {
-        console.error(res);
-        // eslint-disable-next-line no-console
-        console.log(res);
+        //
       });
     }
   }
@@ -61,8 +56,6 @@ export class ArticleComponent implements OnInit {
     this.homeservice.getVoituresByID(FildactualiteComponent.voitureid).subscribe((res: IVoiture) => {
       this.voiture = res;
     });
-    // eslint-disable-next-line no-console
-    console.log(FildactualiteComponent.voitureid);
   }
 
   ngOnInit(): void {

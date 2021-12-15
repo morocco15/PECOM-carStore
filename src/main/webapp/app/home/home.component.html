@@ -10,24 +10,13 @@
   <div class="voiture">
     <div class="voiture1">
       <div class="nom">
-        <div class="marque" style="font-weight: bold">
-          <!--Requête pour obtenir la marque de la voiture-->
-          <!--{{voiture[1].marque}}--><!--MercedesBenz&nbsp;-->
-          {{ voiture1.marque!.marque }}
-        </div>
-        <div class="modele" style="font-weight: bold">
-          <!--Requête pour obtenir le modèle de la voiture-->
+        <div class="marque" (click)="ficheproduit(voiture1.id!)">
+          {{ voiture1.marque!.marque }}&nbsp;&nbsp;
           {{ voiture1.model }}
-          <!--amg c63 gt s-->
         </div>
       </div>
-      <div class="prix" style="text-align: center">
-        <!--Requete pour obtenir le prix-->
-        {{ voiture1.prix }} €
-        <!--199 999€-->
-      </div>
-      <div class="image">
-        <!--Requête pour récupérer l'image-->
+      <div class="prix" style="text-align: center">{{ voiture1.prix }} €</div>
+      <div class="image" (click)="ficheproduit(voiture1.id!)">
         <img [src]="voiture1.image1" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
@@ -38,24 +27,13 @@
     <div class="espacehorizontal" style="width: 200px"></div>
     <div class="voiture1">
       <div class="nom">
-        <div class="marque" style="font-weight: bold">
-          <!--Requête pour obtenir la marque de la voiture-->
-          <!--MercedesBenz&nbsp;-->
-          {{ voiture2.marque!.marque }}
-        </div>
-        <div class="modele" style="font-weight: bold">
-          <!--Requête pour obtenir le modèle de la voiture-->
+        <div class="marque" (click)="ficheproduit(voiture2.id!)">
+          {{ voiture2.marque!.marque }}&nbsp;&nbsp;
           {{ voiture2.model }}
-          <!--amg c63 gt s-->
         </div>
       </div>
-      <div class="prix" style="text-align: center">
-        <!--Requete pour obtenir le prix-->
-        {{ voiture2.prix }} €
-        <!--199 999€-->
-      </div>
-      <div class="image">
-        <!--Requête pour récupérer l'image-->
+      <div class="prix" style="text-align: center">{{ voiture2.prix }} €</div>
+      <div class="image" (click)="ficheproduit(voiture2.id!)">
         <img [src]="voiture2.image1" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
@@ -67,25 +45,14 @@
   <div class="espacevertical" style="height: 80px"></div>
   <div class="voiture">
     <div class="voiture2">
-      <div class="image">
-        <!--Requête pour récupérer l'image-->
+      <div class="image" (click)="ficheproduit(voiture3.id!)">
         <img [src]="voiture3.image1" height="199.5px" width="355.5px" />
       </div>
-      <div class="prix" style="text-align: center">
-        <!--Requete pour obtenir le prix-->
-        {{ voiture3.prix }} €
-        <!--199 999€-->
-      </div>
+      <div class="prix" style="text-align: center">{{ voiture3.prix }} €</div>
       <div class="nom">
-        <div class="marque" style="font-weight: bold">
-          <!--Requête pour obtenir la marque de la voiture-->
-          <!--MercedesBenz&nbsp;-->
-          {{ voiture3.marque!.marque }}
-        </div>
-        <div class="modele" style="font-weight: bold">
-          <!--Requête pour obtenir le modèle de la voiture-->
+        <div class="marque" (click)="ficheproduit(voiture3.id!)">
+          {{ voiture3.marque!.marque }}&nbsp;&nbsp;
           {{ voiture3.model }}
-          <!--amg c63 gt s-->
         </div>
       </div>
       <div class="boutonChoix">
@@ -95,25 +62,14 @@
     </div>
     <div class="espacehorizontal" style="width: 200px"></div>
     <div class="voiture2">
-      <div class="image">
-        <!--Requête pour récupérer l'image-->
+      <div class="image" (click)="ficheproduit(voiture4.id!)">
         <img [src]="voiture4.image1" height="199.5px" width="355.5px" />
       </div>
-      <div class="prix" style="text-align: center">
-        <!--Requete pour obtenir le prix-->
-        {{ voiture4.prix }} €
-        <!--199 999€-->
-      </div>
+      <div class="prix" style="text-align: center">{{ voiture4.prix }} €</div>
       <div class="nom">
-        <div class="marque" style="font-weight: bold">
-          <!--Requête pour obtenir la marque de la voiture-->
-          <!--MercedesBenz&nbsp;-->
-          {{ voiture4.marque!.marque }}
-        </div>
-        <div class="modele" style="font-weight: bold">
-          <!--Requête pour obtenir le modèle de la voiture-->
+        <div class="marque" (click)="ficheproduit(voiture4.id!)">
+          {{ voiture4.marque!.marque }}&nbsp;&nbsp;
           {{ voiture4.model }}
-          <!--amg c63 gt s-->
         </div>
       </div>
       <div class="boutonChoix">

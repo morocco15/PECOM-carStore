@@ -18,8 +18,9 @@
 
 .kilometrage,
 .nom,
-.prix {
-  margin-left: 20px;
+.prix,
+.annees {
+  margin-left: 25px;
 }
 
 .carburant,
@@ -27,8 +28,9 @@
   margin-left: 35px;
 }
 
-img {
-  border-radius: 5%;
+.image:hover {
+  cursor: pointer;
+  border: solid 0.5px black;
 }
 
 .boutons {
@@ -37,4 +39,19 @@ img {
 }
 button {
   border-radius: 10%;
+}
+
+.marque {
+  height: min-content;
+  font-weight: bold;
+}
+
+.marque:hover {
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.image:hover {
+  cursor: pointer;
+  border: solid 0.5px black;
 }

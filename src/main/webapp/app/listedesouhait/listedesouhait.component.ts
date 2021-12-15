@@ -10,7 +10,7 @@ import { IVoiture } from 'app/entities/voiture/voiture.model';
 import { IPanier } from 'app/entities/panier/panier.model';
 import { PanierService } from '../panier/panier.service';
 import { SouhaitService } from './listedesouhait.service';
-import { HomeService } from '../home/home.service';
+import { FildactualiteComponent } from 'app/fildactualite/fildactualite.component';
 
 @Component({
   selector: 'jhi-listedesouhait',
@@ -29,8 +29,7 @@ export class ListedesouhaitComponent implements OnInit {
     private accountService: AccountService,
     private router: Router,
     private souhaitService: SouhaitService,
-    private panierService: PanierService,
-    private http: HttpClient
+    private panierService: PanierService
   ) {}
 
   trackId(index: number, item: IPanier): number {
@@ -38,25 +37,17 @@ export class ListedesouhaitComponent implements OnInit {
   }
 
   getSouhait(): void {
-    // eslint-disable-next-line no-console
-    console.log('this.voitures.length');
-
     this.souhaitService.getSouhait(this.username).subscribe((res: IVoiture[]) => {
       console.error(res);
       this.voitures = res;
       if (this.voitures.length === 0) {
         this.isEmpty = true;
       }
-      // eslint-disable-next-line no-console
-      console.log(this.voitures.length);
     });
   }
 
   supprimerVoiture(id: number | undefined): void {
-    // eslint-disable-next-line no-console
-    console.log('clic ok');
-    // eslint-disable-next-line eqeqeq
-    if (id != undefined) {
+    if (id !== undefined) {
       this.souhaitService.supprimerVoitureSouhait(this.username, id).subscribe((res: boolean) => {
         console.error(res);
         if (res) {
@@ -76,6 +67,11 @@ export class ListedesouhaitComponent implements OnInit {
           console.error(res);
         });
     }
+  }
+
+  ficheproduit(id: number): void {
+    FildactualiteComponent.voitureid = id;
+    this.router.navigate(['/article']);
   }
 
   ngOnInit(): void {

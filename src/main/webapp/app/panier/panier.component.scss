@@ -22,13 +22,13 @@
 
 .carburant,
 .boiteDeVitesse,
-.prix {
+.prix,
+.kilometrage {
   margin-left: 100px;
 }
 
-img {
-  border-radius: 5%;
-  margin-left: 35px;
+.annees {
+  margin-left: 40px;
 }
 
 .Titre {
@@ -41,6 +41,7 @@ img {
   border: 1px solid grey;
   padding: 10px;
   margin-bottom: 10px;
+  padding-left: 35px;
 }
 
 #nomCarac {
@@ -48,7 +49,6 @@ img {
 }
 
 #carac {
-  font-weight: bold;
   font-size: 16px;
 }
 
@@ -100,4 +100,19 @@ img {
 .boutonFavoris {
   border-radius: 10px;
   background-color: rgb(231, 80, 80);
+}
+
+.marque {
+  height: min-content;
+  font-weight: bold;
+}
+
+.marque:hover {
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.image:hover {
+  cursor: pointer;
+  border: solid 0.5px black;
 }

@@ -1,14 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Observable, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
-import { IPanier } from 'app/entities/panier/panier.model';
-//import { ModalController } from 'ionic-angular';
 import { HomeService } from 'app/home/home.service';
 
 @Component({
@@ -25,6 +23,7 @@ export class FildactualiteComponent implements OnInit {
   fin = 10;
   coef = 1;
   sendURL!: string;
+  listCategorie!: string[];
   private readonly destroy$ = new Subject<void>();
 
   constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService, private http: HttpClient) {}
@@ -34,9 +33,12 @@ export class FildactualiteComponent implements OnInit {
       this.voitures = res;
       this.coef = 1;
     });
+    this.homeservice.getListCategorie().subscribe((res: string[]) => {
+      this.listCategorie = res;
+    });
   }
 
-  trackId(index: number, item: IPanier): number {
+  trackId(index: number, item: IVoiture): number {
     return item.id!;
   }
 

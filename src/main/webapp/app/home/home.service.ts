@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class HomeService {
   private resourceUrl = this.applicationConfigService.getEndpointFor('api/voiture');
+  private resourceUrlCategorie = this.applicationConfigService.getEndpointFor('api/listCategorie');
   private resourceUrlS = this.applicationConfigService.getEndpointForS('api/voitures');
 
   constructor(private httpClient: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
@@ -21,5 +22,9 @@ export class HomeService {
 
   public getVoituresByID(id: number): Observable<IVoiture> {
     return this.httpClient.get<IVoiture>(`${this.resourceUrlS}/${id}`);
+  }
+
+  public getListCategorie(): Observable<string[]> {
+    return this.httpClient.get<string[]>(`${this.resourceUrlCategorie}`);
   }
 }
