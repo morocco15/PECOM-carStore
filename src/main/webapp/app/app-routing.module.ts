@@ -9,6 +9,7 @@ import { Authority } from 'app/config/authority.constants';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { PanierConfirmComponent } from '././panier/panier-confirm/panier-confirm.component';
 import { ArticleComponent } from './article/article.component';
+import { AdresseComponent } from './adresse/adresse.component';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
@@ -16,6 +17,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
   imports: [
     RouterModule.forRoot(
       [
+        {
+          path: 'adresse',
+          component: AdresseComponent,
+        },
         {
           path: 'panier/panierconfirm',
           component: PanierConfirmComponent,

@@ -10,10 +10,9 @@ import { HomeService } from './home.service';
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
 import {PanierService} from "../panier/panier.service";
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog,MatDialogRef } from '@angular/material/dialog';
 import { HintComponent } from 'app/hint/hint.component';
-
-
+ 
 @Component({
   selector: 'jhi-home',
   templateUrl: './home.component.html',
@@ -30,7 +29,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagetest!: string;
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService,private panierservice: PanierService, private http: HttpClient,public dialog: MatDialog) {}
+  constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService,private panierservice: PanierService, private http: HttpClient,public dialog: MatDialog) 
+  {}
 
   
   
@@ -62,8 +62,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
         else
         {
-          this.dialog.open(HintComponent, {data:"Déja réservé"}); 
+          this.dialog.open(HintComponent, {data:"Déja réservé",position:{top:"-32rem",left:"20rem"}}); 
+          // this.dialogRef.updatePosition
+          // ({
+          //   top: '0',
+          //   left: '0'
+          // });
         }
+         
+           
+      
 
         timer(2000) .subscribe(()=>
         {
