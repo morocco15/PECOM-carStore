@@ -63,11 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         else
         {
           this.dialog.open(HintComponent, {data:"Déja réservé",position:{top:"-32rem",left:"20rem"}}); 
-          // this.dialogRef.updatePosition
-          // ({
-          //   top: '0',
-          //   left: '0'
-          // });
+           
         }
          
            
@@ -83,17 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   }
 
-  ////losque on click le buttion 'ajouter au panier',il y a une dialog
-  // panierAction():void
-  // {
-  //   this.dialog.open(HintComponent, {data:"Ajouter au panier!"}); 
-
-  //   //setTimeout(3000);
-  //   timer(2000) .subscribe(()=>
-  //   {
-  //     this.dialog.closeAll();
-  //   })
-  // }
+   
 
 
   ngOnInit(): void 
