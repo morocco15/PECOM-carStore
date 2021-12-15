@@ -17,6 +17,7 @@ import { HomeService } from 'app/home/home.service';
   styleUrls: ['./fildactualite.component.scss'],
 })
 export class FildactualiteComponent implements OnInit {
+  static voitureid: number;
   account: Account | null = null;
   voitures!: IVoiture[];
   username!: string;
@@ -30,8 +31,6 @@ export class FildactualiteComponent implements OnInit {
 
   callService(): void {
     this.homeservice.getVoituresRecentes(this.debut, this.fin).subscribe((res: IVoiture[]) => {
-      //eslint-disable-next-line no-console
-      console.error(res);
       this.voitures = res;
       this.coef = 1;
     });
@@ -43,21 +42,14 @@ export class FildactualiteComponent implements OnInit {
 
   afficherplus(): void {
     this.homeservice.getVoituresRecentes(this.debut, this.fin + this.coef * 2).subscribe((res: IVoiture[]) => {
-      //eslint-disable-next-line no-console
-      console.error(res);
       this.voitures = res;
       this.coef++;
     });
-    /*sendvalue(model:string|undefined|null):void{
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,eqeqeq
-    if(model!=undefined || model!=null) {
-      this.sendURL = encodeURI("value=" + model);
-      // eslint-disable-next-line no-console
-      console.log("this.sendURL")
-      // eslint-disable-next-line no-console
-      console.log(this.sendURL)
-      window.location.href = this.sendURL;
-    }*/
+  }
+
+  ficheproduit(id: number): void {
+    FildactualiteComponent.voitureid = id;
+    this.router.navigate(['/article']);
   }
 
   ngOnInit(): void {

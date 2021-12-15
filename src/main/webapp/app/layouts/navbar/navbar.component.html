@@ -37,13 +37,51 @@
         </a>
       </li>
       <!--Bouton catégorie visible même si utilisateur pas connecté-->
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <!--<li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
           <span>
             <fa-icon icon="list"></fa-icon>
             <span id="menu">Catégorie</span>
           </span>
         </a>
+      </li>-->
+      <li
+        ngbDropdown
+        class="nav-item dropdown pointer"
+        display="dynamic"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="categorie-menu" data-cy="categorieMenu">
+          <fa-icon icon="list" [fixedWidth]="true"></fa-icon>
+          <span id="menu">Catégorie</span>
+        </a>
+        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="categorie-menu">
+          <li>
+            <a
+              class="dropdown-item"
+              routerLink="fildactualite"
+              routerLinkActive="active"
+              (click)="collapseNavbar()"
+              data-cy="fildactualite"
+            >
+              <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+              <span id="menu">Settings</span>
+            </a>
+          </li>
+          <!--<li>
+                <a
+                  class="dropdown-item"
+                  routerLink="account/password"
+                  routerLinkActive="active"
+                  (click)="collapseNavbar()"
+                  data-cy="passwordItem"
+                >
+                  <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
+                  <span id="menu">Password</span>
+                </a>
+              </li>-->
+        </ul>
       </li>
       <!--Bouton panier visible que si utilisateur connecté-->
       <!--<li

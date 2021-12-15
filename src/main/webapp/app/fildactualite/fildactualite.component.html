@@ -26,17 +26,13 @@
                       <div class="marque" style="font-weight: bold">
                         {{ voiture.marque!.marque }}
                       </div>
-                      <div class="model" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                        <a class="nav-link" routerLink="/article">
-                          {{ voiture.model }}
-                        </a>
+                      <div class="model" (click)="ficheproduit(voiture.id!)">
+                        {{ voiture.model }}
                       </div>
                     </div>
                     <div class="prix">{{ voiture.prix }} €</div>
                     <div class="caracteristiques">
-                      <!--<div class="année">
-                                  L'année est à ajouter dans le model de voiture.
-                              </div>-->
+                      {{ voiture.annees }}
                       <div class="kilometrage">
                         <div>Kilométrage</div>
                         <!--Requête pour obtenir le kilométrage de la voiture-->
