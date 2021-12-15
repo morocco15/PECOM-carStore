@@ -9,7 +9,7 @@ import { PanierService } from './panier.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
 import { IPanier } from 'app/entities/panier/panier.model';
-import {SouhaitService} from "../listedesouhait/listedesouhait.service";
+import { SouhaitService } from '../listedesouhait/listedesouhait.service';
 @Component({
   selector: 'jhi-panier',
   templateUrl: './panier.component.html',
@@ -20,13 +20,14 @@ export class PanierComponent implements OnInit, OnDestroy {
   username!: string;
   voitures!: IVoiture[];
   voitureId!: number;
+  isEmpty = false;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
     private accountService: AccountService,
     private router: Router,
     private panierservice: PanierService,
-    private souhaitService:SouhaitService,
+    private souhaitService: SouhaitService,
     private http: HttpClient
   ) {}
 
@@ -40,6 +41,9 @@ export class PanierComponent implements OnInit, OnDestroy {
     this.panierservice.getVoituresDuPanier(this.username).subscribe((res: IVoiture[]) => {
       console.error(res);
       this.voitures = res;
+      if (this.voitures.length === 0) {
+        this.isEmpty = true;
+      }
       // eslint-disable-next-line no-console
       console.log(this.voitures.length);
     });
@@ -61,17 +65,16 @@ export class PanierComponent implements OnInit, OnDestroy {
     }
   }
 
-  deplaceAuSouhait(id:number|undefined):void{
-
+  deplaceAuSouhait(id: number | undefined): void {
     // eslint-disable-next-line eqeqeq
-    if(id!=undefined){
-      this.voitureId= id;
+    if (id != undefined) {
+      this.voitureId = id;
       this.supprimerVoitureChoisite(this.voitureId);
-      this.souhaitService.ajouterVoitureSouhait(this.username,this.voitureId).subscribe((res:boolean)=>{
+      this.souhaitService.ajouterVoitureSouhait(this.username, this.voitureId).subscribe((res: boolean) => {
         console.error(res);
         // eslint-disable-next-line no-console
         console.log(res);
-      })
+      });
     }
   }
   ngOnInit(): void {

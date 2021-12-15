@@ -11,7 +11,7 @@
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="isEmpty === false">
           <tr *ngFor="let voiture of voitures; trackBy: trackId">
             <td>
               <div class="filPrincipal">
@@ -67,6 +67,10 @@
             </td>
           </tr>
         </tbody>
+        <div *ngIf="isEmpty === true" style="font-size: 40px; text-align: center; padding-top: 200px; padding-bottom: 400px">
+          Oh oh.. on dirait bien que votre liste de souhait est vide... Si jamais une voiture vous plait, ajoutez la dans vos favoris pour
+          la voir apparaître ici !
+        </div>
       </Table>
     </div>
   </body>
