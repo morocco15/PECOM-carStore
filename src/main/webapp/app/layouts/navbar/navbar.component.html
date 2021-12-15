@@ -264,14 +264,6 @@
           </span>
         </a>
       </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link">
-          <span>
-            <fa-icon icon="sticky-note"></fa-icon>
-            <span id="menu">À propos</span>
-          </span>
-        </a>
-      </li>
       <li
         ngbDropdown
         class="nav-item dropdown pointer"
@@ -282,7 +274,8 @@
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
           <span *ngIf="!account?.imageUrl">
             <fa-icon icon="user"></fa-icon>
-            <span id="menuConnexion">Connexion</span>
+            <span id="menuConnexion" *ngIf="isConnected() === false">Connexion</span>
+            <span id="menuConnexion" *ngIf="isConnected() === true">Paramètres</span>
           </span>
           <span *ngIf="account?.imageUrl">
             <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
