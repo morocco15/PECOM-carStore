@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -9,6 +9,10 @@ import { HomeService } from './home.service';
 
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
+//import {PanierService} from "../panier/panier.service";
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { HintComponent } from 'app/hint/hint.component';
+
 import { PanierService } from '../panier/panier.service';
 import { SouhaitService } from '../listedesouhait/listedesouhait.service';
 import { FildactualiteComponent } from 'app/fildactualite/fildactualite.component';
@@ -34,7 +38,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private homeservice: HomeService,
     private panierservice: PanierService,
     private souhaitservice: SouhaitService,
-    private http: HttpClient
+    private http: HttpClient,
+    public dialog: MatDialog
   ) {}
 
   callService(): void {
@@ -52,7 +57,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.panierservice
         .ajouterVoiturePanier(this.username, this.voitureChoisit.id, this.voitureChoisit.version)
         .subscribe((res: boolean) => {
-          //
+          //eslint-disable-next-line no-console
+          console.error(res);
+          // eslint-disable-next-line no-console
+          console.log(res);
+
+          if (res === true) {
+            this.dialog.open(HintComponent, { data: 'Ajouter au panier!' });
+          } else {
+            this.dialog.open(HintComponent, { data: 'Déja réservé', position: { top: '-32rem', left: '20rem' } });
+          }
+
+          timer(2000).subscribe(() => {
+            this.dialog.closeAll();
+          });
         });
     }
   }
@@ -60,8 +78,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   btnActionSouhait(voiture: IVoiture): void {
     if (voiture.id != null) {
       this.souhaitservice.ajouterVoitureSouhait(this.username, voiture.id).subscribe((res: boolean) => {
-        //
+        console.error(res);
+        // eslint-disable-next-line no-console
+        console.log(res);
+
+        //la reaction pour click le button 'ajouter'
+        // if(res === true)
+        // {
+        //   this.dialog.open(HintComponent, {data:"Ajouter au panier!"});
+        // }
+        // else
+        // {
+        //   this.dialog.open(HintComponent, {data:"Déja réservé",position:{top:"-32rem",left:"20rem"}});
+
+        // }
+
+        // timer(2000) .subscribe(()=>
+        // {
+        //   this.dialog.closeAll();
+        // })
+
+        //console.log(res);
       });
+      // eslint-disable-next-line no-console
+      //console.log('clic ok!');
     }
   }
 
