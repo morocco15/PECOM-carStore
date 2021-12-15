@@ -69,11 +69,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
           if(res === true)
           {
-            this.dialog.open(HintComponent, {data:"Ajouter au panier!",position:{top:"-28rem",left:"28rem"}}); 
+            this.dialog.open(HintComponent, {data:"Indication: Ajouter dans le panier !",position:{top:"-28rem",left:"40rem"}}); 
           }
           else
-          {
-            this.dialog.open(HintComponent, {data:"Déja réservé",position:{top:"-28rem",left:"28rem"}}); 
+          { 
+            this.dialog.open(HintComponent, {data:"Indication: Déja réservé dans le panier !",position:{top:"-28rem",left:"40rem"}}); 
              
           }
 
@@ -95,11 +95,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         if(res === true)
         {
-          this.dialog.open(HintComponent, {data:"Ajouter au list de souhaite!",position:{top:"-28rem",left:"29rem"}}); 
+          this.dialog.open(HintComponent, {data:"Indication: Ajouter au list de souhait !",position:{top:"-28rem",left:"40rem"}}); 
         }
         else
         {
-          this.dialog.open(HintComponent, {data:"Déja ajouté",position:{top:"-28rem",left:"29rem"}}); 
+          this.dialog.open(HintComponent, {data:"Indication: Déja ajouté dans la liste de souhait !",position:{top:"-28rem",left:"40rem"}}); 
            
         }
 
