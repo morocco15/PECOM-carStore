@@ -1,142 +1,73 @@
 <div class="container">
-  <!-- <span class = nom>Panier</span> -->
-
-  <!--
-    Barre de produits Afficher dynamiquement, les produits Le produit sélectionné provient de l'interface précédente-->
   <div class="product-bar">
     <div class="title-bar">
-      <span class="nom">
-        <!--{{ voiture.model }}-->
-        Renault 2022
-      </span>
+      <span class="nom"> {{ voiture.marque!.marque }}&nbsp;&nbsp;{{ voiture.model }} </span>
     </div>
 
     <hr />
-
-    <!-- <img src="item.variant.productVarImages[0].imgUrl" alt="" class="product-image"> -->
-    <!-- <img src="" alt="" class="product-image" /> -->
-    <!------------------------------------------------------------------------->
     <div class="product-image">
-      <img
-        class="imag"
-        src="https://img.leboncoin.fr/api/v1/lbcpb1/images/8d/d8/cb/8dd8cb9c24735148ba169c98edba77014dd5e43d.jpg?rule=ad-large"
-        [ngClass]="{ showSlide: click_account == 0, hideSlide: click_account != 0 }"
-      />
-      <img
-        class="imag"
-        src="https://img.leboncoin.fr/api/v1/lbcpb1/images/80/7e/f9/807ef95a3dac01327ffb8056b011042599abc420.jpg?rule=ad-large"
-        [ngClass]="{ showSlide: click_account == 1, hideSlide: click_account != 1 }"
-      />
-      <img
-        class="imag"
-        src="https://img.leboncoin.fr/api/v1/lbcpb1/images/41/bf/eb/41bfeb57a0974a227cdd8ead7f10a78e91e69a9c.jpg?rule=ad-large"
-        [ngClass]="{ showSlide: click_account == 2, hideSlide: click_account != 2 }"
-      />
+      <img class="imag" [src]="voiture.image1" [ngClass]="{ showSlide: click_account == 0, hideSlide: click_account != 0 }" />
+      <img class="imag" [src]="voiture.image2" [ngClass]="{ showSlide: click_account == 1, hideSlide: click_account != 1 }" />
+      <img class="imag" [src]="voiture.image3" [ngClass]="{ showSlide: click_account == 2, hideSlide: click_account != 2 }" />
 
       <img class="preBtn" src="../../../content/images/fleche2.png" (click)="preSlide()" />
       <img class="nextBtn" src="../../../content/images/fleche1.png" (click)="nextSlide()" />
     </div>
 
     <div class="product-price">
-      <!--<span>{{ item.variant.price | currency: 'CNY' }}</span>-->
-      <!--{{ voiture.prix }}-->
-      1234 euros
+      {{ voiture.prix }}
     </div>
 
     <div class="product-citeres">
       <div class="product-marque">
         <div class="title">Marque</div>
-        <div class="contenu"><!--{{ voiture.marque }}--></div>
+        <div class="contenu">{{ voiture.marque }}</div>
       </div>
 
       <div class="product-marque">
         <div class="title">Modèle</div>
-        <div class="contenu"><!--{{ voiture.model }}--></div>
+        <div class="contenu">{{ voiture.model }}</div>
       </div>
 
       <div class="product-marque">
         <div class="title">Catégorie</div>
-        <div class="contenu"><!--{{ voiture.categories }}--></div>
+        <div class="contenu">{{ voiture.categories }}</div>
       </div>
 
       <div class="product-marque">
         <div class="title">Chevaux</div>
-        <div class="contenu"><!--{{ voiture.chevaux }}--></div>
+        <div class="contenu">{{ voiture.chevaux }}</div>
       </div>
 
       <div class="product-marque">
         <div class="title">Carburant</div>
-        <div class="contenu"><!--{{ voiture.carburant }}--></div>
+        <div class="contenu">{{ voiture.carburant }}</div>
       </div>
 
       <div class="product-marque">
         <div class="title">Nombre de la porte</div>
-        <div class="contenu"><!--{{ voiture.porte }}--></div>
+        <div class="contenu">{{ voiture.porte }}</div>
       </div>
 
       <div class="product-marque">
         <div class="title">Etat</div>
-        <div class="contenu"><!--{{ voiture.etat }}--></div>
+        <div class="contenu">{{ voiture.etat }}</div>
       </div>
 
       <div class="product-marque">
         <div class="title">Boîte de vitesse</div>
-        <div class="contenu"><!--{{ voiture.marque }}--></div>
-      </div>
-
-      <div class="toolbar">
-        <div class="contacter">
-          <div class="vendeur">
-            <span>
-              Pronic Automobile
-              <!--obtenir le nom depuis de l'etape precedent-->
-            </span>
-          </div>
-
-          <div class="telephone">
-            <img src="" alt="" class="contacter-image" />
-            <button style="width: 200px; height: 30px">
-              <img src="../../../content/images/contacter.png" alt="" style="width: 20px; height: 20px" class="product-image" />
-              Contacter le vendeur
-            </button>
-          </div>
-        </div>
-
-        <div class="ajouter">
-          <a href="http://localhost:4200/panierconfirm" class="auPanier">
-            <button style="width: 200px; height: 30px">
-              <img src="../../../content/images/panier.png" alt="" style="width: 20px; height: 20px" class="product-image" />
-              Ajouter au Panier
-            </button>
-          </a>
-
-          <a href="http://localhost:4200/panierconfirm" class="auList">
-            <button style="width: 200px; height: 30px">
-              <img src="../../../content/images/like.png" alt="" style="width: 20px; height: 20px" class="product-image" />
-              Ajouter au sohuait
-            </button>
-          </a>
-        </div>
+        <div class="contenu">{{ voiture.marque }}</div>
       </div>
     </div>
 
     <hr />
-
-    <!-- <div class="product-description">
-      <div class="title">Description</div>
-      <div class="detail">
-        Peugeot 2008 1.2 PURETECH 130CH S&S ALLURE PACK, BLANC NACRE , 7cv, 5 portes, mise en circulation le 15-07-2021. 5 places, longueur
-        : 4,30 mètres, boîte de vitesse : manuelle
-      </div>
-    </div> -->
   </div>
 
   <div class="toolbar">
     <div class="contacter">
       <div class="vendeur">
         <span>
-          Pronic Automobile
-          <!--obtenir le nom depuis de l'etape precedent-->
+          {{ voiture.vendeur!.login }}
         </span>
       </div>
 
@@ -160,12 +91,9 @@
       <a href="http://localhost:4200/panierconfirm" class="auList">
         <button style="width: 200px; height: 30px">
           <img src="../../../content/images/like.png" alt="" style="width: 20px; height: 20px" class="product-image" />
-          Ajouter au sohuait
+          Ajouter au favoris
         </button>
       </a>
     </div>
   </div>
 </div>
-
-<!--</body>
-</html>-->
