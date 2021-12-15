@@ -71,8 +71,24 @@ button:hover {
 .nom {
   display: flex;
   justify-content: center;
+  height: min-content;
+  font-weight: bold;
+}
+
+.prix {
+  font-size: 25px;
 }
 
 .boutonChoix {
   display: grid;
+}
+
+.nom:hover {
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.image:hover {
+  cursor: pointer;
+  border: solid 0.5px black;
 }

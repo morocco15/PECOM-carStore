@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Account } from '../core/auth/account.model';
 import { takeUntil } from 'rxjs/operators';
+import { FildactualiteComponent } from 'app/fildactualite/fildactualite.component';
 
 @Component({
   selector: 'jhi-article',
@@ -21,6 +22,7 @@ export class ArticleComponent implements OnInit {
   voitureChoisit!: IVoiture;
   getURL!: string;
   value!: string;
+  voiture!: IVoiture;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -28,6 +30,7 @@ export class ArticleComponent implements OnInit {
     private router: Router,
     private panierservice: PanierService,
     private souhaitservice: SouhaitService,
+    private homeservice: HomeService,
     private http: HttpClient
   ) {}
 
@@ -36,10 +39,7 @@ export class ArticleComponent implements OnInit {
       this.panierservice
         .ajouterVoiturePanier(this.username, this.voitureChoisit.id, this.voitureChoisit.version)
         .subscribe((res: boolean) => {
-          //eslint-disable-next-line no-console
-          console.error(res);
-          // eslint-disable-next-line no-console
-          console.log(res);
+          //
         });
     }
   }
@@ -47,21 +47,17 @@ export class ArticleComponent implements OnInit {
   AjouterSouhait(): void {
     if (this.voitureChoisit.id != null) {
       this.souhaitservice.ajouterVoitureSouhait(this.username, this.voitureChoisit.id).subscribe((res: boolean) => {
-        console.error(res);
-        // eslint-disable-next-line no-console
-        console.log(res);
+        //
       });
     }
   }
 
   getValue(): void {
-    this.getURL = window.location.href;
-    this.value = decodeURI(this.getURL.split('=')[1]);
-    // eslint-disable-next-line no-console
-    console.log('this.value');
-    // eslint-disable-next-line no-console
-    console.log(this.getURL);
+    this.homeservice.getVoituresByID(FildactualiteComponent.voitureid).subscribe((res: IVoiture) => {
+      this.voiture = res;
+    });
   }
+
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()

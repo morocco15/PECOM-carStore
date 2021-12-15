@@ -3,51 +3,49 @@
   <head></head>
   <body>
     <div class="table-responsive">
+      <div scope="col" style="text-align: center; font-size: 35px; padding-bottom: 15px; border-bottom: solid 2px black">
+        <span>Fil d'actualité</span>
+      </div>
+      <div style="display: flex">
+        <div *ngFor="let categorie of listCategorie" style="width: fit-content">
+          {{ categorie }}
+        </div>
+      </div>
       <Table responsive style="width: 100%">
-        <thead>
-          <tr>
-            <th scope="col" style="text-align: center; font-size: 35px; padding-bottom: 15px; border-bottom: solid 2px black">
-              <span>Fil d'actualité</span>
-            </th>
-          </tr>
-        </thead>
+        <thead></thead>
         <tbody>
           <tr *ngFor="let voiture of voitures; trackBy: trackId">
             <td style="padding-top: 30px">
               <div class="filPrincipal">
                 <div class="ficheProduit">
                   <div class="image">
-                    <!--Requête pour récupérer l'image-->
-                    <img [src]="voiture.image1" height="199.5px" width="355.5px" />
+                    <img [src]="voiture.image1" height="199.5px" width="355.5px" (click)="ficheproduit(voiture.id!)" />
                   </div>
 
                   <div class="caracteristiqueproduit">
                     <div class="nom">
-                      <div class="marque" style="font-weight: bold">
-                        {{ voiture.marque }}
+                      <div class="marqueNom" (click)="ficheproduit(voiture.id!)">
+                        {{ voiture.marque!.marque }}&nbsp;&nbsp;
+                        {{ voiture.model }}
                       </div>
-                      <div class="model" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                        <a class="nav-link" routerLink="/article">
-                          {{ voiture.model }}
-                        </a>
-                      </div>
+                      <div class="prix" style="color: red; font-weight: bold; font-size: 25px; align-self: right">{{ voiture.prix }} €</div>
                     </div>
-                    <div class="prix">{{ voiture.prix }} €</div>
                     <div class="caracteristiques">
-                      <!--<div class="année">
-                                  L'année est à ajouter dans le model de voiture.
-                              </div>-->
+                      <div class="annees">
+                        <div style="font-weight: bold">Années</div>
+                        <div>{{ voiture.annees }}</div>
+                      </div>
+
                       <div class="kilometrage">
-                        <div>Kilométrage</div>
-                        <!--Requête pour obtenir le kilométrage de la voiture-->
+                        <div style="font-weight: bold">Kilométrage</div>
                         <div>{{ voiture.kilometrage }} km</div>
                       </div>
                       <div class="carburant">
-                        <div>Carburant</div>
+                        <div style="font-weight: bold">Carburant</div>
                         <div>{{ voiture.carburant }}</div>
                       </div>
                       <div class="boiteDeVitesse">
-                        <div>Boîte de vitesse</div>
+                        <div style="font-weight: bold">Boîte de vitesse</div>
                         <div>{{ voiture.boiteVitesse }}</div>
                       </div>
                     </div>
