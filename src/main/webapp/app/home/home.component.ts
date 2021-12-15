@@ -76,7 +76,12 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.dialog.open(HintComponent, {data:"Déja réservé",position:{top:"-32rem",left:"20rem"}}); 
              
           }
-        });
+
+          timer(2000) .subscribe(()=>
+          {
+            this.dialog.closeAll();
+          })
+          });
     }
   }
 
@@ -88,23 +93,21 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log(res)
 
         //la reaction pour click le button 'ajouter'
-        if(res === true)
-        {
-          this.dialog.open(HintComponent, {data:"Ajouter au panier!"}); 
-        }
-        else
-        {
-          this.dialog.open(HintComponent, {data:"Déja réservé",position:{top:"-32rem",left:"20rem"}}); 
+        // if(res === true)
+        // {
+        //   this.dialog.open(HintComponent, {data:"Ajouter au panier!"}); 
+        // }
+        // else
+        // {
+        //   this.dialog.open(HintComponent, {data:"Déja réservé",position:{top:"-32rem",left:"20rem"}}); 
            
-        }
+        // }
          
-           
-      
 
-        timer(2000) .subscribe(()=>
-        {
-          this.dialog.closeAll();
-        })
+        // timer(2000) .subscribe(()=>
+        // {
+        //   this.dialog.closeAll();
+        // })
 
         //console.log(res);
       });
