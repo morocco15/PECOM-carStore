@@ -55,6 +55,7 @@ export class ListedesouhaitComponent implements OnInit {
     });
   }
 
+  //supprimerVoiture est pour appeler par la fonction deplacerAuPanier
   supprimerVoiture(id: number | undefined): void {
     // eslint-disable-next-line no-console
     console.log('clic ok');
@@ -64,12 +65,27 @@ export class ListedesouhaitComponent implements OnInit {
         console.error(res);
         if (res) {
           this.getSouhait();
-          ////
-          // this.dialog.open(HintComponent, {data:"Indication: Supprimer dans la liste de souhait !",position:{left:"39rem"}}); 
-          // timer(3000) .subscribe(()=>
-          // {
-          //   this.dialog.closeAll();
-          // })
+        }
+
+      });
+    }
+  }
+
+  // supprimerVoiture2 est pour le button de supprimer de la liste de souhait
+  supprimerVoiture2(id: number | undefined): void {
+    // eslint-disable-next-line no-console
+    console.log('clic ok');
+    // eslint-disable-next-line eqeqeq
+    if (id != undefined) {
+      this.souhaitService.supprimerVoitureSouhait(this.username, id).subscribe((res: boolean) => {
+        console.error(res);
+        if (res) {
+          this.getSouhait();
+          this.dialog.open(HintComponent, {data:"Indication: Supprimer !",position:{left:"39rem"}});
+          timer(3000) .subscribe(()=>
+          {
+            this.dialog.closeAll();
+          })
         }
 
       });
