@@ -80,15 +80,11 @@ export class ListedesouhaitComponent implements OnInit {
 
           if(res === true)
           {
-            this.dialog.open(HintComponent, {data:"Ajouter au panier!"}); 
+            this.dialog.open(HintComponent, {data:"Déplacer vers panier!",position:{left:"30rem"}}); 
           }
-          else
-          {
-            this.dialog.open(HintComponent, {data:"Déja réservé",position:{top:"-32rem",left:"20rem"}}); 
-             
-          }
+           
 
-          timer(2000) .subscribe(()=>
+          timer(4000) .subscribe(()=>
           {
             this.dialog.closeAll();
           })
