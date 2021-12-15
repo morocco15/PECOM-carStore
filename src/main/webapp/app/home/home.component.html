@@ -14,7 +14,7 @@
         <div class="marque" style="font-weight: bold">
           <!--Requête pour obtenir la marque de la voiture-->
           <!--{{voiture[1].marque}}--><!--MercedesBenz&nbsp;-->
-          {{ voiture1.marque }}
+          {{ voiture1.marque!.marque }}
         </div>
         <div class="modele" style="font-weight: bold">
           <!--Requête pour obtenir le modèle de la voiture-->
@@ -32,8 +32,8 @@
         <img [src]="voiture1.image1" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier" (click) = "btnAction(voiture1)" >Ajouter dans mon panier</button>
-        <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
+        <button class="boutonPanier" (click)="btnAction(voiture1)">Ajouter dans mon panier</button>
+        <button class="boutonListeSouhait" (click)="btnActionSouhait(voiture1)">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
     <div class="espacehorizontal" style="width: 200px"></div>
@@ -42,7 +42,7 @@
         <div class="marque" style="font-weight: bold">
           <!--Requête pour obtenir la marque de la voiture-->
           <!--MercedesBenz&nbsp;-->
-          {{ voiture2.marque }}
+          {{ voiture2.marque!.marque }}
         </div>
         <div class="modele" style="font-weight: bold">
           <!--Requête pour obtenir le modèle de la voiture-->
@@ -60,8 +60,8 @@
         <img [src]="voiture2.image1" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier" (click) = "btnAction(voiture2)">Ajouter dans mon panier</button>
-        <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
+        <button class="boutonPanier" (click)="btnAction(voiture2)">Ajouter dans mon panier</button>
+        <button class="boutonListeSouhait" (click)="btnActionSouhait(voiture2)">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
   </div>
@@ -81,7 +81,7 @@
         <div class="marque" style="font-weight: bold">
           <!--Requête pour obtenir la marque de la voiture-->
           <!--MercedesBenz&nbsp;-->
-          {{ voiture3.marque }}
+          {{ voiture3.marque!.marque }}
         </div>
         <div class="modele" style="font-weight: bold">
           <!--Requête pour obtenir le modèle de la voiture-->
@@ -90,8 +90,8 @@
         </div>
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier"(click) = "btnAction(voiture3)">Ajouter dans mon panier</button>
-        <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
+        <button class="boutonPanier" (click)="btnAction(voiture3)">Ajouter dans mon panier</button>
+        <button class="boutonListeSouhait" (click)="btnActionSouhait(voiture3)">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
     <div class="espacehorizontal" style="width: 200px"></div>
@@ -109,7 +109,7 @@
         <div class="marque" style="font-weight: bold">
           <!--Requête pour obtenir la marque de la voiture-->
           <!--MercedesBenz&nbsp;-->
-          {{ voiture4.marque }}
+          {{ voiture4.marque!.marque }}
         </div>
         <div class="modele" style="font-weight: bold">
           <!--Requête pour obtenir le modèle de la voiture-->
@@ -118,8 +118,8 @@
         </div>
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier"(click) = "btnAction(voiture4)">Ajouter dans mon panier</button>
-        <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
+        <button class="boutonPanier" (click)="btnAction(voiture4)">Ajouter dans mon panier</button>
+        <button class="boutonListeSouhait" (click)="btnActionSouhait(voiture4)">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
   </div>

@@ -199,7 +199,7 @@ public class PanierResource {
             Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
             Panier panier = utilisateur.getPanier();
             Voiture voiture = voitureService.findOneById(id);
-            if(!panier.voitures.contains(voiture)){
+            if(!panier.getVoitures().contains(voiture)){
                 panier.addVoitures(voiture);
             }
             panierRepository.save(panier);
@@ -207,22 +207,7 @@ public class PanierResource {
         }
         return false;
     }
-/*
 
-        User user = userRepository.findOneByUsername(username);
-        if(voitureService.reserverVoiture(id,version)){
-
-            Panier panier = panierRepository.getById(user.getId());
-            Voiture voiture = voitureService.findOneById(id);
-            if(!panier.voitures.contains(voiture)){
-                panier.addVoitures(voiture);
-            }
-            panierRepository.save(panier);
-            return true;
-        }
-
-        return false;
- */
     @GetMapping("/getpanier/{username}")
     @ResponseBody
     public List<Voiture> getPanier(@PathVariable("username") String username){
@@ -241,4 +226,12 @@ public class PanierResource {
         }
         return voitures;
     }
+
+    @GetMapping("/getpanier/{username}/{idVoiture}")
+    @ResponseBody
+    public boolean SupprimerVoitureDuPanier(@PathVariable("username") String username,@PathVariable("idVoiture") Long idVoiture){
+        return panierService.supprimerVoitureDuPanier(username,idVoiture);
+    }
+
+
 }

@@ -1,6 +1,9 @@
 package com.ecom.carstore.web.rest;
 
+import com.ecom.carstore.domain.Categorie;
 import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.enumeration.Etat;
+import com.ecom.carstore.domain.enumeration.Statut;
 import com.ecom.carstore.repository.VoitureRepository;
 import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
@@ -240,23 +243,28 @@ public class VoitureResource {
         return voitureService.getModelRecent(debut, fin);
     }
 
+    @GetMapping("maxPrix/{max}")
+    public List<Voiture> maxPrix(@PathVariable("max") Long max) {
+        return voitureService.maxPrix(max);
+    }
 
-    @GetMapping("/panier/{id}/{version}")
-    @ResponseBody
-    public boolean AjouterVoitureDansPanier(@PathVariable String username, @PathVariable Long id,@PathVariable int version){
-/*
-        User user = userRepository.findOneByUsername(username);
-        if(voitureService.reserverVoiture(id,version)){
+    @GetMapping("minPrix/{min}")
+    public List<Voiture> minPrix(@PathVariable("min") Long min) {
+        return voitureService.minPrix(min);
+    }
 
-            Panier panier = panierRepository.getById(user.getId());
-            Voiture voiture = voitureService.findOneById(id);
-            if(!panier.voitures.contains(voiture)){
-                panier.addVoitures(voiture);
-            }
-            panierRepository.save(panier);
-            return true;
-        }
- */
-        return false;
+    @GetMapping("limitePrix/{min}/{max}")
+    public List<Voiture> minPrix(@PathVariable("min") Long min, @PathVariable("max") Long max) {
+        return voitureService.limitePrix(min, max);
+    }
+
+    @GetMapping("limiteEtat/{etat}")
+    public List<Voiture> limiteEtat(@PathVariable("etat") Etat etat) {
+        return voitureService.limiteEtat(etat);
+    }
+
+    @GetMapping("limiteCategorie/{categorie}")
+    public List<Voiture> limiteEtat(@PathVariable("categorie") String categorie) {
+        return voitureService.limiteCategorie(categorie);
     }
 }

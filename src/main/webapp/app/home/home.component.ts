@@ -9,10 +9,13 @@ import { HomeService } from './home.service';
 
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
-import {PanierService} from "../panier/panier.service";
+//import {PanierService} from "../panier/panier.service";
 import { MatDialog,MatDialogRef } from '@angular/material/dialog';
 import { HintComponent } from 'app/hint/hint.component';
  
+import { PanierService } from '../panier/panier.service';
+import { SouhaitService } from '../listedesouhait/listedesouhait.service';
+
 @Component({
   selector: 'jhi-home',
   templateUrl: './home.component.html',
@@ -26,16 +29,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   voiture4!: IVoiture;
   username!: string;
   voitureChoisit!: IVoiture;
-  imagetest!: string;
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService,private panierservice: PanierService, private http: HttpClient,public dialog: MatDialog) 
-  {}
+  
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private homeservice: HomeService,
+    private panierservice: PanierService,
+    private souhaitservice: SouhaitService,
+    private http: HttpClient,
+    public dialog: MatDialog
+  ) {}
 
   
   
   callService(): void {
-    this.homeservice.getQuatreDernieresVoitures(0, 4).subscribe((res: IVoiture[]) => {
+    this.homeservice.getVoituresRecentes(0, 4).subscribe((res: IVoiture[]) => {
       //eslint-disable-next-line no-console
       console.error(res);
       this.voiture1 = res[0];
@@ -45,12 +55,34 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  btnAction(voiture:IVoiture): void {
+  btnAction(voiture: IVoiture): void {
     // eslint-disable-next-line no-console
     this.voitureChoisit = voiture;
-    if(this.voitureChoisit.id!=null && this.voitureChoisit.version!=null){
-      this.panierservice.ajouterVoiturePanier(this.username, this.voitureChoisit.id,this.voitureChoisit.version).subscribe((res: boolean) => {
-        //eslint-disable-next-line no-console
+    if (this.voitureChoisit.id != null && this.voitureChoisit.version != null) {
+      this.panierservice
+        .ajouterVoiturePanier(this.username, this.voitureChoisit.id, this.voitureChoisit.version)
+        .subscribe((res: boolean) => {
+          //eslint-disable-next-line no-console
+          console.error(res);
+          // eslint-disable-next-line no-console
+          console.log(res);
+
+          if(res === true)
+          {
+            this.dialog.open(HintComponent, {data:"Ajouter au panier!"}); 
+          }
+          else
+          {
+            this.dialog.open(HintComponent, {data:"Déja réservé",position:{top:"-32rem",left:"20rem"}}); 
+             
+          }
+        });
+    }
+  }
+
+  btnActionSouhait(voiture: IVoiture): void {
+    if (voiture.id != null) {
+      this.souhaitservice.ajouterVoitureSouhait(this.username, voiture.id).subscribe((res: boolean) => {
         console.error(res);
         // eslint-disable-next-line no-console
         console.log(res)
@@ -74,26 +106,19 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.dialog.closeAll();
         })
 
+        //console.log(res);
       });
+      // eslint-disable-next-line no-console
+      //console.log('clic ok!');
     }
-
   }
 
-   
-
-
-  ngOnInit(): void 
-  {
- 
-    
+  ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
     this.callService();
-    //this.dialog.open(HintComponent, {data:"ajouter au panier"});
-    this.imagetest="https://cars-store.oss-eu-central-1.aliyuncs.com/1.jpeg";
-    //"../../../content/images/amg-c63-gt.jpg"
     if (this.account) {
       this.username = this.account.login;
     }

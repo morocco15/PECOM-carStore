@@ -9,7 +9,7 @@ import { ArticleComponent } from 'app/article/article.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild([HOME_ROUTE])],
-  declarations: [HomeComponent,ArticleComponent],
+  declarations: [HomeComponent],
   providers: [HomeService],
 })
 export class HomeModule {}

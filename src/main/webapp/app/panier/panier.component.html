@@ -1,82 +1,71 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head> </head>
-<body>
-<div class="table-responsive">
-  <Table responsive>
-    <!--<div class="Panier">-->
-    <thead>
-    <tr>
-      <th scope="col"><span>Panier</span></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let voiture of voitures; trackBy: trackId">
-      <td>
-        <div class="FicheProduit">
-          <input type="checkbox" class="checkboxvoiture1" id="voiture1" />
-          <div class="image">
-            <!--Requête pour récupérer l'image-->
-            <img [src]="voiture.image1" height="199.5px" width="355.5px" />
-          </div>
-          <div class="caracteristiqueproduit">
-            <!--grid-->
-            <div class="nom">
-              <!--flex-->
-              <div class="marque" style="font-weight: bold">
-                <!--Requête pour obtenir la marque de la voiture-->
-                {{ voiture.marque
-                }}<!--MercedesBenz&nbsp;-->
-                <!--{{ voiture1.marque }} erreur ici, peut etre créer le service panier ?-->
-              </div>
-              <div class="modele" style="font-weight: bold">
-                <!--Requête pour obtenir le modèle de la voiture-->
-                {{ voiture.model }}
-              </div>
-            </div>
-            <div class="caracteristiques">
-              <!--<div class="année">
+  <head></head>
+  <body>
+    <div class="table-responsive">
+      <Table responsive style="width: 100%">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center; font-size: 35px; padding-bottom: 15px; border-bottom: solid 2px black">
+              <span>Panier</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngIf="isEmpty === false">
+          <tr *ngFor="let voiture of voitures; trackBy: trackId">
+            <td>
+              <div class="FicheProduit">
+                <div class="image">
+                  <img [src]="voiture.image1" height="199.5px" width="355.5px" />
+                </div>
+                <div class="caracteristiqueproduit">
+                  <div class="nom">
+                    <div class="marque" style="font-weight: bold">
+                      {{ voiture.marque }}
+                    </div>
+                    <div class="modele" style="font-weight: bold">
+                      {{ voiture.model }}
+                    </div>
+                  </div>
+                  <div class="caracteristiques">
+                    <!--<div class="année">
                               L'année est à ajouter dans le model de voiture.
                           </div>-->
-              <div class="kilometrage">
-                <div id="nomCarac">Kilométrage</div>
-                <!--Requête pour obtenir le kilométrage de la voiture-->
-                <div id="carac">500000 km</div>
+                    <div class="kilometrage">
+                      <div id="nomCarac">Kilométrage</div>
+                      <div id="carac">{{ voiture.kilometrage }} km</div>
+                    </div>
+                    <div class="carburant">
+                      <div id="nomCarac">Carburant</div>
+                      <div id="carac">{{ voiture.carburant }}</div>
+                    </div>
+                    <div class="boiteDeVitesse">
+                      <div id="nomCarac">Boîte de vitesse</div>
+                      <div id="carac">{{ voiture.boiteVitesse }}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="boutons">
+                  <div class="prix">
+                    <div id="carac" style="font-size: larger">{{ voiture.prix }} €</div>
+                  </div>
+                  <button class="boutonSupprimer" (click)="supprimerVoitureChoisite(voiture.id)">Supprimer la voiture du panier</button>
+                  <button class="boutonFavoris" (click)="deplaceAuSouhait(voiture.id)">Déplacer vers la liste de souhait</button>
+                </div>
               </div>
-              <div class="carburant">
-                <div id="nomCarac">Carburant</div>
-                <!--Requête pour obtenir le carburant de la voiture-->
-                <div id="carac">{{ voiture.carburant }}</div>
-              </div>
-              <div class="boiteDeVitesse">
-                <div id="nomCarac">Boîte de vitesse</div>
-                <!--Requête pour obtenir la boîte de vitesse de la voiture-->
-                <div id="carac">{{ voiture.boiteVitesse }}</div>
-              </div>
-              <div class="prix">
-                <!--Requête pour obtenir le prix de la voiture-->
-                <div id="carac">{{ voiture.prix }} €</div>
-              </div>
-            </div>
-          </div>
+            </td>
+          </tr>
+        </tbody>
+        <div *ngIf="isEmpty === true" style="font-size: 40px; text-align: center; padding-top: 200px; padding-bottom: 400px">
+          Oh oh.. on dirait bien que votre panier est vide... Si jamais vous voulez acheter une voiture, ajoutez la dans votre panier pour
+          la voir apparaître ici !
         </div>
-      </td>
-    </tr>
-    </tbody>
-  </Table>
-</div>
-<div class="Commandes">
-  <input type="checkbox" class="toutselectionne" id="toutselectionne" onClick="test()" />
-  <div id="toutSelectionner">Tout sélectionner</div>
-  <div id="supprimer">Supprimer</div>
-  <div id="deplacerFavoris">Déplacer vers les favoris</div>
-  <div id="selectionne">Sélectionné : 0</div>
-</div>
-<div class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-  <a class="nav-link" routerLink="panierconfirm">
-    <button class="boutonValide" type="button">Valider le paiement</button>
-  </a>
-</div>
-</body>
+      </Table>
+    </div>
+    <div *ngIf="isEmpty === false" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a *ngIf="isEmpty === false" class="nav-link" routerLink="panierconfirm">
+        <button class="boutonValide" type="button">Valider le paiement</button>
+      </a>
+    </div>
+  </body>
 </html>
-

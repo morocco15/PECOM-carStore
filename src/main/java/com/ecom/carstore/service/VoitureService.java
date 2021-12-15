@@ -1,8 +1,10 @@
 package com.ecom.carstore.service;
 
+import com.ecom.carstore.domain.Categorie;
 import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.domain.User;
 import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.enumeration.Etat;
 import com.ecom.carstore.domain.enumeration.Statut;
 import com.ecom.carstore.repository.PanierRepository;
 import com.ecom.carstore.repository.UserRepository;
@@ -26,9 +28,7 @@ public class VoitureService {
     @Autowired
     private VoitureRepository voitureRepository;
 
-
     public VoitureService(VoitureRepository voitureRepository) {
-
         this.voitureRepository = voitureRepository;
     }
 
@@ -37,17 +37,17 @@ public class VoitureService {
         return v.getContent();
     }
 
-    public Voiture findOneById(Long id){
+    public Voiture findOneById(Long id) {
         return voitureRepository.getById(id);
     }
 
-    private boolean statusModifiable(Long id,int version) {
+    private boolean statusModifiable(Long id, int version) {
         return version == voitureRepository.getVoitureVersion(id);
     }
 
-    public boolean reserverVoiture(Long id,int version) {
+    public boolean reserverVoiture(Long id, int version) {
         Voiture voiture = voitureRepository.getById(id);
-        if (voiture.getStatut() == Statut.LIBRE && statusModifiable(id,version)) {
+        if (voiture.getStatut() == Statut.LIBRE && statusModifiable(id, version)) {
             voiture.setStatut(Statut.RESERVER);
             voiture.setVersion(voiture.getVersion() + 1);
             voitureRepository.save(voiture);
@@ -56,8 +56,8 @@ public class VoitureService {
             return false;
         }
     }
-    public void libererVoiture(Voiture voiture) {
 
+    public void libererVoiture(Voiture voiture) {
         if (voiture.getStatut() == Statut.RESERVER) {
             voiture.setStatut(Statut.LIBRE);
             voiture.setVersion(voiture.getVersion() + 1);
@@ -65,6 +65,23 @@ public class VoitureService {
         }
     }
 
+    public List<Voiture> maxPrix(Long max) {
+        return voitureRepository.maxPrix(max);
+    }
 
+    public List<Voiture> minPrix(Long min) {
+        return voitureRepository.minPrix(min);
+    }
 
+    public List<Voiture> limitePrix(Long min, Long max) {
+        return voitureRepository.limitePrix(min, max);
+    }
+
+    public List<Voiture> limiteEtat(Etat etat) {
+        return voitureRepository.limiteEtat(etat);
+    }
+
+    public List<Voiture> limiteCategorie(String categorie) {
+        return voitureRepository.limiteCategorie(categorie);
+    }
 }

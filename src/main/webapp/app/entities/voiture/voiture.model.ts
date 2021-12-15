@@ -26,10 +26,11 @@ export interface IVoiture {
   co2?: number | null;
   chevaux?: number | null;
   carburant?: Carburant | null;
-  annees?: dayjs.Dayjs | null;
+  annees?: number | null;
   ville?: string | null;
   codePostal?: number | null;
   description?: string | null;
+  kilometrage?: number | null;
   marque?: IMarque | null;
   categories?: ICategorie[] | null;
   commande?: ICommande | null;
@@ -55,10 +56,11 @@ export class Voiture implements IVoiture {
     public co2?: number | null,
     public chevaux?: number | null,
     public carburant?: Carburant | null,
-    public annees?: dayjs.Dayjs | null,
+    public annees?: number | null,
     public ville?: string | null,
     public codePostal?: number | null,
     public description?: string | null,
+    public kilometrage?: number | null,
     public marque?: IMarque | null,
     public categories?: ICategorie[] | null,
     public commande?: ICommande | null,

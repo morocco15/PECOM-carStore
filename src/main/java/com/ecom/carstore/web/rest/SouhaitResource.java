@@ -1,7 +1,11 @@
 package com.ecom.carstore.web.rest;
 
-import com.ecom.carstore.domain.Souhait;
+import com.ecom.carstore.domain.*;
 import com.ecom.carstore.repository.SouhaitRepository;
+import com.ecom.carstore.repository.UserRepository;
+import com.ecom.carstore.repository.UtilisateurRepository;
+import com.ecom.carstore.service.SouhaitService;
+import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,9 +37,20 @@ public class SouhaitResource {
     private String applicationName;
 
     private final SouhaitRepository souhaitRepository;
-
-    public SouhaitResource(SouhaitRepository souhaitRepository) {
+    private final SouhaitService souhaitService;
+    private final UserRepository userRepository;
+    private final UtilisateurRepository utilisateurRepository;
+    private final VoitureService voitureService;
+    public SouhaitResource(SouhaitRepository souhaitRepository,
+                           SouhaitService souhaitService,
+                           UserRepository userRepository,
+                           UtilisateurRepository utilisateurRepository,
+                           VoitureService voitureService) {
         this.souhaitRepository = souhaitRepository;
+        this.souhaitService = souhaitService;
+        this.userRepository = userRepository;
+        this.utilisateurRepository = utilisateurRepository;
+        this.voitureService = voitureService;
     }
 
     /**
@@ -170,5 +185,21 @@ public class SouhaitResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/souhait/{username}/{id}")
+    @ResponseBody
+    public boolean AjouterVoitureDansSouhait(@PathVariable("username") String username, @PathVariable("id") Long id) {
+        return souhaitService.ajouterVoitureDansSouhait(username,id);
+    }
+    @GetMapping("/souhait/{username}")
+    @ResponseBody
+    public List<Voiture> getPanier(@PathVariable("username") String username){
+        return souhaitService.getSouhait(username);
+    }
+    @GetMapping("/souhait_sup/{username}/{id}")
+    @ResponseBody
+    public boolean SupprimerVoitureDuSouhait(@PathVariable("username") String username, @PathVariable("id") Long id) {
+        return souhaitService.supprimerVoitureDuSouhait(username,id);
     }
 }
