@@ -44,10 +44,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   callService(): void {
     this.homeservice.getVoituresRecentes(0, 4).subscribe((res: IVoiture[]) => {
+      //eslint-disable-next-line no-console
+      console.log('bonjour');
       this.voiture1 = res[0];
+      //eslint-disable-next-line no-console
+      console.log(this.voiture1.marque?.marque);
       this.voiture2 = res[1];
+      //eslint-disable-next-line no-console
+      console.log(this.voiture2.marque?.marque);
       this.voiture3 = res[2];
+      //eslint-disable-next-line no-console
+      console.log(this.voiture3.marque?.marque);
       this.voiture4 = res[3];
+      //eslint-disable-next-line no-console
+      console.log(this.voiture4.marque?.marque);
     });
   }
 
@@ -78,30 +88,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   btnActionSouhait(voiture: IVoiture): void {
     if (voiture.id != null) {
       this.souhaitservice.ajouterVoitureSouhait(this.username, voiture.id).subscribe((res: boolean) => {
-        console.error(res);
         // eslint-disable-next-line no-console
         console.log(res);
-
-        //la reaction pour click le button 'ajouter'
-        // if(res === true)
-        // {
-        //   this.dialog.open(HintComponent, {data:"Ajouter au panier!"});
-        // }
-        // else
-        // {
-        //   this.dialog.open(HintComponent, {data:"Déja réservé",position:{top:"-32rem",left:"20rem"}});
-
-        // }
-
-        // timer(2000) .subscribe(()=>
-        // {
-        //   this.dialog.closeAll();
-        // })
-
-        //console.log(res);
       });
-      // eslint-disable-next-line no-console
-      //console.log('clic ok!');
     }
   }
 
