@@ -1,39 +1,42 @@
 <div class="confirmationCommande">
   <div class="titre">
-    <span class="nom" style="font-weight: bold; font-size: 25px">Ajouter votre carte bancaire</span>
+    <span class="nom" style="font-weight: bold; font-size: 25px">Informations de paiement</span>
   </div>
 
   <div class="section">
     <div class="adresse-nom">
       <div class="title">Numéro de carte</div>
-      <input class="champ" type="text" placeholder="" />
+      <input class="champ" type="text" placeholder="numéro de carte" />
     </div>
 
     <div class="adresse-nom">
       <div class="title">Nom sur la carte</div>
-      <input class="champ" type="text" placeholder="nom de titulaire" />
+      <input class="champ" type="text" placeholder="nom du titulaire de la carte" />
     </div>
 
     <div class="adresse-nom">
       <div class="title">Date de expiration</div>
-      <input class="champ" type="text" placeholder="example:jj/mm/année" />
+      <input class="champ" type="text" placeholder="jj/mm/annee" />
     </div>
 
     <div class="adresse-nom">
       <div class="title">Code de sécurité(CVV)</div>
-      <input class="champ" type="text" placeholder="3 ou 4 chiffre" />
+      <input class="champ" type="text" placeholder="3 chiffres" />
     </div>
   </div>
 
   <div class="sectionPaiement">
-    <button class="paiement">
-      <div style="font-weight: bold">Ajouter</div>
-    </button>
-
-    <div class="nav-item" display="dynamic" routerLinkActive="active">
-      <a class="nav-link" routerLink="/panier">
-        <button class="annuler">
-          <div style="font-weight: bold">Retour au précédent</div>
+    <div class="nav-item1">
+      <a class="nav-link">
+        <button class="paiement" (click)="validerPaiement()">
+          <div style="font-weight: bold">Valider</div>
+        </button>
+      </a>
+    </div>
+    <div class="nav-item2">
+      <a class="nav-link">
+        <button class="annuler" (click)="retour()">
+          <div style="font-weight: bold">Retour</div>
         </button>
       </a>
     </div>

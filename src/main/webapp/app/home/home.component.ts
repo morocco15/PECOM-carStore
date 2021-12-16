@@ -47,17 +47,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       //eslint-disable-next-line no-console
       console.log('bonjour');
       this.voiture1 = res[0];
-      //eslint-disable-next-line no-console
-      console.log(this.voiture1.marque?.marque);
       this.voiture2 = res[1];
-      //eslint-disable-next-line no-console
-      console.log(this.voiture2.marque?.marque);
       this.voiture3 = res[2];
-      //eslint-disable-next-line no-console
-      console.log(this.voiture3.marque?.marque);
       this.voiture4 = res[3];
-      //eslint-disable-next-line no-console
-      console.log(this.voiture4.marque?.marque);
     });
   }
 

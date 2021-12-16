@@ -1,7 +1,7 @@
 <div class="container">
   <div class="ficheProduit">
     <div class="titre">
-      <span class="nom"> {{ (voiture?.marque)!.marque }}&nbsp;&nbsp;{{ voiture?.model }} </span>
+      <span class="nom"> {{ voiture?.marque?.marque }}&nbsp;&nbsp;{{ voiture?.model }} </span>
     </div>
     <div class="images">
       <img class="preBtn" src="../../../content/images/fleche2.png" (click)="preSlide()" />
@@ -67,17 +67,12 @@
   <div class="toolbar">
     <div class="contacter">
       <div class="vendeur">
-        <span style="width: fit-content; margin: auto">
+        <span style="margin-left: 5px; font-weight: 600">
           {{ voiture?.vendeur?.login }}
         </span>
       </div>
-
-      <div class="telephone">
-        <img src="" alt="" class="contacter-image" />
-        <button style="width: 200px; height: 30px">
-          <img src="../../../content/images/contacter.png" alt="" style="width: 20px; height: 20px" class="product-image" />
-          Contacter le vendeur
-        </button>
+      <div class="telephone" style="margin-top: 10px; margin-left: 5px; font-weight: 600">
+        Numéro de téléphone du vendeur : {{ voiture?.vendeur?.coordonnee }}
       </div>
     </div>
 

@@ -4,6 +4,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { IVoiture, Voiture } from '../entities/voiture/voiture.model';
 import { Observable } from 'rxjs';
 import { Etat } from 'app/entities/enumerations/etat.model';
+import { Livraison } from 'app/entities/enumerations/livraison.model';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {
@@ -15,6 +16,7 @@ export class HomeService {
   private resourceUrlPMin = this.applicationConfigService.getEndpointForS('api/minPrix');
   private resourceUrlPInter = this.applicationConfigService.getEndpointForS('api/limitePrix');
   private resourceUrlEtat = this.applicationConfigService.getEndpointForS('api/limiteEtat');
+  private resourceUrlpaiement = this.applicationConfigService.getEndpointForS('api/payerpanier');
 
   constructor(private httpClient: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
@@ -52,5 +54,9 @@ export class HomeService {
 
   public getFiltreEtat(etat: Etat): Observable<IVoiture[]> {
     return this.httpClient.get<IVoiture[]>(`${this.resourceUrlEtat}/${etat}`);
+  }
+
+  public payerPanier(idpanier: number, livraison: Livraison): Observable<number> {
+    return this.httpClient.get<number>(`${this.resourceUrlpaiement}/${idpanier}/${livraison}`);
   }
 }

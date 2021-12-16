@@ -8,6 +8,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
 import { IPanier } from 'app/entities/panier/panier.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-panier-confirm',
@@ -23,7 +24,7 @@ export class PanierConfirmComponent implements OnInit {
   i!: number;
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private panierservice: PanierService, private accountService: AccountService) {}
+  constructor(private panierservice: PanierService, private router: Router, private accountService: AccountService) {}
 
   trackId(index: number, item: IPanier): number {
     return item.id!;
@@ -36,6 +37,10 @@ export class PanierConfirmComponent implements OnInit {
         this.sommeTotale = this.sommeTotale + this.voitures[this.i].prix!;
       }
     });
+  }
+
+  adresseComponent(): void {
+    this.router.navigate(['/adresse']);
   }
 
   ngOnInit(): void {

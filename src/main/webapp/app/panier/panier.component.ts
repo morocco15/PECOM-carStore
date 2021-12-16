@@ -18,6 +18,7 @@ import { FildactualiteComponent } from 'app/fildactualite/fildactualite.componen
   styleUrls: ['./panier.component.scss'],
 })
 export class PanierComponent implements OnInit, OnDestroy {
+  static idPanier: string;
   account: Account | null = null;
   username!: string;
   voitures!: IVoiture[];
@@ -42,6 +43,7 @@ export class PanierComponent implements OnInit, OnDestroy {
       if (this.voitures.length === 0) {
         this.isEmpty = true;
       }
+      PanierComponent.idPanier = this.username;
     });
   }
 
