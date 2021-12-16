@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Account } from '../core/auth/account.model';
 import { takeUntil } from 'rxjs/operators';
+import { FildactualiteComponent } from 'app/fildactualite/fildactualite.component';
 
 @Component({
   selector: 'jhi-article',
@@ -100,3 +101,6 @@ export class ArticleComponent implements OnInit {
      this.click_account = (this.click_account - 1) % 3;
   }
 }
+
+
+ 
