@@ -2,6 +2,7 @@ package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.CarteBancaire;
 import com.ecom.carstore.repository.CarteBancaireRepository;
+import com.ecom.carstore.service.CarteBancaireService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,10 +35,10 @@ public class CarteBancaireResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final CarteBancaireRepository carteBancaireRepository;
+    private final CarteBancaireService carteBancaireService;
 
-    public CarteBancaireResource(CarteBancaireRepository carteBancaireRepository) {
-        this.carteBancaireRepository = carteBancaireRepository;
+    public CarteBancaireResource(CarteBancaireService carteBancaireService) {
+        this.carteBancaireService = carteBancaireService;
     }
 
     /**
@@ -49,15 +50,7 @@ public class CarteBancaireResource {
      */
     @PostMapping("/carte-bancaires")
     public ResponseEntity<CarteBancaire> createCarteBancaire(@Valid @RequestBody CarteBancaire carteBancaire) throws URISyntaxException {
-        log.debug("REST request to save CarteBancaire : {}", carteBancaire);
-        if (carteBancaire.getId() != null) {
-            throw new BadRequestAlertException("A new carteBancaire cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        CarteBancaire result = carteBancaireRepository.save(carteBancaire);
-        return ResponseEntity
-            .created(new URI("/api/carte-bancaires/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return carteBancaireService.createCarteBancaire(carteBancaire);
     }
 
     /**
@@ -75,23 +68,7 @@ public class CarteBancaireResource {
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody CarteBancaire carteBancaire
     ) throws URISyntaxException {
-        log.debug("REST request to update CarteBancaire : {}, {}", id, carteBancaire);
-        if (carteBancaire.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, carteBancaire.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!carteBancaireRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        CarteBancaire result = carteBancaireRepository.save(carteBancaire);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, carteBancaire.getId().toString()))
-            .body(result);
+        return carteBancaireService.updateCarteBancaire(id, carteBancaire);
     }
 
     /**
@@ -110,42 +87,7 @@ public class CarteBancaireResource {
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody CarteBancaire carteBancaire
     ) throws URISyntaxException {
-        log.debug("REST request to partial update CarteBancaire partially : {}, {}", id, carteBancaire);
-        if (carteBancaire.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, carteBancaire.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!carteBancaireRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<CarteBancaire> result = carteBancaireRepository
-            .findById(carteBancaire.getId())
-            .map(existingCarteBancaire -> {
-                if (carteBancaire.getCode() != null) {
-                    existingCarteBancaire.setCode(carteBancaire.getCode());
-                }
-                if (carteBancaire.getExpiration() != null) {
-                    existingCarteBancaire.setExpiration(carteBancaire.getExpiration());
-                }
-                if (carteBancaire.getPrenom() != null) {
-                    existingCarteBancaire.setPrenom(carteBancaire.getPrenom());
-                }
-                if (carteBancaire.getNom() != null) {
-                    existingCarteBancaire.setNom(carteBancaire.getNom());
-                }
-
-                return existingCarteBancaire;
-            })
-            .map(carteBancaireRepository::save);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, carteBancaire.getId().toString())
-        );
+        return carteBancaireService.partialUpdateCarteBancaire(id, carteBancaire);
     }
 
     /**
@@ -155,8 +97,7 @@ public class CarteBancaireResource {
      */
     @GetMapping("/carte-bancaires")
     public List<CarteBancaire> getAllCarteBancaires() {
-        log.debug("REST request to get all CarteBancaires");
-        return carteBancaireRepository.findAll();
+        return carteBancaireService.getAllCarteBancaires();
     }
 
     /**
@@ -167,9 +108,7 @@ public class CarteBancaireResource {
      */
     @GetMapping("/carte-bancaires/{id}")
     public ResponseEntity<CarteBancaire> getCarteBancaire(@PathVariable Long id) {
-        log.debug("REST request to get CarteBancaire : {}", id);
-        Optional<CarteBancaire> carteBancaire = carteBancaireRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(carteBancaire);
+        return carteBancaireService.getCarteBancaire(id);
     }
 
     /**
@@ -180,11 +119,6 @@ public class CarteBancaireResource {
      */
     @DeleteMapping("/carte-bancaires/{id}")
     public ResponseEntity<Void> deleteCarteBancaire(@PathVariable Long id) {
-        log.debug("REST request to delete CarteBancaire : {}", id);
-        carteBancaireRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
+        return carteBancaireService.deleteCarteBancaire(id);
     }
 }
