@@ -36,20 +36,11 @@ public class SouhaitResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final SouhaitRepository souhaitRepository;
     private final SouhaitService souhaitService;
-    private final UserRepository userRepository;
-    private final UtilisateurRepository utilisateurRepository;
     private final VoitureService voitureService;
-    public SouhaitResource(SouhaitRepository souhaitRepository,
-                           SouhaitService souhaitService,
-                           UserRepository userRepository,
-                           UtilisateurRepository utilisateurRepository,
-                           VoitureService voitureService) {
-        this.souhaitRepository = souhaitRepository;
+
+    public SouhaitResource(SouhaitService souhaitService, VoitureService voitureService) {
         this.souhaitService = souhaitService;
-        this.userRepository = userRepository;
-        this.utilisateurRepository = utilisateurRepository;
         this.voitureService = voitureService;
     }
 
@@ -62,15 +53,7 @@ public class SouhaitResource {
      */
     @PostMapping("/souhaits")
     public ResponseEntity<Souhait> createSouhait(@RequestBody Souhait souhait) throws URISyntaxException {
-        log.debug("REST request to save Souhait : {}", souhait);
-        if (souhait.getId() != null) {
-            throw new BadRequestAlertException("A new souhait cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Souhait result = souhaitRepository.save(souhait);
-        return ResponseEntity
-            .created(new URI("/api/souhaits/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return souhaitService.createSouhait(souhait);
     }
 
     /**
@@ -86,23 +69,7 @@ public class SouhaitResource {
     @PutMapping("/souhaits/{id}")
     public ResponseEntity<Souhait> updateSouhait(@PathVariable(value = "id", required = false) final Long id, @RequestBody Souhait souhait)
         throws URISyntaxException {
-        log.debug("REST request to update Souhait : {}, {}", id, souhait);
-        if (souhait.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, souhait.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!souhaitRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Souhait result = souhaitRepository.save(souhait);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, souhait.getId().toString()))
-            .body(result);
+        return souhaitService.updateSouhait(id, souhait);
     }
 
     /**
@@ -121,29 +88,7 @@ public class SouhaitResource {
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Souhait souhait
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Souhait partially : {}, {}", id, souhait);
-        if (souhait.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, souhait.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!souhaitRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<Souhait> result = souhaitRepository
-            .findById(souhait.getId())
-            .map(existingSouhait -> {
-                return existingSouhait;
-            })
-            .map(souhaitRepository::save);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, souhait.getId().toString())
-        );
+        return souhaitService.partialUpdateSouhait(id, souhait);
     }
 
     /**
@@ -154,8 +99,7 @@ public class SouhaitResource {
      */
     @GetMapping("/souhaits")
     public List<Souhait> getAllSouhaits(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
-        log.debug("REST request to get all Souhaits");
-        return souhaitRepository.findAllWithEagerRelationships();
+        return souhaitService.getAllSouhaits(eagerload);
     }
 
     /**
@@ -166,9 +110,7 @@ public class SouhaitResource {
      */
     @GetMapping("/souhaits/{id}")
     public ResponseEntity<Souhait> getSouhait(@PathVariable Long id) {
-        log.debug("REST request to get Souhait : {}", id);
-        Optional<Souhait> souhait = souhaitRepository.findOneWithEagerRelationships(id);
-        return ResponseUtil.wrapOrNotFound(souhait);
+        return souhaitService.getSouhait(id);
     }
 
     /**
@@ -179,27 +121,24 @@ public class SouhaitResource {
      */
     @DeleteMapping("/souhaits/{id}")
     public ResponseEntity<Void> deleteSouhait(@PathVariable Long id) {
-        log.debug("REST request to delete Souhait : {}", id);
-        souhaitRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
+        return souhaitService.deleteSouhait(id);
     }
 
     @GetMapping("/souhait/{username}/{id}")
     @ResponseBody
     public boolean AjouterVoitureDansSouhait(@PathVariable("username") String username, @PathVariable("id") Long id) {
-        return souhaitService.ajouterVoitureDansSouhait(username,id);
+        return souhaitService.ajouterVoitureDansSouhait(username, id);
     }
+
     @GetMapping("/souhait/{username}")
     @ResponseBody
-    public List<Voiture> getPanier(@PathVariable("username") String username){
+    public List<Voiture> getPanier(@PathVariable("username") String username) {
         return souhaitService.getSouhait(username);
     }
+
     @GetMapping("/souhait_sup/{username}/{id}")
     @ResponseBody
     public boolean SupprimerVoitureDuSouhait(@PathVariable("username") String username, @PathVariable("id") Long id) {
-        return souhaitService.supprimerVoitureDuSouhait(username,id);
+        return souhaitService.supprimerVoitureDuSouhait(username, id);
     }
 }

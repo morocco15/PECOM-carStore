@@ -1,7 +1,7 @@
 package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.Commande;
-import com.ecom.carstore.repository.CommandeRepository;
+import com.ecom.carstore.service.CommandeService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,10 +34,10 @@ public class CommandeResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final CommandeRepository commandeRepository;
+    private final CommandeService commandeService;
 
-    public CommandeResource(CommandeRepository commandeRepository) {
-        this.commandeRepository = commandeRepository;
+    public CommandeResource(CommandeService commandeService) {
+        this.commandeService = commandeService;
     }
 
     /**
@@ -49,15 +49,7 @@ public class CommandeResource {
      */
     @PostMapping("/commandes")
     public ResponseEntity<Commande> createCommande(@Valid @RequestBody Commande commande) throws URISyntaxException {
-        log.debug("REST request to save Commande : {}", commande);
-        if (commande.getId() != null) {
-            throw new BadRequestAlertException("A new commande cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Commande result = commandeRepository.save(commande);
-        return ResponseEntity
-            .created(new URI("/api/commandes/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return commandeService.createCommande(commande);
     }
 
     /**
@@ -75,23 +67,7 @@ public class CommandeResource {
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody Commande commande
     ) throws URISyntaxException {
-        log.debug("REST request to update Commande : {}, {}", id, commande);
-        if (commande.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, commande.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!commandeRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Commande result = commandeRepository.save(commande);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, commande.getId().toString()))
-            .body(result);
+        return commandeService.updateCommande(id, commande);
     }
 
     /**
@@ -110,36 +86,7 @@ public class CommandeResource {
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody Commande commande
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Commande partially : {}, {}", id, commande);
-        if (commande.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, commande.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!commandeRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<Commande> result = commandeRepository
-            .findById(commande.getId())
-            .map(existingCommande -> {
-                if (commande.getDateCommande() != null) {
-                    existingCommande.setDateCommande(commande.getDateCommande());
-                }
-                if (commande.getModeLivraison() != null) {
-                    existingCommande.setModeLivraison(commande.getModeLivraison());
-                }
-
-                return existingCommande;
-            })
-            .map(commandeRepository::save);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, commande.getId().toString())
-        );
+        return commandeService.partialUpdateCommande(id, commande);
     }
 
     /**
@@ -149,8 +96,7 @@ public class CommandeResource {
      */
     @GetMapping("/commandes")
     public List<Commande> getAllCommandes() {
-        log.debug("REST request to get all Commandes");
-        return commandeRepository.findAll();
+        return commandeService.getAllCommandes();
     }
 
     /**
@@ -161,9 +107,7 @@ public class CommandeResource {
      */
     @GetMapping("/commandes/{id}")
     public ResponseEntity<Commande> getCommande(@PathVariable Long id) {
-        log.debug("REST request to get Commande : {}", id);
-        Optional<Commande> commande = commandeRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(commande);
+        return commandeService.getCommande(id);
     }
 
     /**
@@ -174,11 +118,6 @@ public class CommandeResource {
      */
     @DeleteMapping("/commandes/{id}")
     public ResponseEntity<Void> deleteCommande(@PathVariable Long id) {
-        log.debug("REST request to delete Commande : {}", id);
-        commandeRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
+        return commandeService.deleteCommande(id);
     }
 }

@@ -1,7 +1,7 @@
 package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.Marque;
-import com.ecom.carstore.repository.MarqueRepository;
+import com.ecom.carstore.service.MarqueService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -32,10 +32,10 @@ public class MarqueResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final MarqueRepository marqueRepository;
+    private final MarqueService marqueService;
 
-    public MarqueResource(MarqueRepository marqueRepository) {
-        this.marqueRepository = marqueRepository;
+    public MarqueResource(MarqueService marqueService) {
+        this.marqueService = marqueService;
     }
 
     /**
@@ -47,15 +47,7 @@ public class MarqueResource {
      */
     @PostMapping("/marques")
     public ResponseEntity<Marque> createMarque(@RequestBody Marque marque) throws URISyntaxException {
-        log.debug("REST request to save Marque : {}", marque);
-        if (marque.getId() != null) {
-            throw new BadRequestAlertException("A new marque cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Marque result = marqueRepository.save(marque);
-        return ResponseEntity
-            .created(new URI("/api/marques/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return marqueService.createMarque(marque);
     }
 
     /**
@@ -71,23 +63,7 @@ public class MarqueResource {
     @PutMapping("/marques/{id}")
     public ResponseEntity<Marque> updateMarque(@PathVariable(value = "id", required = false) final Long id, @RequestBody Marque marque)
         throws URISyntaxException {
-        log.debug("REST request to update Marque : {}, {}", id, marque);
-        if (marque.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, marque.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!marqueRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Marque result = marqueRepository.save(marque);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, marque.getId().toString()))
-            .body(result);
+        return marqueService.updateMarque(id, marque);
     }
 
     /**
@@ -106,33 +82,7 @@ public class MarqueResource {
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Marque marque
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Marque partially : {}, {}", id, marque);
-        if (marque.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, marque.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!marqueRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<Marque> result = marqueRepository
-            .findById(marque.getId())
-            .map(existingMarque -> {
-                if (marque.getMarque() != null) {
-                    existingMarque.setMarque(marque.getMarque());
-                }
-
-                return existingMarque;
-            })
-            .map(marqueRepository::save);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, marque.getId().toString())
-        );
+        return marqueService.partialUpdateMarque(id, marque);
     }
 
     /**
@@ -142,8 +92,7 @@ public class MarqueResource {
      */
     @GetMapping("/marques")
     public List<Marque> getAllMarques() {
-        log.debug("REST request to get all Marques");
-        return marqueRepository.findAll();
+        return marqueService.getAllMarques();
     }
 
     /**
@@ -154,9 +103,7 @@ public class MarqueResource {
      */
     @GetMapping("/marques/{id}")
     public ResponseEntity<Marque> getMarque(@PathVariable Long id) {
-        log.debug("REST request to get Marque : {}", id);
-        Optional<Marque> marque = marqueRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(marque);
+        return marqueService.getMarque(id);
     }
 
     /**
@@ -167,11 +114,6 @@ public class MarqueResource {
      */
     @DeleteMapping("/marques/{id}")
     public ResponseEntity<Void> deleteMarque(@PathVariable Long id) {
-        log.debug("REST request to delete Marque : {}", id);
-        marqueRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
+        return marqueService.deleteMarque(id);
     }
 }

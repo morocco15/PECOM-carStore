@@ -1,10 +1,7 @@
 package com.ecom.carstore.repository;
 
-import com.ecom.carstore.domain.Categorie;
-import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.domain.Voiture;
 import com.ecom.carstore.domain.enumeration.Etat;
-import com.ecom.carstore.domain.enumeration.Statut;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -36,21 +33,21 @@ public interface VoitureRepository extends JpaRepository<Voiture, Long> {
     @Query("select voiture.version from Voiture voiture where voiture.id=:id")
     Integer getVoitureVersion(@Param("id") Long id);
 
-    @Query("select v from Voiture as v where v.prix <= :max")
+    @Query("select v from Voiture as v where v.prix <= :max and v.statut='LIBRE'")
     List<Voiture> maxPrix(@Param("max") Long max);
 
-    @Query("select v from Voiture as v where v.prix >= :min")
+    @Query("select v from Voiture as v where v.prix >= :min and v.statut='LIBRE'")
     List<Voiture> minPrix(@Param("min") Long min);
 
-    @Query("select v from Voiture as v where v.prix >= :min and v.prix <= :max")
+    @Query("select v from Voiture as v where v.prix >= :min and v.prix <= :max and v.statut='LIBRE'")
     List<Voiture> limitePrix(@Param("min") Long min, @Param("max") Long max);
 
-    @Query("select v from Voiture as v where v.etat = :etat")
+    @Query("select v from Voiture as v where v.etat = :etat and v.statut='LIBRE'")
     List<Voiture> limiteEtat(@Param("etat") Etat etat);
 
     //select v.* from Voiture as v join rel_voiture__categories r on v.id=r.voiture_id join Categorie as c on r.categories_id=c.id where c.categorie = 'Account mindshare'
     @Query(
-        value = "select v.* from Voiture as v join rel_voiture__categories r on v.id=r.voiture_id join Categorie as c on r.categories_id=c.id where c.categorie = :categorie",
+        value = "select v.* from Voiture as v join rel_voiture__categories r on v.id=r.voiture_id join Categorie as c on r.categories_id=c.id where c.categorie = :categorie and v.statut='LIBRE'",
         nativeQuery = true
     )
     List<Voiture> limiteCategorie(@Param("categorie") String categorie);

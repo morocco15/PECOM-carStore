@@ -7,7 +7,6 @@ import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,11 +36,14 @@ public class PanierService {
     private UserRepository userRepository;
     private UtilisateurRepository utilisateurRepository;
     private VoitureService voitureService;
-    public PanierService(PanierRepository panierRepository,
-                         CommandeRepository commandeRepository,
-                         UserRepository userRepository,
-                         UtilisateurRepository utilisateurRepository,
-                         VoitureService voitureService) {
+
+    public PanierService(
+        PanierRepository panierRepository,
+        CommandeRepository commandeRepository,
+        UserRepository userRepository,
+        UtilisateurRepository utilisateurRepository,
+        VoitureService voitureService
+    ) {
         this.panierRepository = panierRepository;
         this.commandeRepository = commandeRepository;
         this.userRepository = userRepository;
@@ -136,43 +138,41 @@ public class PanierService {
             .body(result);
     }
 
-
-
     public List<Voiture> getVoitures(Panier panier) {
         //Page<Voiture> v = panierRepository.getVoituresDuPanier(panier);
         //return v.getContent();
 
         Set<Voiture> voitures = panier.getVoitures();
-        List<Voiture> res = new ArrayList<Voiture>(voitures); ;
+        List<Voiture> res = new ArrayList<Voiture>(voitures);
         return res;
     }
 
-
-    public boolean supprimerVoitureDuPanier(String username,Long idVoiture){
+    public boolean supprimerVoitureDuPanier(String username, Long idVoiture) {
         User user = userRepository.findOneByUsername(username);
-        if(user!=null){
+        if (user != null) {
             Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
             Panier panier = utilisateur.getPanier();
             Voiture voiture = voitureService.findOneById(idVoiture);
-            if(panier!=null && voiture!=null){
-                if(panier.getVoitures().contains(voiture)){
+            if (panier != null && voiture != null) {
+                if (panier.getVoitures().contains(voiture)) {
                     panier.removeVoitures(voiture);
                     voitureService.libererVoiture(voiture);
                     return true;
-                }else {
+                } else {
                     return false;
                 }
-            }else{
+            } else {
                 return false;
             }
         }
         return false;
     }
 
+    public void delete(Panier panier) {
+        panierRepository.delete(panier);
+    }
 
-
-
+    public void save(Panier panier) {
+        panierRepository.save(panier);
+    }
 }
-
-
-
