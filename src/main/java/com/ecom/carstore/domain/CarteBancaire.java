@@ -3,7 +3,6 @@ package com.ecom.carstore.domain;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
