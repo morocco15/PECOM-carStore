@@ -1,93 +1,63 @@
 .container {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
   width: 100%;
-  padding: 1rem;
 }
 
-.product-bar {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  width: 70%;
+.ficheProduit {
+  display: grid;
+  width: 100%;
   background-color: #f5f5f5;
 }
 
-//nom de voiture
-.product-bar .title-bar {
-  position: relative;
+.titre {
   font-size: 20px;
   font-weight: 900;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  margin-top: 10px;
+  border-bottom: solid 1px black;
 }
 
-.product-citeres {
-  position: relative;
-  left: 2rem;
-}
-
-.product-image {
-  position: relative;
-  width: 80%;
-  height: 50rem;
-  //padding-left: 20rem;
-}
-
-.product-image:before {
-  content: '';
-  display: block;
-  padding-top: 100%;
+.images {
+  display: flex;
   width: 100%;
-  height: 0.1px;
-}
-.product-image .image {
-  width: 100%;
-  position: absolute;
-  left: 4rem;
-  top: 0;
-  opacity: 0;
-  transform: opacity 0.3s ease 0;
+  height: 100%;
+  padding-bottom: 50px;
 }
 
-.product-bar .product-image .image:nth-child(1) {
-  opacity: 1;
+.image {
+  max-width: 350px;
+  max-height: 200px;
 }
 
-.product-image .preBtn {
-  position: relative;
-  bottom: 24rem;
-  left: 0.5rem;
-  width: 3rem;
-  height: 3rem;
+.prix {
+  width: fit-content;
+  margin-left: 10px;
+  font-weight: 800;
+  font-size: 30px;
+  color: red;
+  margin-bottom: 15px;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: 20px;
 }
 
-.product-image .nextBtn {
-  position: relative;
-  bottom: 24.5rem;
-  left: 40rem;
-  width: 3rem;
-  height: 3rem;
+.nextBtn:hover,
+.preBtn:hover {
+  cursor: pointer;
 }
 
-.product-image .showSlide {
-  opacity: 1;
+.nextBtn,
+.preBtn {
+  margin: auto;
+  height: 20%;
+  width: 5%;
 }
 
-.product-image .hideSlide {
-  opacity: 0;
-}
-
-///////////////////prix, categorie........
-.product-bar .product-price {
-  position: relative;
-  bottom: 10rem;
-  font-size: 20px;
-  font-weight: 700;
-  left: 2rem;
-}
-
-.product-bar .product-citeres {
+.criteres {
+  margin-left: 20px;
+  right: 0;
   display: grid;
   grid-template-areas:
     'detaill detaill detaill detaill'
@@ -95,88 +65,40 @@
     'detaill detaill detaill detaill';
   grid-template-rows: 5rem 5rem 5rem; //la taille de chaque grid
   grid-gap: 0.2rem; //le intervalle entre des grids
-  position: relative;
   bottom: 10rem;
 }
 
-.product-bar .product-citeres .marque {
-  grid-area: detaill;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.product-marque .title {
+.title {
   font-size: 15px;
 }
 
-.product-bar .product-citeres .product-marque .contenu {
+.contenu {
   font-size: 16px;
   font-weight: 700;
 }
 
-.toolbar {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.toolbar .contacter {
-  display: grid;
-  border-style: solid;
-  border-width: 1px;
+.contacter {
+  border: solid 1px;
   background-color: #f5f5f5;
 }
 
-.contacter .telephone {
-  //margin-top: 30px;
+.telephone {
   margin-right: 3px;
   margin-bottom: 3px;
 }
 
-.toolbar .ajouter {
+.ajouter {
   display: grid;
   border-style: solid;
   border-width: 1px;
   margin-top: 20px;
 }
 
-.ajouter .auPanier {
+.auPanier,
+.auList {
   margin-top: 10px;
 }
 
-.ajouter .auPanier {
-  margin-top: 1px;
-}
-
-.ajouter .auList {
-  margin-top: 10px;
-}
-
-.container .toolbar {
-  flex-shrink: 0;
-  display: flex;
-  width: 40%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.toolbar .contacter {
-  display: grid;
-}
-
-.toolbar .ajouter {
-  display: grid;
-}
-
-.toolbar .pay {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #e02f29;
-  color: #fff;
-  padding: 0.5rem;
-  font-weight: 300;
-  flex: 1 1 25%;
-  font-size: 1.3rem;
+.toolbar {
+  margin-left: 40px;
 }
