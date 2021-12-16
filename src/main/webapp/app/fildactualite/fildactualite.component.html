@@ -6,8 +6,13 @@
       <div scope="col" style="text-align: center; font-size: 35px; padding-bottom: 15px; border-bottom: solid 2px black">
         <span>Fil d'actualité</span>
       </div>
-      <div style="display: flex">
-        <div *ngFor="let categorie of listCategorie" style="width: fit-content">
+      <div style="display: flex; margin-top: 10px; justify-content: space-between">
+        <div
+          class="categorie"
+          *ngFor="let categorie of listCategorie"
+          (click)="getVoitureDeCategorie(categorie)"
+          style="width: fit-content; margin-left: 30px"
+        >
           {{ categorie }}
         </div>
       </div>
@@ -25,7 +30,7 @@
                   <div class="caracteristiqueproduit">
                     <div class="nom">
                       <div class="marqueNom" (click)="ficheproduit(voiture.id!)">
-                        {{ voiture.marque!.marque }}&nbsp;&nbsp;
+                        {{ voiture.marque?.marque }}&nbsp;&nbsp;
                         {{ voiture.model }}
                       </div>
                       <div class="prix" style="color: red; font-weight: bold; font-size: 25px; align-self: right">{{ voiture.prix }} €</div>
@@ -59,7 +64,10 @@
     </div>
     <div style="display: flex; justify-content: center; margin-top: 50px">
       <button (click)="afficherplus()" style="border-radius: 10px; margin-right: 10px">Charger plus de voiture</button>
-      <button (click)="callService()" style="border-radius: 10px; margin-left: 10px">Revenir au début</button>
+      <button (click)="callService()" *ngIf="affichageCategorie1" style="border-radius: 10px; margin-left: 10px">
+        Recharger sans catégorie
+      </button>
+      <button (click)="callService()" *ngIf="affichageCategorie2" style="border-radius: 10px; margin-left: 10px">Revenir au début</button>
     </div>
   </body>
 </html>

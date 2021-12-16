@@ -24,11 +24,15 @@ export class FildactualiteComponent implements OnInit {
   coef = 1;
   sendURL!: string;
   listCategorie!: string[];
+  affichageCategorie1 = false;
+  affichageCategorie2 = true;
   private readonly destroy$ = new Subject<void>();
 
   constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService, private http: HttpClient) {}
 
   callService(): void {
+    this.affichageCategorie1 = false;
+    this.affichageCategorie2 = true;
     this.homeservice.getVoituresRecentes(this.debut, this.fin).subscribe((res: IVoiture[]) => {
       this.voitures = res;
       this.coef = 1;
@@ -49,6 +53,14 @@ export class FildactualiteComponent implements OnInit {
     });
   }
 
+  getVoitureDeCategorie(categorie: string): void {
+    this.affichageCategorie1 = true;
+    this.affichageCategorie2 = false;
+    this.homeservice.getVoitureCategorie(categorie).subscribe((res: IVoiture[]) => {
+      this.voitures = res;
+    });
+  }
+
   ficheproduit(id: number): void {
     FildactualiteComponent.voitureid = id;
     this.router.navigate(['/article']);
@@ -63,6 +75,10 @@ export class FildactualiteComponent implements OnInit {
     if (this.account) {
       this.username = this.account.login;
     }
+    //eslint-disable-next-line no-console
+    console.log(this.affichageCategorie1);
+    //eslint-disable-next-line no-console
+    console.log(this.affichageCategorie2);
   }
 
   ngOnDestroy(): void {

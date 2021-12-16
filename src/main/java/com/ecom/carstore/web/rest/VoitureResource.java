@@ -264,7 +264,7 @@ public class VoitureResource {
     }
 
     @GetMapping("limiteCategorie/{categorie}")
-    public List<Voiture> limiteEtat(@PathVariable("categorie") String categorie) {
+    public List<Voiture> limiteCategorie(@PathVariable("categorie") String categorie) {
         return voitureService.limiteCategorie(categorie);
     }
 }

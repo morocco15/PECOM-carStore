@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class HomeService {
   private resourceUrl = this.applicationConfigService.getEndpointFor('api/voiture');
   private resourceUrlCategorie = this.applicationConfigService.getEndpointFor('api/listCategorie');
+  private resourceUrlVoitureCategorie = this.applicationConfigService.getEndpointFor('api/limiteCategorie');
   private resourceUrlS = this.applicationConfigService.getEndpointForS('api/voitures');
 
   constructor(private httpClient: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
@@ -26,5 +27,9 @@ export class HomeService {
 
   public getListCategorie(): Observable<string[]> {
     return this.httpClient.get<string[]>(`${this.resourceUrlCategorie}`);
+  }
+
+  public getVoitureCategorie(categorie: string): Observable<IVoiture[]> {
+    return this.httpClient.get<IVoiture[]>(`${this.resourceUrlVoitureCategorie}/${categorie}`);
   }
 }
