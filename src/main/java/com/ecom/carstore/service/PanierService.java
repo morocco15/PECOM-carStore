@@ -131,11 +131,13 @@ public class PanierService {
             .build();
     }
 
-    public int payer(Long idpanier, Livraison livraison) throws URISyntaxException {
-        if (!panierRepository.existsById(idpanier)) {
+    public int payer(String name, Livraison livraison) throws URISyntaxException {
+        User u = userRepository.findOneByUsername(name);
+        if (u == null) {
             return 404;
         }
-        Panier panier = panierRepository.findById(idpanier).get();
+
+        Panier panier = utilisateurRepository.getByidcompte(u).getPanier();
         Set<Voiture> voitures = panier.getVoitures();
         Commande commande = new Commande();
         Set<Voiture> voituresCommande = commande.getVoitures();

@@ -176,9 +176,8 @@ public class PanierResource {
         return panierService.supprimerVoitureDuPanier(username, idVoiture);
     }
 
-    @GetMapping("/payerpanier/{idpanier}/{livraison}")
-    public int PayerPanier(@PathVariable("idpanier") Long idpanier, @PathVariable("livraison") Livraison livraison)
-        throws URISyntaxException {
-        return panierService.payer(idpanier, livraison);
+    @GetMapping("/payerpanier/{name}/{livraison}")
+    public int PayerPanier(@PathVariable("name") String name, @PathVariable("livraison") Livraison livraison) throws URISyntaxException {
+        return panierService.payer(name, livraison);
     }
 }
