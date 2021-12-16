@@ -73,9 +73,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.log(res);
 
           if (res === true) {
-            this.dialog.open(HintComponent, { data: 'Ajouter au panier!' });
+            this.dialog.open(HintComponent, { data: 'Indication: Ajouter dans le panier !', position: { top: '-29rem', left: '40rem' } });
           } else {
-            this.dialog.open(HintComponent, { data: 'Déja réservé', position: { top: '-32rem', left: '20rem' } });
+            this.dialog.open(HintComponent, {
+              data: 'Indication: Déja réservé dans le panier !',
+              position: { top: '-29rem', left: '40rem' },
+            });
           }
 
           timer(2000).subscribe(() => {
@@ -90,6 +93,24 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.souhaitservice.ajouterVoitureSouhait(this.username, voiture.id).subscribe((res: boolean) => {
         // eslint-disable-next-line no-console
         console.log(res);
+
+        if (res === true) {
+          this.dialog.open(HintComponent, {
+            data: 'Indication: Ajouter dans la list de souhait !',
+            position: { top: '-29rem', left: '40rem' },
+          });
+        } else {
+          this.dialog.open(HintComponent, {
+            data: 'Indication: Déja ajouté dans la liste de souhait !',
+            position: { top: '-29rem', left: '40rem' },
+          });
+        }
+
+        timer(2000).subscribe(() => {
+          this.dialog.closeAll();
+        });
+
+        //console.log(res);
       });
     }
   }

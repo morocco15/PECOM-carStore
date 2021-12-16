@@ -51,12 +51,32 @@ export class ListedesouhaitComponent implements OnInit {
     });
   }
 
+  //supprimerVoiture est pour appeler par la fonction deplacerAuPanier
   supprimerVoiture(id: number | undefined): void {
     if (id !== undefined) {
       this.souhaitService.supprimerVoitureSouhait(this.username, id).subscribe((res: boolean) => {
         console.error(res);
         if (res) {
           this.getSouhait();
+        }
+      });
+    }
+  }
+
+  // supprimerVoiture2 est pour le button de supprimer de la liste de souhait
+  supprimerVoiture2(id: number | undefined): void {
+    // eslint-disable-next-line no-console
+    console.log('clic ok');
+    // eslint-disable-next-line eqeqeq
+    if (id != undefined) {
+      this.souhaitService.supprimerVoitureSouhait(this.username, id).subscribe((res: boolean) => {
+        console.error(res);
+        if (res) {
+          this.getSouhait();
+          this.dialog.open(HintComponent, { data: 'Indication: Supprimer !', position: { left: '39rem' } });
+          timer(3000).subscribe(() => {
+            this.dialog.closeAll();
+          });
         }
       });
     }
@@ -72,12 +92,10 @@ export class ListedesouhaitComponent implements OnInit {
           console.error(res);
 
           if (res === true) {
-            this.dialog.open(HintComponent, { data: 'Ajouter au panier!' });
-          } else {
-            this.dialog.open(HintComponent, { data: 'Déja réservé', position: { top: '-32rem', left: '20rem' } });
+            this.dialog.open(HintComponent, { data: 'Indication: Déplacer vers panier !', position: { left: '39rem' } });
           }
 
-          timer(2000).subscribe(() => {
+          timer(3000).subscribe(() => {
             this.dialog.closeAll();
           });
         });
