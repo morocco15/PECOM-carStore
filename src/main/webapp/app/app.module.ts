@@ -27,6 +27,9 @@ import { ErrorComponent } from './layouts/error/error.component';
 import { PanierConfirmComponent } from './panier/panier-confirm/panier-confirm.component';
 import { FildactualiteComponent } from './fildactualite/fildactualite.component';
 import { PanierComponent } from './panier/panier.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HintComponent } from './hint/hint.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -40,6 +43,8 @@ import { PanierComponent } from './panier/panier.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
     HttpClientModule,
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
+    MatDialogModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     Title,
@@ -47,8 +52,9 @@ import { PanierComponent } from './panier/panier.component';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
+  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, HintComponent],
   bootstrap: [MainComponent],
+  entryComponents: [HintComponent],
 })
 export class AppModule {
   constructor(applicationConfigService: ApplicationConfigService, iconLibrary: FaIconLibrary, dpConfig: NgbDatepickerConfig) {

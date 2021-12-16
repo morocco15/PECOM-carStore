@@ -23,17 +23,67 @@
   font-weight: 900;
 }
 
+//////////////////////////////////////
+// .product-bar .product-image {
+//   width: 35rem;
+//   height: 25rem;
+//   object-fit: contain;
+//   position: relative;
+//   left: 40px;
+// }
+
 .product-bar .product-image {
-  width: 35rem;
-  height: 25rem;
-  object-fit: contain;
   position: relative;
-  left: 40px;
+  width: 80%;
+  //padding-left: 20rem;
+}
+.product-bar .product-image:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+  width: 100%;
+  height: 0.1px;
+}
+.product-bar .product-image .imag {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transform: opacity 0.3s ease 0;
+}
+.product-bar .product-imager .imag:nth-child(1) {
+  opacity: 1;
 }
 
+.product-bar .product-image .preBtn {
+  position: relative;
+  bottom: 24rem;
+  left: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+}
+
+.product-bar .product-image .nextBtn {
+  position: relative;
+  bottom: 24.5rem;
+  left: 32rem;
+  width: 3rem;
+  height: 3rem;
+}
+
+.product-bar .product-image .showSlide {
+  opacity: 1;
+}
+
+.product-bar .product-image .hideSlide {
+  opacity: 0;
+}
+
+//////////////////////////////////////////////////////
 .product-bar .product-price {
   position: relative;
-  top: 25px;
+  bottom: 10rem;
   font-size: 20px;
   font-weight: 700;
 }
@@ -47,7 +97,7 @@
   grid-template-rows: 5rem 5rem 5rem; //la taille de chaque grid
   grid-gap: 0.2rem; //le intervalle entre des grids
   position: relative;
-  top: 45px;
+  bottom: 10rem;
 }
 
 .product-bar .product-citeres .marque {
@@ -66,19 +116,19 @@
   font-weight: 700;
 }
 
-.product-bar .product-description {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.product-bar .product-description .title {
-  font-size: 18px;
-  font-weight: 700;
-}
+// .product-bar .product-description {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+// }
+// .product-bar .product-description .title {
+//   font-size: 18px;
+//   font-weight: 700;
+// }
 
-.product-bar .product-description .detail {
-  font-size: 16px;
-}
+// .product-bar .product-description .detail {
+//   font-size: 16px;
+// }
 
 .toolbar {
   display: flex;
@@ -90,12 +140,13 @@
   display: grid;
   border-style: solid;
   border-width: 1px;
+  background-color: #f5f5f5;
 }
 
 .contacter .telephone {
-  margin-top: 30px;
+  //margin-top: 30px;
   margin-right: 3px;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .toolbar .ajouter {

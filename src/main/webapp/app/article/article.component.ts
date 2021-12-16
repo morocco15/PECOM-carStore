@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { IVoiture } from '../entities/voiture/voiture.model';
 import { AccountService } from '../core/auth/account.service';
 import { Router } from '@angular/router';
@@ -17,6 +18,7 @@ import { FildactualiteComponent } from 'app/fildactualite/fildactualite.componen
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent implements OnInit {
+  click_account = 0;
   account: Account | null = null;
   username!: string;
   voitureChoisit!: IVoiture;
@@ -76,5 +78,18 @@ export class ArticleComponent implements OnInit {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  //fonction pour l'image change
+  nextSlide(): void {
+    this.click_account = (this.click_account + 1) % 3;
+  }
+
+  //fonction pour l'image change
+  preSlide(): void {
+    if (this.click_account === 0) {
+      this.click_account = 3;
+    }
+    this.click_account = (this.click_account - 1) % 3;
   }
 }

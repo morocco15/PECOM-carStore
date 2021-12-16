@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -11,6 +11,9 @@ import { IPanier } from 'app/entities/panier/panier.model';
 import { PanierService } from '../panier/panier.service';
 import { SouhaitService } from './listedesouhait.service';
 import { FildactualiteComponent } from 'app/fildactualite/fildactualite.component';
+import { HomeService } from '../home/home.service';
+import { MatDialog } from '@angular/material/dialog';
+import { HintComponent } from 'app/hint/hint.component';
 
 @Component({
   selector: 'jhi-listedesouhait',
@@ -29,7 +32,9 @@ export class ListedesouhaitComponent implements OnInit {
     private accountService: AccountService,
     private router: Router,
     private souhaitService: SouhaitService,
-    private panierService: PanierService
+    private panierService: PanierService,
+    private http: HttpClient,
+    public dialog: MatDialog
   ) {}
 
   trackId(index: number, item: IPanier): number {
@@ -65,6 +70,16 @@ export class ListedesouhaitComponent implements OnInit {
         .ajouterVoiturePanier(this.username, this.voitureChoisit.id, this.voitureChoisit.version)
         .subscribe((res: boolean) => {
           console.error(res);
+
+          if (res === true) {
+            this.dialog.open(HintComponent, { data: 'Ajouter au panier!' });
+          } else {
+            this.dialog.open(HintComponent, { data: 'Déja réservé', position: { top: '-32rem', left: '20rem' } });
+          }
+
+          timer(2000).subscribe(() => {
+            this.dialog.closeAll();
+          });
         });
     }
   }
