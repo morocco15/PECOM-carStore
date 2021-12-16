@@ -27,7 +27,7 @@ import { ErrorComponent } from './layouts/error/error.component';
 import { PanierConfirmComponent } from './panier/panier-confirm/panier-confirm.component';
 import { FildactualiteComponent } from './fildactualite/fildactualite.component';
 import { PanierComponent } from './panier/panier.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { HintComponent } from './hint/hint.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -44,7 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [
     Title,
@@ -52,7 +52,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent,HintComponent],
+  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, HintComponent],
   bootstrap: [MainComponent],
   entryComponents: [HintComponent],
 })

@@ -2,6 +2,7 @@ package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.Categorie;
 import com.ecom.carstore.repository.CategorieRepository;
+import com.ecom.carstore.service.CategorieService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -29,12 +30,15 @@ public class CategorieResource {
 
     private static final String ENTITY_NAME = "categorie";
 
+    private final CategorieService categorieService;
+
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
     private final CategorieRepository categorieRepository;
 
-    public CategorieResource(CategorieRepository categorieRepository) {
+    public CategorieResource(CategorieService categorieService, CategorieRepository categorieRepository) {
+        this.categorieService = categorieService;
         this.categorieRepository = categorieRepository;
     }
 
@@ -175,5 +179,10 @@ public class CategorieResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/listCategorie")
+    public List<String> listCategorie() {
+        return categorieService.listCategorie();
     }
 }

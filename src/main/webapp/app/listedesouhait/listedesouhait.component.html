@@ -14,37 +14,36 @@
         <tbody *ngIf="isEmpty === false">
           <tr *ngFor="let voiture of voitures; trackBy: trackId">
             <td>
-              <div class="filPrincipal">
+              <div class="filPrincipal" style="padding-top: 25px">
                 <div class="ficheProduit">
                   <div class="image">
-                    <img [src]="voiture.image1" height="199.5px" width="355.5px" />
+                    <img [src]="voiture.image1" height="199.5px" width="355.5px" (click)="ficheproduit(voiture.id!)" />
                   </div>
                   <div class="caracteristiqueproduit">
                     <div class="nom">
-                      <div class="marque" style="font-weight: bold">
-                        {{ voiture.marque!.marque }}
-                      </div>
-                      <div class="modele" style="font-weight: bold">
+                      <div class="marque" (click)="ficheproduit(voiture.id!)">
+                        {{ voiture.marque!.marque }}&nbsp;&nbsp;
                         {{ voiture.model }}
                       </div>
                     </div>
                     <div class="prix">
-                      <div id="carac" style="font-size: larger">{{ voiture.prix }} €</div>
+                      <div id="carac" style="color: red; font-weight: bold; font-size: 25px; align-self: right">{{ voiture.prix }} €</div>
                     </div>
                     <div class="caracteristiques">
-                      <div class="année">{{ voiture.annees }}</div>
+                      <div class="annees">
+                        <div style="font-weight: bold">Année</div>
+                        <div>{{ voiture.annees }}</div>
+                      </div>
                       <div class="kilometrage">
-                        <div>Kilométrage</div>
+                        <div style="font-weight: bold">Kilométrage</div>
                         <div>{{ voiture.kilometrage }} km</div>
                       </div>
                       <div class="carburant">
-                        <div>Carburant</div>
-                        <div>Essence</div>
+                        <div style="font-weight: bold">Carburant</div>
                         <div id="carac">{{ voiture.carburant }}</div>
                       </div>
                       <div class="boiteDeVitesse">
-                        <div>Boîte de vitesse</div>
-                        <div>automatique</div>
+                        <div style="font-weight: bold">Boîte de vitesse</div>
                         <div id="carac">{{ voiture.boiteVitesse }}</div>
                       </div>
                     </div>
@@ -56,7 +55,7 @@
                       style="margin-bottom: 10px; margin-top: 20px"
                       (click)="deplacerAuPanier(voiture)"
                     >
-                      Deplacer vers le panier
+                      Déplacer vers le panier
                     </button>
                     <button class="boutonSupprimerListeSouhait" (click)="supprimerVoiture2(voiture.id)">
                       Supprimer de la liste de souhait

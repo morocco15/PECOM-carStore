@@ -10,6 +10,7 @@ import { IVoiture } from 'app/entities/voiture/voiture.model';
 import { IPanier } from 'app/entities/panier/panier.model';
 import { PanierService } from '../panier/panier.service';
 import { SouhaitService } from './listedesouhait.service';
+import { FildactualiteComponent } from 'app/fildactualite/fildactualite.component';
 import { HomeService } from '../home/home.service';
 import { MatDialog } from '@angular/material/dialog';
 import { HintComponent } from 'app/hint/hint.component';
@@ -41,26 +42,18 @@ export class ListedesouhaitComponent implements OnInit {
   }
 
   getSouhait(): void {
-    // eslint-disable-next-line no-console
-    console.log('this.voitures.length');
-
     this.souhaitService.getSouhait(this.username).subscribe((res: IVoiture[]) => {
       console.error(res);
       this.voitures = res;
       if (this.voitures.length === 0) {
         this.isEmpty = true;
       }
-      // eslint-disable-next-line no-console
-      console.log(this.voitures.length);
     });
   }
 
   //supprimerVoiture est pour appeler par la fonction deplacerAuPanier
   supprimerVoiture(id: number | undefined): void {
-    // eslint-disable-next-line no-console
-    console.log('clic ok');
-    // eslint-disable-next-line eqeqeq
-    if (id != undefined) {
+    if (id !== undefined) {
       this.souhaitService.supprimerVoitureSouhait(this.username, id).subscribe((res: boolean) => {
         console.error(res);
         if (res) {
@@ -110,10 +103,14 @@ export class ListedesouhaitComponent implements OnInit {
           timer(3000) .subscribe(()=>
           {
             this.dialog.closeAll();
-          })
+          });
         });
-
     }
+  }
+
+  ficheproduit(id: number): void {
+    FildactualiteComponent.voitureid = id;
+    this.router.navigate(['/article']);
   }
 
   ngOnInit(): void {

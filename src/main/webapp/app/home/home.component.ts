@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Observable,timer } from 'rxjs';
+import { Subject, Observable, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -10,11 +10,12 @@ import { HomeService } from './home.service';
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
 //import {PanierService} from "../panier/panier.service";
-import { MatDialog,MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HintComponent } from 'app/hint/hint.component';
- 
+
 import { PanierService } from '../panier/panier.service';
 import { SouhaitService } from '../listedesouhait/listedesouhait.service';
+import { FildactualiteComponent } from 'app/fildactualite/fildactualite.component';
 
 @Component({
   selector: 'jhi-home',
@@ -31,7 +32,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   voitureChoisit!: IVoiture;
   private readonly destroy$ = new Subject<void>();
 
-  
   constructor(
     private accountService: AccountService,
     private router: Router,
@@ -42,12 +42,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     public dialog: MatDialog
   ) {}
 
-  
-  
   callService(): void {
     this.homeservice.getVoituresRecentes(0, 4).subscribe((res: IVoiture[]) => {
-      //eslint-disable-next-line no-console
-      console.error(res);
       this.voiture1 = res[0];
       this.voiture2 = res[1];
       this.voiture3 = res[2];
@@ -56,7 +52,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   btnAction(voiture: IVoiture): void {
-    // eslint-disable-next-line no-console
     this.voitureChoisit = voiture;
     if (this.voitureChoisit.id != null && this.voitureChoisit.version != null) {
       this.panierservice
@@ -69,20 +64,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
           if(res === true)
           {
-            this.dialog.open(HintComponent, {data:"Indication: Ajouter dans le panier !",position:{top:"-28rem",left:"40rem"}}); 
+            this.dialog.open(HintComponent, {data:"Indication: Ajouter dans le panier !",position:{top:"-29rem",left:"40rem"}}); 
           }
           else
           { 
-            this.dialog.open(HintComponent, {data:"Indication: Déja réservé dans le panier !",position:{top:"-28rem",left:"40rem"}}); 
+            this.dialog.open(HintComponent, {data:"Indication: Déja réservé dans le panier !",position:{top:"-29rem",left:"40rem"}}); 
              
           }
 
-          timer(2000) .subscribe(()=>
-          {
+          timer(2000).subscribe(() => {
             this.dialog.closeAll();
-          })
-          
           });
+        });
     }
   }
 
@@ -95,11 +88,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         if(res === true)
         {
-          this.dialog.open(HintComponent, {data:"Indication: Ajouter au list de souhait !",position:{top:"-28rem",left:"40rem"}}); 
+          this.dialog.open(HintComponent, {data:"Indication: Ajouter dans la list de souhait !",position:{top:"-29rem",left:"40rem"}}); 
         }
         else
         {
-          this.dialog.open(HintComponent, {data:"Indication: Déja ajouté dans la liste de souhait !",position:{top:"-28rem",left:"40rem"}}); 
+          this.dialog.open(HintComponent, {data:"Indication: Déja ajouté dans la liste de souhait !",position:{top:"-29rem",left:"40rem"}}); 
            
         }
 
@@ -125,9 +118,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.account) {
       this.username = this.account.login;
     }
+  }
 
-    
-     
+  ficheproduit(id: number): void {
+    FildactualiteComponent.voitureid = id;
+    this.router.navigate(['/article']);
   }
 
   login(): void {

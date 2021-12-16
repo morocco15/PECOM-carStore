@@ -1,4 +1,3 @@
- 
 // .adresse-container
 // {
 //     position:relative;
@@ -8,7 +7,7 @@
 //     width: 80rem;
 //     padding: 0.2rem;
 //     background-color: rgb(224, 240, 245);
-// } 
+// }
 
 // .adresse-title
 // {
@@ -23,21 +22,20 @@
 //       'detaill detaill ';
 //     grid-template-rows: 5rem 5rem 5rem; //la taille de chaque grid
 //     grid-gap: 0.2rem; //le intervalle entre des grids
-     
-     
+
 //   }
-  
+
 //   .adresse-citeres.adresse-nom {
 //     grid-area: detaill;
 //     display: flex;
 //     flex-direction: column;
 //     align-items: flex-start;
 //   }
-  
+
 //   .adresse-citeres.adresse-nom.title {
 //     font-size: 15px;
 //   }
-  
+
 //   .adresse-citeres.adresse-nom.contenu {
 //     font-size: 16px;
 //     font-weight: 700;
@@ -49,8 +47,6 @@
 //     left:30rem;
 //     bottom: 5px;
 //   }
-
-
 
 .confirmationCommande {
   display: grid;
@@ -68,21 +64,20 @@
 .section {
   display: grid;
   grid-template-areas:
-      'detaill detaill '
-      'detaill detaill '
-      'detaill detaill '
-      'detaill detaill ';
+    'detaill detaill '
+    'detaill detaill '
+    'detaill detaill '
+    'detaill detaill ';
   grid-template-rows: 5rem 5rem 5rem; //la taille de chaque grid
   grid-gap: 0.2rem; //le intervalle entre des grids
 }
 
 .section.adresse-nom {
-    grid-area: detaill;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
+  grid-area: detaill;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
 .sectionPaiement {
   margin-top: 50px;

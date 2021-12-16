@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AdresseComponent } from './adresse.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [AdresseComponent]
+  imports: [CommonModule],
+  declarations: [AdresseComponent],
 })
-export class AdresseModule { }
+export class AdresseModule {}

@@ -25,4 +25,11 @@ export class ApplicationConfigService {
     }
     return `${this.endpointPrefix}${api}`;
   }
+
+  getEndpointForS(api: string, microservice?: string): string {
+    if (microservice) {
+      return `${this.endpointPrefix}services/${microservice}/${api}`;
+    }
+    return `${this.endpointPrefix}${api}`;
+  }
 }

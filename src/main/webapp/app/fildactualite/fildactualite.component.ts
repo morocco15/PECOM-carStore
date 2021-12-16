@@ -1,14 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Observable, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
-import { IPanier } from 'app/entities/panier/panier.model';
-//import { ModalController } from 'ionic-angular';
 import { HomeService } from 'app/home/home.service';
 
 @Component({
@@ -17,6 +15,7 @@ import { HomeService } from 'app/home/home.service';
   styleUrls: ['./fildactualite.component.scss'],
 })
 export class FildactualiteComponent implements OnInit {
+  static voitureid: number;
   account: Account | null = null;
   voitures!: IVoiture[];
   username!: string;
@@ -24,40 +23,35 @@ export class FildactualiteComponent implements OnInit {
   fin = 10;
   coef = 1;
   sendURL!: string;
+  listCategorie!: string[];
   private readonly destroy$ = new Subject<void>();
 
   constructor(private accountService: AccountService, private router: Router, private homeservice: HomeService, private http: HttpClient) {}
 
   callService(): void {
     this.homeservice.getVoituresRecentes(this.debut, this.fin).subscribe((res: IVoiture[]) => {
-      //eslint-disable-next-line no-console
-      console.error(res);
       this.voitures = res;
       this.coef = 1;
     });
+    this.homeservice.getListCategorie().subscribe((res: string[]) => {
+      this.listCategorie = res;
+    });
   }
 
-  trackId(index: number, item: IPanier): number {
+  trackId(index: number, item: IVoiture): number {
     return item.id!;
   }
 
   afficherplus(): void {
     this.homeservice.getVoituresRecentes(this.debut, this.fin + this.coef * 2).subscribe((res: IVoiture[]) => {
-      //eslint-disable-next-line no-console
-      console.error(res);
       this.voitures = res;
       this.coef++;
     });
-    /*sendvalue(model:string|undefined|null):void{
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,eqeqeq
-    if(model!=undefined || model!=null) {
-      this.sendURL = encodeURI("value=" + model);
-      // eslint-disable-next-line no-console
-      console.log("this.sendURL")
-      // eslint-disable-next-line no-console
-      console.log(this.sendURL)
-      window.location.href = this.sendURL;
-    }*/
+  }
+
+  ficheproduit(id: number): void {
+    FildactualiteComponent.voitureid = id;
+    this.router.navigate(['/article']);
   }
 
   ngOnInit(): void {

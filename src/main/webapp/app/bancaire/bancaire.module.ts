@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BancaireComponent } from './bancaire.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [BancaireComponent]
+  imports: [CommonModule],
+  declarations: [BancaireComponent],
 })
-export class BancaireModule { }
+export class BancaireModule {}

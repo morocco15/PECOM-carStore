@@ -16,31 +16,30 @@
             <td>
               <div class="FicheProduit">
                 <div class="image">
-                  <img [src]="voiture.image1" height="199.5px" width="355.5px" />
+                  <img [src]="voiture.image1" height="199.5px" width="355.5px" (click)="ficheproduit(voiture.id!)" />
                 </div>
                 <div class="caracteristiqueproduit">
                   <div class="nom">
-                    <div class="marque" style="font-weight: bold">
-                      {{ voiture.marque }}
-                    </div>
-                    <div class="modele" style="font-weight: bold">
+                    <div class="marque" (click)="ficheproduit(voiture.id!)">
+                      {{ voiture.marque }}&nbsp;&nbsp;
                       {{ voiture.model }}
                     </div>
                   </div>
                   <div class="caracteristiques">
-                    <!--<div class="année">
-                              L'année est à ajouter dans le model de voiture.
-                          </div>-->
+                    <div class="annees">
+                      <div id="nomCarac" style="font-weight: bold">Année</div>
+                      <div>{{ voiture.annees }}</div>
+                    </div>
                     <div class="kilometrage">
-                      <div id="nomCarac">Kilométrage</div>
+                      <div id="nomCarac" style="font-weight: bold">Kilométrage</div>
                       <div id="carac">{{ voiture.kilometrage }} km</div>
                     </div>
                     <div class="carburant">
-                      <div id="nomCarac">Carburant</div>
+                      <div id="nomCarac" style="font-weight: bold">Carburant</div>
                       <div id="carac">{{ voiture.carburant }}</div>
                     </div>
                     <div class="boiteDeVitesse">
-                      <div id="nomCarac">Boîte de vitesse</div>
+                      <div id="nomCarac" style="font-weight: bold">Boîte de vitesse</div>
                       <div id="carac">{{ voiture.boiteVitesse }}</div>
                     </div>
                   </div>

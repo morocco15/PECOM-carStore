@@ -8,7 +8,6 @@
 
 .product-bar {
   position: relative;
-
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -18,27 +17,27 @@
 
 //nom de voiture
 .product-bar .title-bar {
-  position: absolute;
+  position: relative;
   font-size: 20px;
   font-weight: 900;
+  
 }
 
-//////////////////////////////////////
-// .product-bar .product-image {
-//   width: 35rem;
-//   height: 25rem;
-//   object-fit: contain;
-//   position: relative;
-//   left: 40px;
-// }
+.product-citeres
+{
+  position:relative;
+  left:2rem;
+}
 
-.product-bar .product-image
+.product-image
 {
   position: relative;
   width: 80%;
+  height: 50rem;
   //padding-left: 20rem;
 }
-.product-bar .product-image:before 
+
+.product-image:before 
 {
   content: "";
   display: block;
@@ -46,21 +45,22 @@
   width: 100%;
   height: 0.1px;
 }
-.product-bar .product-image .imag 
+.product-image .image 
 {
     width: 100%;
     position: absolute;
-    left: 0;
+    left: 4rem;
     top: 0;
     opacity: 0;
     transform: opacity 0.3s ease 0; 
 }
-.product-bar .product-imager .imag:nth-child(1)
-{
-    opacity: 1;
-}
+
+// .product-bar .product-imager .imag:nth-child(1)
+// {
+//     opacity: 1;
+// }
   
-.product-bar .product-image .preBtn
+.product-image .preBtn
 {
     position:relative;
     bottom: 24rem;
@@ -69,31 +69,32 @@
     height: 3rem;
 }
 
-  .product-bar .product-image .nextBtn 
+.product-image .nextBtn 
 {
     position:relative;
     bottom: 24.5rem;
-    left: 32rem;
+    left: 40rem;
     width: 3rem;
     height: 3rem;
 }
   
-.product-bar .product-image .showSlide 
+.product-image .showSlide 
 {
     opacity: 1;
 }
   
-.product-bar .product-image .hideSlide 
+.product-image .hideSlide 
 {
     opacity: 0;
 }
 
-//////////////////////////////////////////////////////
+///////////////////prix, categorie........
 .product-bar .product-price {
   position: relative;
   bottom: 10rem;
   font-size: 20px;
   font-weight: 700;
+  left:2rem;
 }
 
 .product-bar .product-citeres {
@@ -115,7 +116,7 @@
   align-items: flex-start;
 }
 
-.product-bar .product-citeres .product-marque .title {
+.product-marque .title {
   font-size: 15px;
 }
 
@@ -124,19 +125,6 @@
   font-weight: 700;
 }
 
-// .product-bar .product-description {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: flex-start;
-// }
-// .product-bar .product-description .title {
-//   font-size: 18px;
-//   font-weight: 700;
-// }
-
-// .product-bar .product-description .detail {
-//   font-size: 16px;
-// }
 
 .toolbar {
   display: flex;
@@ -192,10 +180,6 @@
   display: grid;
 }
 
-.toolbar .total-price {
-  flex: 0 1 auto;
-  margin: 0 1rem;
-}
 .toolbar .pay {
   display: flex;
   flex-direction: column;
@@ -207,15 +191,4 @@
   flex: 1 1 25%;
   font-size: 1.3rem;
 }
-.total-price .price-section {
-  color: #e02f29;
-  font-weight: 400;
-  font-size: 1.2rem;
-}
-.total-price .price-condition {
-  color: #e02f29;
-  font-weight: 400;
-}
-.content app-product-amount {
-  margin: 0.5rem 1rem;
-}
+ 
