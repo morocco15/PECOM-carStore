@@ -18,9 +18,8 @@ import { FildactualiteComponent } from 'app/fildactualite/fildactualite.componen
   styleUrls: ['./panier.component.scss'],
 })
 export class PanierComponent implements OnInit, OnDestroy {
-  static idPanier: string;
+  static username: string;
   account: Account | null = null;
-  username!: string;
   voitures!: IVoiture[];
   voitureId!: number;
   isEmpty = false;
@@ -38,18 +37,17 @@ export class PanierComponent implements OnInit, OnDestroy {
   }
 
   getPanier(): void {
-    this.panierservice.getVoituresDuPanier(this.username).subscribe((res: IVoiture[]) => {
+    this.panierservice.getVoituresDuPanier(PanierComponent.username).subscribe((res: IVoiture[]) => {
       this.voitures = res;
       if (this.voitures.length === 0) {
         this.isEmpty = true;
       }
-      PanierComponent.idPanier = this.username;
     });
   }
 
   supprimerVoitureChoisite(idVoiture: number | undefined): void {
     if (idVoiture !== undefined) {
-      this.panierservice.supprimerVoitureDuPanier(this.username, idVoiture).subscribe((res: boolean) => {
+      this.panierservice.supprimerVoitureDuPanier(PanierComponent.username, idVoiture).subscribe((res: boolean) => {
         //
         if (res) {
           this.getPanier();
@@ -62,7 +60,7 @@ export class PanierComponent implements OnInit, OnDestroy {
     if (id !== undefined) {
       this.voitureId = id;
       this.supprimerVoitureChoisite(this.voitureId);
-      this.souhaitService.ajouterVoitureSouhait(this.username, this.voitureId).subscribe((res: boolean) => {
+      this.souhaitService.ajouterVoitureSouhait(PanierComponent.username, this.voitureId).subscribe((res: boolean) => {
         //
       });
     }
@@ -79,9 +77,11 @@ export class PanierComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
     if (this.account) {
-      this.username = this.account.login;
+      PanierComponent.username = this.account.login;
     }
     this.getPanier();
+    //eslint-disable-next-line no-console
+    console.log(PanierComponent.username);
   }
 
   ngOnDestroy(): void {

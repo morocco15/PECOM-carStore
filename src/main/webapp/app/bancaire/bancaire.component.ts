@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Livraison } from 'app/entities/enumerations/livraison.model';
 import { HomeService } from 'app/home/home.service';
+import { PanierComponent } from 'app/panier/panier.component';
 
 @Component({
   selector: 'jhi-bancaire',
@@ -15,10 +16,12 @@ export class BancaireComponent implements OnInit {
   }
 
   validerPaiement(): void {
-    this.homeservice.payerPanier(3, Livraison.LIVRER).subscribe((res: number) => {
+    this.homeservice.payerPanier(PanierComponent.username, Livraison.LIVRER).subscribe((res: number) => {
       this.resultat = res;
       //eslint-disable-next-line no-console
       console.log(res);
+      //eslint-disable-next-line no-console
+      console.log(this.resultat);
     });
   }
 

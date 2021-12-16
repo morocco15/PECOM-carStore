@@ -56,7 +56,7 @@ export class HomeService {
     return this.httpClient.get<IVoiture[]>(`${this.resourceUrlEtat}/${etat}`);
   }
 
-  public payerPanier(idpanier: number, livraison: Livraison): Observable<number> {
-    return this.httpClient.get<number>(`${this.resourceUrlpaiement}/${idpanier}/${livraison}`);
+  public payerPanier(username: string, livraison: Livraison): Observable<number> {
+    return this.httpClient.get<number>(`${this.resourceUrlpaiement}/${username}/${livraison}`);
   }
 }
