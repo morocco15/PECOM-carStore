@@ -4,6 +4,7 @@ import com.ecom.carstore.domain.Panier;
 import com.ecom.carstore.domain.User;
 import com.ecom.carstore.domain.Utilisateur;
 import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.enumeration.Livraison;
 import com.ecom.carstore.repository.PanierRepository;
 import com.ecom.carstore.repository.UserRepository;
 import com.ecom.carstore.repository.UtilisateurRepository;
@@ -173,5 +174,11 @@ public class PanierResource {
     @ResponseBody
     public boolean SupprimerVoitureDuPanier(@PathVariable("username") String username, @PathVariable("idVoiture") Long idVoiture) {
         return panierService.supprimerVoitureDuPanier(username, idVoiture);
+    }
+
+    @GetMapping("/payerpanier/{idpanier}/{livraison}")
+    public int PayerPanier(@PathVariable("idpanier") Long idpanier, @PathVariable("livraison") Livraison livraison)
+        throws URISyntaxException {
+        return panierService.payer(idpanier, livraison);
     }
 }

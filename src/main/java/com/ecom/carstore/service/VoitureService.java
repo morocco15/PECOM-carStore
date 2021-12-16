@@ -236,4 +236,8 @@ public class VoitureService {
     public List<Voiture> limiteCategorie(String categorie) {
         return voitureRepository.limiteCategorie(categorie);
     }
+
+    public void save(Voiture v) {
+        voitureRepository.save(v);
+    }
 }

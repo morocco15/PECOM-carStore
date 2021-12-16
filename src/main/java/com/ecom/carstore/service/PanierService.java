@@ -1,11 +1,13 @@
 package com.ecom.carstore.service;
 
 import com.ecom.carstore.domain.*;
+import com.ecom.carstore.domain.enumeration.Livraison;
 import com.ecom.carstore.domain.enumeration.Statut;
 import com.ecom.carstore.repository.*;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -129,13 +131,32 @@ public class PanierService {
             .build();
     }
 
-    public ResponseEntity<Commande> payer(Panier panier, Commande commande) throws URISyntaxException {
-        panierRepository.delete(panier);
-        Commande result = commandeRepository.save(commande);
-        return ResponseEntity
-            .created(new URI("/api/commandes/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+    public int payer(Long idpanier, Livraison livraison) throws URISyntaxException {
+        if (!panierRepository.existsById(idpanier)) {
+            return 404;
+        }
+        Panier panier = panierRepository.findById(idpanier).get();
+        Set<Voiture> voitures = panier.getVoitures();
+        Commande commande = new Commande();
+        Set<Voiture> voituresCommande = commande.getVoitures();
+        if (voitures.isEmpty()) {
+            return 200;
+        }
+        for (Voiture v : voitures) {
+            voituresCommande.add(v);
+            v.setStatut(Statut.VENDU);
+            v.setPanier(null);
+            voitureService.save(v);
+        }
+        voitures.clear();
+        panier.setVoitures(voitures);
+        panierRepository.save(panier);
+        commande.setDateCommande(ZonedDateTime.now());
+        commande.setModeLivraison(livraison);
+        commande.setAcheteur(panier.getUtilisateur());
+        commande.setVoitures(voituresCommande);
+        commandeRepository.save(commande);
+        return 200;
     }
 
     public List<Voiture> getVoitures(Panier panier) {
