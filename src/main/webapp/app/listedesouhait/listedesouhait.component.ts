@@ -73,8 +73,8 @@ export class ListedesouhaitComponent implements OnInit {
         console.error(res);
         if (res) {
           this.getSouhait();
-          this.dialog.open(HintComponent, { data: 'Indication: Supprimer !', position: { left: '39rem' } });
-          timer(3000).subscribe(() => {
+          this.dialog.open(HintComponent, { data: 'Retiré de vos favoris !', position: { left: '39rem' } });
+          timer(1500).subscribe(() => {
             this.dialog.closeAll();
           });
         }
@@ -92,10 +92,10 @@ export class ListedesouhaitComponent implements OnInit {
           console.error(res);
 
           if (res === true) {
-            this.dialog.open(HintComponent, { data: 'Indication: Déplacer vers panier !', position: { left: '39rem' } });
+            this.dialog.open(HintComponent, { data: 'Article déplacé vers le panier !', position: { left: '39rem' } });
           }
 
-          timer(3000).subscribe(() => {
+          timer(1500).subscribe(() => {
             this.dialog.closeAll();
           });
         });

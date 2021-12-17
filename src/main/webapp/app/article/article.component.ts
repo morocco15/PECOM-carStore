@@ -48,6 +48,26 @@ export class ArticleComponent implements OnInit {
       this.panierservice.ajouterVoiturePanier(this.username, this.voiture.id, this.voiture.version).subscribe((res: boolean) => {
         // eslint-disable-next-line no-console
         console.log(res);
+        // eslint-disable-next-line eqeqeq
+        if (res == true) {
+          // eslint-disable-next-line no-console
+          console.log('1');
+          this.dialog.open(HintComponent, {
+            data: 'Ajouté dans votre panier !',
+            position: { left: '40rem' },
+          });
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('2');
+          this.dialog.open(HintComponent, {
+            data: 'Déjà dans votre panier !',
+            position: { left: '40rem' },
+          });
+        }
+
+        timer(1500).subscribe(() => {
+          this.dialog.closeAll();
+        });
       });
       this.router.navigate(['panier']);
     }
@@ -58,6 +78,26 @@ export class ArticleComponent implements OnInit {
       this.souhaitservice.ajouterVoitureSouhait(this.username, this.voiture.id).subscribe((res: boolean) => {
         // eslint-disable-next-line no-console
         console.log(res);
+        // eslint-disable-next-line eqeqeq
+        if (res == true) {
+          // eslint-disable-next-line no-console
+          console.log('1');
+          this.dialog.open(HintComponent, {
+            data: 'Ajouté dans vos favoris !',
+            position: { left: '40rem' },
+          });
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('2');
+          this.dialog.open(HintComponent, {
+            data: 'Déjà dans vos favoris !',
+            position: { left: '40rem' },
+          });
+        }
+
+        timer(1500).subscribe(() => {
+          this.dialog.closeAll();
+        });
       });
     }
   }

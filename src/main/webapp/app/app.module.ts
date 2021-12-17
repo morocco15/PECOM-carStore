@@ -30,6 +30,7 @@ import { PanierComponent } from './panier/panier.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HintComponent } from './hint/hint.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
   imports: [
@@ -52,7 +53,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, HintComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    FooterComponent,
+    HintComponent,
+    ConfirmationComponent,
+  ],
   bootstrap: [MainComponent],
   entryComponents: [HintComponent],
 })

@@ -11,6 +11,7 @@ import { PanierConfirmComponent } from '././panier/panier-confirm/panier-confirm
 import { ArticleComponent } from './article/article.component';
 import { AdresseComponent } from './adresse/adresse.component';
 import { BancaireComponent } from './bancaire/bancaire.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
@@ -30,6 +31,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
         {
           path: 'panier/panierconfirm',
           component: PanierConfirmComponent,
+        },
+        {
+          path: 'confirmation',
+          component: ConfirmationComponent,
         },
         {
           path: 'admin',
