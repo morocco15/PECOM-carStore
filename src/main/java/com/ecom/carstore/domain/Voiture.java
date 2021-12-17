@@ -78,7 +78,7 @@ public class Voiture implements Serializable {
     private Carburant carburant;
 
     @Column(name = "annees")
-    private ZonedDateTime annees;
+    private Integer annees;
 
     @Column(name = "ville")
     private String ville;
@@ -88,6 +88,9 @@ public class Voiture implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "kilometrage")
+    private Integer kilometrage;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "voitures" }, allowSetters = true)
@@ -317,16 +320,16 @@ public class Voiture implements Serializable {
         this.carburant = carburant;
     }
 
-    public ZonedDateTime getAnnees() {
+    public Integer getAnnees() {
         return this.annees;
     }
 
-    public Voiture annees(ZonedDateTime annees) {
+    public Voiture annees(Integer annees) {
         this.setAnnees(annees);
         return this;
     }
 
-    public void setAnnees(ZonedDateTime annees) {
+    public void setAnnees(Integer annees) {
         this.annees = annees;
     }
 
@@ -367,6 +370,19 @@ public class Voiture implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getKilometrage() {
+        return this.kilometrage;
+    }
+
+    public Voiture kilometrage(Integer kilometrage) {
+        this.setKilometrage(kilometrage);
+        return this;
+    }
+
+    public void setKilometrage(Integer kilometrage) {
+        this.kilometrage = kilometrage;
     }
 
     public Marque getMarque() {
@@ -515,10 +531,11 @@ public class Voiture implements Serializable {
             ", co2=" + getCo2() +
             ", chevaux=" + getChevaux() +
             ", carburant='" + getCarburant() + "'" +
-            ", annees='" + getAnnees() + "'" +
+            ", annees=" + getAnnees() +
             ", ville='" + getVille() + "'" +
             ", codePostal=" + getCodePostal() +
             ", description='" + getDescription() + "'" +
+            ", kilometrage=" + getKilometrage() +
             "}";
     }
 }

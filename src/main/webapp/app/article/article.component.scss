@@ -1,44 +1,63 @@
 .container {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
   width: 100%;
-  padding: 1rem;
 }
 
-.product-bar {
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  width: 70%;
+.ficheProduit {
+  display: grid;
+  width: 100%;
   background-color: #f5f5f5;
 }
 
-//nom de voiture
-.product-bar .title-bar {
-  position: absolute;
+.titre {
   font-size: 20px;
   font-weight: 900;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  margin-top: 10px;
+  border-bottom: solid 1px black;
 }
 
-.product-bar .product-image {
-  width: 35rem;
-  height: 25rem;
-  object-fit: contain;
-  position: relative;
-  left: 40px;
+.images {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 50px;
 }
 
-.product-bar .product-price {
-  position: relative;
-  top: 25px;
-  font-size: 20px;
-  font-weight: 700;
+.image {
+  max-width: 350px;
+  max-height: 200px;
 }
 
-.product-bar .product-citeres {
+.prix {
+  width: fit-content;
+  margin-left: 10px;
+  font-weight: 800;
+  font-size: 30px;
+  color: red;
+  margin-bottom: 15px;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.nextBtn:hover,
+.preBtn:hover {
+  cursor: pointer;
+}
+
+.nextBtn,
+.preBtn {
+  margin: auto;
+  height: 20%;
+  width: 5%;
+}
+
+.criteres {
+  margin-left: 20px;
+  right: 0;
   display: grid;
   grid-template-areas:
     'detaill detaill detaill detaill'
@@ -46,117 +65,38 @@
     'detaill detaill detaill detaill';
   grid-template-rows: 5rem 5rem 5rem; //la taille de chaque grid
   grid-gap: 0.2rem; //le intervalle entre des grids
-  position: relative;
-  top: 45px;
+  bottom: 10rem;
 }
 
-.product-bar .product-citeres .marque {
-  grid-area: detaill;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.product-bar .product-citeres .product-marque .title {
+.title {
   font-size: 15px;
 }
 
-.product-bar .product-citeres .product-marque .contenu {
+.contenu {
   font-size: 16px;
   font-weight: 700;
 }
 
-.product-bar .product-description {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.product-bar .product-description .title {
-  font-size: 18px;
-  font-weight: 700;
+.contacter {
+  border: solid 1px;
+  background-color: #f5f5f5;
 }
 
-.product-bar .product-description .detail {
-  font-size: 16px;
-}
-
-.toolbar {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.toolbar .contacter {
-  display: grid;
-  border-style: solid;
-  border-width: 1px;
-}
-
-.contacter .telephone {
-  margin-top: 30px;
+.telephone {
   margin-right: 3px;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
-.toolbar .ajouter {
+.ajouter {
   display: grid;
-  border-style: solid;
-  border-width: 1px;
   margin-top: 20px;
 }
 
-.ajouter .auPanier {
+.auPanier,
+.auList {
   margin-top: 10px;
 }
 
-.ajouter .auPanier {
-  margin-top: 1px;
-}
-
-.ajouter .auList {
-  margin-top: 10px;
-}
-
-.container .toolbar {
-  flex-shrink: 0;
-  display: flex;
-  width: 40%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.toolbar .contacter {
-  display: grid;
-}
-
-.toolbar .ajouter {
-  display: grid;
-}
-
-.toolbar .total-price {
-  flex: 0 1 auto;
-  margin: 0 1rem;
-}
-.toolbar .pay {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #e02f29;
-  color: #fff;
-  padding: 0.5rem;
-  font-weight: 300;
-  flex: 1 1 25%;
-  font-size: 1.3rem;
-}
-.total-price .price-section {
-  color: #e02f29;
-  font-weight: 400;
-  font-size: 1.2rem;
-}
-.total-price .price-condition {
-  color: #e02f29;
-  font-weight: 400;
-}
-.content app-product-amount {
-  margin: 0.5rem 1rem;
+.toolbar {
+  margin-left: 40px;
 }

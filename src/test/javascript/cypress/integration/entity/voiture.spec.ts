@@ -181,13 +181,15 @@ describe('Voiture e2e test', () => {
 
       cy.get(`[data-cy="carburant"]`).select('ESSENCE');
 
-      cy.get(`[data-cy="annees"]`).type('2021-11-12T00:23').should('have.value', '2021-11-12T00:23');
+      cy.get(`[data-cy="annees"]`).type('59415').should('have.value', '59415');
 
       cy.get(`[data-cy="ville"]`).type('forecast Berkshire redefine').should('have.value', 'forecast Berkshire redefine');
 
       cy.get(`[data-cy="codePostal"]`).type('85064').should('have.value', '85064');
 
       cy.get(`[data-cy="description"]`).type('Pays-Bas multi-byte panel').should('have.value', 'Pays-Bas multi-byte panel');
+
+      cy.get(`[data-cy="kilometrage"]`).type('60677').should('have.value', '60677');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

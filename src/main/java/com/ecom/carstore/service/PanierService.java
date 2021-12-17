@@ -1,27 +1,24 @@
 package com.ecom.carstore.service;
 
-import static java.time.ZonedDateTime.now;
-
-import com.ecom.carstore.domain.Commande;
-import com.ecom.carstore.domain.Panier;
-import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.*;
 import com.ecom.carstore.domain.enumeration.Livraison;
 import com.ecom.carstore.domain.enumeration.Statut;
-import com.ecom.carstore.repository.CommandeRepository;
-import com.ecom.carstore.repository.PanierRepository;
-import com.ecom.carstore.repository.VoitureRepository;
+import com.ecom.carstore.repository.*;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
@@ -38,12 +35,22 @@ public class PanierService {
 
     private PanierRepository panierRepository;
     private CommandeRepository commandeRepository;
-    private final VoitureRepository voitureRepository;
+    private UserRepository userRepository;
+    private UtilisateurRepository utilisateurRepository;
+    private VoitureService voitureService;
 
-    public PanierService(PanierRepository panierRepository, CommandeRepository commandeRepository, VoitureRepository voitureRepository) {
+    public PanierService(
+        PanierRepository panierRepository,
+        CommandeRepository commandeRepository,
+        UserRepository userRepository,
+        UtilisateurRepository utilisateurRepository,
+        VoitureService voitureService
+    ) {
         this.panierRepository = panierRepository;
         this.commandeRepository = commandeRepository;
-        this.voitureRepository = voitureRepository;
+        this.userRepository = userRepository;
+        this.utilisateurRepository = utilisateurRepository;
+        this.voitureService = voitureService;
     }
 
     public ResponseEntity<Panier> createPanier(Panier panier) throws URISyntaxException {
@@ -124,28 +131,71 @@ public class PanierService {
             .build();
     }
 
-    public int payer(Long idpanier, String livraison) {
-        if (!panierRepository.existsById(idpanier)) {
-            return 300;
+    public int payer(String name, Livraison livraison) throws URISyntaxException {
+        User u = userRepository.findOneByUsername(name);
+        if (u == null) {
+            return 404;
         }
-        Panier panier = panierRepository.getById(idpanier);
+
+        Panier panier = utilisateurRepository.getByidcompte(u).getPanier();
         Set<Voiture> voitures = panier.getVoitures();
-        if (voitures.isEmpty()) {
-            return 300;
-        }
         Commande commande = new Commande();
-        for (Voiture v : voitures) {
-            v.setStatut(Statut.VENDU);
-            commande.addVoitures(v);
-            voitureRepository.save(v);
+        Set<Voiture> voituresCommande = commande.getVoitures();
+        if (voitures.isEmpty()) {
+            return 200;
         }
-        commande.setAcheteur(panier.getUtilisateur());
-        commande.setDateCommande(now());
-        commande.setModeLivraison(Livraison.valueOf(livraison));
-        commandeRepository.save(commande);
+        for (Voiture v : voitures) {
+            voituresCommande.add(v);
+            v.setStatut(Statut.VENDU);
+            v.setPanier(null);
+            voitureService.save(v);
+        }
         voitures.clear();
         panier.setVoitures(voitures);
         panierRepository.save(panier);
+        commande.setDateCommande(ZonedDateTime.now());
+        commande.setModeLivraison(livraison);
+        commande.setAcheteur(panier.getUtilisateur());
+        commande.setVoitures(voituresCommande);
+        commandeRepository.save(commande);
         return 200;
+    }
+
+    public List<Voiture> getVoitures(Panier panier) {
+        //Page<Voiture> v = panierRepository.getVoituresDuPanier(panier);
+        //return v.getContent();
+
+        Set<Voiture> voitures = panier.getVoitures();
+        List<Voiture> res = new ArrayList<Voiture>(voitures);
+        return res;
+    }
+
+    public boolean supprimerVoitureDuPanier(String username, Long idVoiture) {
+        User user = userRepository.findOneByUsername(username);
+        if (user != null) {
+            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+            Panier panier = utilisateur.getPanier();
+            Voiture voiture = voitureService.findOneById(idVoiture);
+            if (panier != null && voiture != null) {
+                if (panier.getVoitures().contains(voiture)) {
+                    panier.removeVoitures(voiture);
+                    voitureService.libererVoiture(voiture);
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public void delete(Panier panier) {
+        panierRepository.delete(panier);
+    }
+
+    public void save(Panier panier) {
+        panierRepository.save(panier);
     }
 }

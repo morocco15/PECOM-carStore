@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
+import { NavbarComponent } from 'app/layouts/navbar/navbar.component';
 
 @Component({
   selector: 'jhi-login',
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.accountService.identity().subscribe(() => {
       if (this.accountService.isAuthenticated()) {
         this.router.navigate(['']);
+        NavbarComponent.connecte = true;
       }
     });
   }
@@ -54,6 +56,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           if (!this.router.getCurrentNavigation()) {
             // There were no routing during login (eg from navigationToStoredUrl)
             this.router.navigate(['']);
+            NavbarComponent.connecte = true;
           }
         },
         () => (this.authenticationError = true)

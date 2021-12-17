@@ -1,6 +1,7 @@
 package com.ecom.carstore.repository;
 
 import com.ecom.carstore.domain.User;
+import com.ecom.carstore.domain.Utilisateur;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -44,5 +45,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select distinct user from User user where user.login=:username")
     User findOneByUsername(@Param("username") String username);
-
 }

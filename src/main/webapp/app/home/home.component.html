@@ -1,126 +1,81 @@
 <div class="searchbar">
   <form class="formulaire">
-    <input class="champ" type="text" />
-    <!--<input class="bouton" type="button"/>-->
+    <input class="champ" type="text" placeholder="Rechercher une voiture" />
     <button type="button"><img src="../../../content/images/loupe-barre-de-recherche.jpg" height="30" width="30" /></button>
   </form>
 </div>
+
 <div style="padding-top: 30px; padding-bottom: 20px; text-align: center; font-size: 25px">Les dernières nouveautés</div>
 <div class="nouveaute">
   <div class="voiture">
     <div class="voiture1">
       <div class="nom">
-        <div class="marque" style="font-weight: bold">
-          <!--Requête pour obtenir la marque de la voiture-->
-          <!--{{voiture[1].marque}}--><!--MercedesBenz&nbsp;-->
-          {{ voiture1.marque?.marque }}
-        </div>
-        <div class="modele" style="font-weight: bold">
-          <!--Requête pour obtenir le modèle de la voiture-->
-          {{ voiture1.model }}
-          <!--amg c63 gt s-->
+        <div class="marque" (click)="ficheproduit(voiture1.id!)">
+          {{ voiture1?.marque?.marque }}&nbsp;
+          {{ voiture1?.model }}
         </div>
       </div>
-      <div class="prix" style="text-align: center">
-        <!--Requete pour obtenir le prix-->
-        {{ voiture1.prix }} €
-        <!--199 999€-->
-      </div>
-      <div class="image">
-        <!--Requête pour récupérer l'image-->
-        <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+      <div class="prix" style="text-align: center">{{ voiture1?.prix }} €</div>
+      <div class="image" (click)="ficheproduit(voiture1?.id!)">
+        <img id="imageVoiture" [src]="voiture1?.image1" />
       </div>
       <div class="boutonChoix">
         <button class="boutonPanier" (click)="btnAction(voiture1)">Ajouter dans mon panier</button>
-        <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
+        <button class="boutonListeSouhait" (click)="btnActionSouhait(voiture1)">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
     <div class="espacehorizontal" style="width: 200px"></div>
     <div class="voiture1">
       <div class="nom">
-        <div class="marque" style="font-weight: bold">
-          <!--Requête pour obtenir la marque de la voiture-->
-          <!--MercedesBenz&nbsp;-->
-          {{ voiture2.marque?.marque }}
-        </div>
-        <div class="modele" style="font-weight: bold">
-          <!--Requête pour obtenir le modèle de la voiture-->
-          {{ voiture2.model }}
-          <!--amg c63 gt s-->
+        <div class="marque" (click)="ficheproduit(voiture2?.id!)">
+          {{ voiture2?.marque?.marque }}&nbsp;&nbsp;
+          {{ voiture2?.model }}
         </div>
       </div>
-      <div class="prix" style="text-align: center">
-        <!--Requete pour obtenir le prix-->
-        {{ voiture2.prix }} €
-        <!--199 999€-->
-      </div>
-      <div class="image">
-        <!--Requête pour récupérer l'image-->
-        <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+      <div class="prix" style="text-align: center">{{ voiture2?.prix }} €</div>
+      <div class="image" (click)="ficheproduit(voiture2?.id!)">
+        <img id="imageVoiture" [src]="voiture2?.image1" height="199.5px" width="355.5px" />
       </div>
       <div class="boutonChoix">
         <button class="boutonPanier" (click)="btnAction(voiture2)">Ajouter dans mon panier</button>
-        <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
+        <button class="boutonListeSouhait" (click)="btnActionSouhait(voiture2)">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
   </div>
   <div class="espacevertical" style="height: 80px"></div>
   <div class="voiture">
     <div class="voiture2">
-      <div class="image">
-        <!--Requête pour récupérer l'image-->
-        <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+      <div class="image" (click)="ficheproduit(voiture3?.id!)">
+        <img id="imageVoiture" [src]="voiture3?.image1" height="199.5px" width="355.5px" />
       </div>
-      <div class="prix" style="text-align: center">
-        <!--Requete pour obtenir le prix-->
-        {{ voiture3.prix }} €
-        <!--199 999€-->
-      </div>
+      <div class="prix" style="text-align: center">{{ voiture3?.prix }} €</div>
       <div class="nom">
-        <div class="marque" style="font-weight: bold">
-          <!--Requête pour obtenir la marque de la voiture-->
-          <!--MercedesBenz&nbsp;-->
-          {{ voiture3.marque?.marque }}
-        </div>
-        <div class="modele" style="font-weight: bold">
-          <!--Requête pour obtenir le modèle de la voiture-->
-          {{ voiture3.model }}
-          <!--amg c63 gt s-->
+        <div class="marque" (click)="ficheproduit(voiture3?.id!)">
+          {{ voiture3?.marque?.marque }}&nbsp;&nbsp;
+          {{ voiture3?.model }}
         </div>
       </div>
       <div class="boutonChoix">
         <button class="boutonPanier" (click)="btnAction(voiture3)">Ajouter dans mon panier</button>
-        <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
+        <button class="boutonListeSouhait" (click)="btnActionSouhait(voiture3)">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
     <div class="espacehorizontal" style="width: 200px"></div>
     <div class="voiture2">
-      <div class="image">
-        <!--Requête pour récupérer l'image-->
-        <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+      <div class="image" (click)="ficheproduit(voiture4?.id!)">
+        <img id="imageVoiture" [src]="voiture4?.image1" height="199.5px" width="355.5px" />
       </div>
-      <div class="prix" style="text-align: center">
-        <!--Requete pour obtenir le prix-->
-        {{ voiture4.prix }} €
-        <!--199 999€-->
-      </div>
+      <div class="prix" style="text-align: center">{{ voiture4?.prix }} €</div>
       <div class="nom">
-        <div class="marque" style="font-weight: bold">
-          <!--Requête pour obtenir la marque de la voiture-->
-          <!--MercedesBenz&nbsp;-->
-          {{ voiture4.marque?.marque }}
-        </div>
-        <div class="modele" style="font-weight: bold">
-          <!--Requête pour obtenir le modèle de la voiture-->
-          {{ voiture4.model }}
-          <!--amg c63 gt s-->
+        <div class="marque" (click)="ficheproduit(voiture4?.id!)">
+          {{ voiture4?.marque?.marque }}&nbsp;&nbsp;
+          {{ voiture4?.model }}
         </div>
       </div>
       <div class="boutonChoix">
-        <button class="boutonPanier" (click)="btnAction(voiture3)">Ajouter dans mon panier</button>
-        <button class="boutonListeSouhait">Ajouter dans ma liste de souhait</button>
+        <button class="boutonPanier" (click)="btnAction(voiture4)">Ajouter dans mon panier</button>
+        <button class="boutonListeSouhait" (click)="btnActionSouhait(voiture4)">Ajouter dans ma liste de souhait</button>
       </div>
     </div>
   </div>
-  <!--<div class="espacevertical" style="height: 100px"></div>-->
 </div>

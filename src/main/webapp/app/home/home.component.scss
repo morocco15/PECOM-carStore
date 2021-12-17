@@ -1,28 +1,3 @@
-/* ==========================================================================
-Main page styles
-========================================================================== */
-
-/*.hipster {
-  display: inline-block;
-  width: 347px;
-  height: 497px;
-  background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
-  background-size: contain;
-}*/
-
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-/*@media only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (-moz-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (min-resolution: 192dpi),
-  only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
-    background-size: contain;
-  }
-}
-*/
-
 .searchbar {
   display: flex;
   justify-content: center;
@@ -71,8 +46,34 @@ button:hover {
 .nom {
   display: flex;
   justify-content: center;
+  height: min-content;
+  font-weight: bold;
+}
+
+.prix {
+  font-size: 25px;
 }
 
 .boutonChoix {
   display: grid;
+}
+
+.nom:hover {
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.image:hover {
+  cursor: pointer;
+  border: solid 0.5px black;
+}
+
+#imageVoiture {
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  height: 199.5px;
+  width: 100%;
 }

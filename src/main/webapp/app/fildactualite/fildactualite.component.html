@@ -1,48 +1,142 @@
-<div class="filPrincipal">
-  <!--grid-->
-  <div class="ficheProduit">
-    <!--flex-->
-    <div class="image">
-      <!--Requête pour récupérer l'image-->
-      <img src="../../../content/images/amg-c63-gt.jpg" height="199.5px" width="355.5px" />
+<!DOCTYPE html>
+<html lang="fr">
+  <head></head>
+  <body>
+    <div class="table-responsive">
+      <div scope="col" style="text-align: center; font-size: 35px; padding-bottom: 15px; border-bottom: solid 2px black">
+        <span>Fil d'actualité</span>
+      </div>
+      <div style="display: flex; margin-top: 10px; justify-content: space-between">
+        <div
+          class="categorie"
+          *ngFor="let categorie of listCategorie"
+          (click)="getVoitureDeCategorie(categorie)"
+          style="width: fit-content; margin-left: 30px"
+        >
+          {{ categorie }}
+        </div>
+      </div>
+      <div class="filtres" style="display: flex; margin-top: 10px">
+        <div class="filtrePrix1">Filtrer par :&nbsp;&nbsp;</div>
+        <div class="filtrePrix2">
+          <select name="filtre" id="criteres">
+            <optgroup label="Prix">
+              <option value="maximum" id="prixmax" (click)="filtre(1)">Prix maximum</option>
+              <option value="minimum" id="prixmin" (click)="filtre(2)">Prix minimum</option>
+              <option value="intervalle" id="prixintervalle" (click)="filtre(3)">Intervalle de prix</option>
+            </optgroup>
+            <optgroup label="État">
+              <option value="neuf" id="neuf" (click)="filtre(4)">Neuf</option>
+              <option value="occasion" id="occasion" (click)="filtre(5)">Occasion</option>
+              <option value="nonRoulant" id="nonRoulant" (click)="filtre(6)">Non Roulant</option>
+            </optgroup>
+          </select>
+        </div>
+        <div style="margin-left: 5px">
+          <input
+            *ngIf="labelPrixMax"
+            type="number"
+            id="input1"
+            name="name"
+            required
+            minlength="3"
+            maxlength="6"
+            size="10"
+            [(ngModel)]="valeur1"
+          />
+          <input
+            *ngIf="labelPrixMin"
+            type="number"
+            id="input2"
+            name="name"
+            required
+            minlength="3"
+            maxlength="6"
+            size="10"
+            [(ngModel)]="valeur1"
+          />
+          <input
+            *ngIf="labelPrixIntervalle"
+            type="number"
+            id="input3"
+            name="name"
+            required
+            minlength="3"
+            maxlength="6"
+            size="10"
+            [(ngModel)]="valeur1"
+          />
+          <input
+            *ngIf="labelPrixIntervalle"
+            type="number"
+            id="input4"
+            name="name"
+            required
+            minlength="3"
+            maxlength="6"
+            size="10"
+            [(ngModel)]="valeur2"
+          />
+          <button (click)="btnFiltrer(filtrage, valeur1, valeur2)" style="border-radius: 10px; margin-left: 10px">Filtrer</button>
+        </div>
+      </div>
+
+      <Table responsive style="width: 100%">
+        <thead></thead>
+        <tbody>
+          <tr *ngFor="let voiture of voitures; trackBy: trackId">
+            <td style="padding-top: 30px">
+              <div class="filPrincipal">
+                <div class="ficheProduit">
+                  <div class="image">
+                    <img [src]="voiture.image1" height="199.5px" width="355.5px" (click)="ficheproduit(voiture.id!)" />
+                  </div>
+
+                  <div class="caracteristiqueproduit">
+                    <div class="nom">
+                      <div class="marqueNom" (click)="ficheproduit(voiture.id!)">
+                        {{ voiture.marque?.marque }}&nbsp;
+                        {{ voiture.model }}
+                      </div>
+                      <div class="prix" style="color: red; font-weight: bold; font-size: 25px; align-self: right">{{ voiture.prix }} €</div>
+                    </div>
+                    <div class="caracteristiques">
+                      <div class="annees">
+                        <div style="font-weight: bold">Années</div>
+                        <div>{{ voiture.annees }}</div>
+                      </div>
+
+                      <div class="kilometrage">
+                        <div style="font-weight: bold">Kilométrage</div>
+                        <div>{{ voiture.kilometrage }} km</div>
+                      </div>
+                      <div class="carburant">
+                        <div style="font-weight: bold">Carburant</div>
+                        <div>{{ voiture.carburant }}</div>
+                      </div>
+                      <div class="boiteDeVitesse">
+                        <div style="font-weight: bold">Boîte de vitesse</div>
+                        <div>{{ voiture.boiteVitesse }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </Table>
     </div>
-    <div class="caracteristiqueproduit">
-      <!--grid-->
-      <div class="nom">
-        <!--flex-->
-        <div class="marque" style="font-weight: bold">
-          <!--Requête pour obtenir la marque de la voiture-->
-          Mercedes-Benz&nbsp;
-        </div>
-        <div class="modele" style="font-weight: bold">
-          <!--Requête pour obtenir le modèle de la voiture-->
-          amg c63 gt s
-        </div>
-      </div>
-      <div class="prix">
-        <!--Requête pour obtenir le prix de la voiture-->
-        199 999 €
-      </div>
-      <div class="caracteristiques">
-        <!--<div class="année">
-                    L'année est à ajouter dans le model de voiture.
-                </div>-->
-        <div class="kilometrage">
-          <div>Kilométrage</div>
-          <!--Requête pour obtenir le kilométrage de la voiture-->
-          <div>135 000 km</div>
-        </div>
-        <div class="carburant">
-          <div>Carburant</div>
-          <!--Requête pour obtenir le carburant de la voiture-->
-          <div>Essence</div>
-        </div>
-        <div class="boiteDeVitesse">
-          <div>Boîte de vitesse</div>
-          <!--Requête pour obtenir la boîte de vitesse de la voiture-->
-          <div>automatique</div>
-        </div>
-      </div>
+    <div style="display: flex; justify-content: center; margin-top: 50px">
+      <button (click)="afficherplus()" *ngIf="modepasFiltre" style="border-radius: 10px; margin-right: 10px">
+        Charger plus de voiture
+      </button>
+      <button (click)="callService()" *ngIf="affichageCategorie1" style="border-radius: 10px; margin-left: 10px">
+        Recharger sans catégorie
+      </button>
+      <button (click)="callService()" *ngIf="affichageCategorie2" style="border-radius: 10px; margin-left: 10px">
+        Revenir au catalogue de départ
+      </button>
     </div>
-  </div>
-</div>
+  </body>
+</html>

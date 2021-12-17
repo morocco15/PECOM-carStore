@@ -1,7 +1,7 @@
 package com.ecom.carstore.web.rest;
 
 import com.ecom.carstore.domain.Utilisateur;
-import com.ecom.carstore.repository.UtilisateurRepository;
+import com.ecom.carstore.service.UtilisateurService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,10 +34,10 @@ public class UtilisateurResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final UtilisateurRepository utilisateurRepository;
+    private final UtilisateurService utilisateurService;
 
-    public UtilisateurResource(UtilisateurRepository utilisateurRepository) {
-        this.utilisateurRepository = utilisateurRepository;
+    public UtilisateurResource(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
     }
 
     /**
@@ -49,15 +49,7 @@ public class UtilisateurResource {
      */
     @PostMapping("/utilisateurs")
     public ResponseEntity<Utilisateur> createUtilisateur(@RequestBody Utilisateur utilisateur) throws URISyntaxException {
-        log.debug("REST request to save Utilisateur : {}", utilisateur);
-        if (utilisateur.getId() != null) {
-            throw new BadRequestAlertException("A new utilisateur cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Utilisateur result = utilisateurRepository.save(utilisateur);
-        return ResponseEntity
-            .created(new URI("/api/utilisateurs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return utilisateurService.createUtilisateur(utilisateur);
     }
 
     /**
@@ -75,23 +67,7 @@ public class UtilisateurResource {
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Utilisateur utilisateur
     ) throws URISyntaxException {
-        log.debug("REST request to update Utilisateur : {}, {}", id, utilisateur);
-        if (utilisateur.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, utilisateur.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!utilisateurRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Utilisateur result = utilisateurRepository.save(utilisateur);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, utilisateur.getId().toString()))
-            .body(result);
+        return utilisateurService.updateUtilisateur(id, utilisateur);
     }
 
     /**
@@ -110,29 +86,7 @@ public class UtilisateurResource {
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody Utilisateur utilisateur
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Utilisateur partially : {}, {}", id, utilisateur);
-        if (utilisateur.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, utilisateur.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!utilisateurRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<Utilisateur> result = utilisateurRepository
-            .findById(utilisateur.getId())
-            .map(existingUtilisateur -> {
-                return existingUtilisateur;
-            })
-            .map(utilisateurRepository::save);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, utilisateur.getId().toString())
-        );
+        return utilisateurService.partialUpdateUtilisateur(id, utilisateur);
     }
 
     /**
@@ -143,23 +97,7 @@ public class UtilisateurResource {
      */
     @GetMapping("/utilisateurs")
     public List<Utilisateur> getAllUtilisateurs(@RequestParam(required = false) String filter) {
-        if ("panier-is-null".equals(filter)) {
-            log.debug("REST request to get all Utilisateurs where panier is null");
-            return StreamSupport
-                .stream(utilisateurRepository.findAll().spliterator(), false)
-                .filter(utilisateur -> utilisateur.getPanier() == null)
-                .collect(Collectors.toList());
-        }
-
-        if ("souhait-is-null".equals(filter)) {
-            log.debug("REST request to get all Utilisateurs where souhait is null");
-            return StreamSupport
-                .stream(utilisateurRepository.findAll().spliterator(), false)
-                .filter(utilisateur -> utilisateur.getSouhait() == null)
-                .collect(Collectors.toList());
-        }
-        log.debug("REST request to get all Utilisateurs");
-        return utilisateurRepository.findAll();
+        return utilisateurService.getAllUtilisateurs(filter);
     }
 
     /**
@@ -170,9 +108,7 @@ public class UtilisateurResource {
      */
     @GetMapping("/utilisateurs/{id}")
     public ResponseEntity<Utilisateur> getUtilisateur(@PathVariable Long id) {
-        log.debug("REST request to get Utilisateur : {}", id);
-        Optional<Utilisateur> utilisateur = utilisateurRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(utilisateur);
+        return utilisateurService.getUtilisateur(id);
     }
 
     /**
@@ -183,11 +119,6 @@ public class UtilisateurResource {
      */
     @DeleteMapping("/utilisateurs/{id}")
     public ResponseEntity<Void> deleteUtilisateur(@PathVariable Long id) {
-        log.debug("REST request to delete Utilisateur : {}", id);
-        utilisateurRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
+        return utilisateurService.deleteUtilisateur(id);
     }
 }

@@ -36,31 +36,6 @@
           </span>
         </a>
       </li>
-      <!--Bouton catégorie visible même si utilisateur pas connecté-->
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-          <span>
-            <fa-icon icon="list"></fa-icon>
-            <span id="menu">Catégorie</span>
-          </span>
-        </a>
-      </li>
-      <!--Bouton panier visible que si utilisateur connecté-->
-      <!--<li
-        *jhiHasAnyAuthority="'ROLE_ADMIN'"
-        ngbDropdown
-        class="nav-item dropdown pointer"
-        display="dynamic"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu" data-cy="adminMenu">
-          <span>
-            <fa-icon icon="users-cog"></fa-icon>
-            <span id="menu">Panier</span>
-          </span>
-        </a>
-      </li>-->
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
       <li
         *jhiHasAnyAuthority="'ROLE_ADMIN'"
@@ -251,8 +226,8 @@
       <li *ngSwitchCase="true" class="nav-item" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="listedesouhait">
           <span>
-            <fa-icon icon="list-alt"></fa-icon>
-            <span id="menu">Liste de souhait</span>
+            <fa-icon icon="heart"></fa-icon>
+            <span id="menu">Favoris</span>
           </span>
         </a>
       </li>
@@ -261,14 +236,6 @@
           <span>
             <fa-icon icon="shopping-cart"></fa-icon>
             <span id="menu">Panier</span>
-          </span>
-        </a>
-      </li>
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link">
-          <span>
-            <fa-icon icon="sticky-note"></fa-icon>
-            <span id="menu">À propos</span>
           </span>
         </a>
       </li>
@@ -282,7 +249,8 @@
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
           <span *ngIf="!account?.imageUrl">
             <fa-icon icon="user"></fa-icon>
-            <span id="menuConnexion">Connexion</span>
+            <span id="menuConnexion" *ngIf="isConnected() === false">Connexion</span>
+            <span id="menuConnexion" *ngIf="isConnected() === true">Paramètres</span>
           </span>
           <span *ngIf="account?.imageUrl">
             <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />

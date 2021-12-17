@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -8,74 +8,84 @@ import { Account } from 'app/core/auth/account.model';
 import { PanierService } from './panier.service';
 import { HttpClient } from '@angular/common/http';
 import { IVoiture } from 'app/entities/voiture/voiture.model';
+import { IPanier } from 'app/entities/panier/panier.model';
+import { SouhaitService } from '../listedesouhait/listedesouhait.service';
+import { FildactualiteComponent } from 'app/fildactualite/fildactualite.component';
 
 @Component({
   selector: 'jhi-panier',
   templateUrl: './panier.component.html',
   styleUrls: ['./panier.component.scss'],
 })
-export class PanierComponent implements OnInit {
+export class PanierComponent implements OnInit, OnDestroy {
+  static username: string;
   account: Account | null = null;
-  voiture1!: IVoiture;
-  voiture2!: IVoiture;
-  voiture3!: IVoiture;
-  voiture4!: IVoiture;
-  username!: string;
   voitures!: IVoiture[];
+  voitureId!: number;
+  isEmpty = false;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
     private accountService: AccountService,
     private router: Router,
     private panierservice: PanierService,
-    private http: HttpClient
+    private souhaitService: SouhaitService
   ) {}
 
-  callService(): void {
-    this.panierservice.getQuatreDernieresVoitures(0, 4).subscribe((res: IVoiture[]) => {
-      //eslint-disable-next-line no-console
-      console.error(res);
-      this.voiture1 = res[0];
-      this.voiture2 = res[1];
-      this.voiture3 = res[2];
-      this.voiture4 = res[3];
-    });
+  trackId(id: number, item: IPanier): number {
+    return item.id!;
   }
 
   getPanier(): void {
-    this.panierservice.getVoituresDuPanier(this.username).subscribe((res: IVoiture[])=>{
-      console.error(res);
+    this.panierservice.getVoituresDuPanier(PanierComponent.username).subscribe((res: IVoiture[]) => {
       this.voitures = res;
-      // eslint-disable-next-line no-console
-      console.log(this.voitures.length)
-    })
+      if (this.voitures.length === 0) {
+        this.isEmpty = true;
+      }
+    });
   }
+
+  supprimerVoitureChoisite(idVoiture: number | undefined): void {
+    if (idVoiture !== undefined) {
+      this.panierservice.supprimerVoitureDuPanier(PanierComponent.username, idVoiture).subscribe((res: boolean) => {
+        //
+        if (res) {
+          this.getPanier();
+        }
+      });
+    }
+  }
+
+  deplaceAuSouhait(id: number | undefined): void {
+    if (id !== undefined) {
+      this.voitureId = id;
+      this.supprimerVoitureChoisite(this.voitureId);
+      this.souhaitService.ajouterVoitureSouhait(PanierComponent.username, this.voitureId).subscribe((res: boolean) => {
+        //
+      });
+    }
+  }
+
+  ficheproduit(id: number): void {
+    FildactualiteComponent.voitureid = id;
+    this.router.navigate(['/article']);
+  }
+
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
     if (this.account) {
-      this.username = this.account.login;
+      PanierComponent.username = this.account.login;
     }
     this.getPanier();
+    //eslint-disable-next-line no-console
+    console.log(PanierComponent.username);
   }
 
-  /*test(): void{
-    //var toutSelectionne = document.getElementById("toutselectionne");
-    //var voiture1 = document.getElementById("voiture1");
-    //var voiture2 = document.getElementById("voiture2");
-    //var toutSelectionne = document.querySelector('input[value="toutselectionne"]');
-    var voiture1 = document.querySelector('input[value="voiture1"]');
-    var voiture2 = document.querySelector('input[value="voiture2"]');
-    //if (document.querySelector('input[value="toutselectionne"]').checked === true){
-    if (document.getElementById("toutselectionne").checked === true){
-      voiture1.checked=true;
-      voiture2.checked=true;
-    }
-    else{
-      voiture1.checked=false;
-      voiture2.checked=false;
-    }
-  }*/
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

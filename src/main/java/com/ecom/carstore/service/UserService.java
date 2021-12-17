@@ -7,20 +7,33 @@ import com.ecom.carstore.security.AuthoritiesConstants;
 import com.ecom.carstore.security.SecurityUtils;
 import com.ecom.carstore.service.dto.AdminUserDTO;
 import com.ecom.carstore.service.dto.UserDTO;
+import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
+import com.ecom.carstore.web.rest.errors.LoginAlreadyUsedException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.security.RandomUtil;
+import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
+import tech.jhipster.web.util.ResponseUtil;
 
 /**
  * Service class for managing users.
@@ -28,6 +41,25 @@ import tech.jhipster.security.RandomUtil;
 @Service
 @Transactional
 public class UserService {
+
+    private static final List<String> ALLOWED_ORDERED_PROPERTIES = Collections.unmodifiableList(
+        Arrays.asList(
+            "id",
+            "login",
+            "firstName",
+            "lastName",
+            "email",
+            "activated",
+            "langKey",
+            "createdBy",
+            "createdDate",
+            "lastModifiedBy",
+            "lastModifiedDate"
+        )
+    );
+
+    @Value("${jhipster.clientApp.name}")
+    private String applicationName;
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
@@ -39,32 +71,105 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    private final UtilisateurRepository utilisateurRepository;
+    private final UtilisateurService utilisateurService;
 
-    private final SouhaitRepository souhaitRepository;
+    private final SouhaitService souhaitService;
 
-    private final PanierRepository panierRepository;
+    private final PanierService panierService;
 
-    private final CarteBancaireRepository carteBancaireRepository;
+    private final CarteBancaireService carteBancaireService;
+
+    private final MailService mailService;
 
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
         CacheManager cacheManager,
-        UtilisateurRepository utilisateurRepository,
-        SouhaitRepository souhaitRepository,
-        PanierRepository panierRepository,
-        CarteBancaireRepository carteBancaireRepository
+        UtilisateurService utilisateurService,
+        SouhaitService souhaitService,
+        PanierService panierService,
+        CarteBancaireService carteBancaireService,
+        MailService mailService
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
-        this.utilisateurRepository = utilisateurRepository;
-        this.souhaitRepository = souhaitRepository;
-        this.panierRepository = panierRepository;
-        this.carteBancaireRepository = carteBancaireRepository;
+        this.utilisateurService = utilisateurService;
+        this.souhaitService = souhaitService;
+        this.panierService = panierService;
+        this.carteBancaireService = carteBancaireService;
+        this.mailService = mailService;
+    }
+
+    public ResponseEntity<User> createUserOrigin(AdminUserDTO userDTO) throws URISyntaxException {
+        log.debug("REST request to save User : {}", userDTO);
+
+        if (userDTO.getId() != null) {
+            throw new BadRequestAlertException("A new user cannot already have an ID", "userManagement", "idexists");
+            // Lowercase the user login before comparing with database
+        } else if (userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).isPresent()) {
+            throw new LoginAlreadyUsedException();
+        } else if (userRepository.findOneByEmailIgnoreCase(userDTO.getEmail()).isPresent()) {
+            throw new com.ecom.carstore.web.rest.errors.EmailAlreadyUsedException();
+        } else {
+            User newUser = createUser(userDTO);
+            mailService.sendCreationEmail(newUser);
+            return ResponseEntity
+                .created(new URI("/api/admin/users/" + newUser.getLogin()))
+                .headers(
+                    HeaderUtil.createAlert(applicationName, "A user is created with identifier " + newUser.getLogin(), newUser.getLogin())
+                )
+                .body(newUser);
+        }
+    }
+
+    public ResponseEntity<AdminUserDTO> updateUserOrigin(AdminUserDTO userDTO) {
+        log.debug("REST request to update User : {}", userDTO);
+        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
+            throw new com.ecom.carstore.web.rest.errors.EmailAlreadyUsedException();
+        }
+        existingUser = userRepository.findOneByLogin(userDTO.getLogin().toLowerCase());
+        if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
+            throw new LoginAlreadyUsedException();
+        }
+        Optional<AdminUserDTO> updatedUser = updateUser(userDTO);
+
+        return ResponseUtil.wrapOrNotFound(
+            updatedUser,
+            HeaderUtil.createAlert(applicationName, "A user is updated with identifier " + userDTO.getLogin(), userDTO.getLogin())
+        );
+    }
+
+    public ResponseEntity<List<AdminUserDTO>> getAllUsers(Pageable pageable) {
+        log.debug("REST request to get all User for an admin");
+        if (!onlyContainsAllowedProperties(pageable)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        final Page<AdminUserDTO> page = getAllManagedUsers(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    private boolean onlyContainsAllowedProperties(Pageable pageable) {
+        return pageable.getSort().stream().map(Sort.Order::getProperty).allMatch(ALLOWED_ORDERED_PROPERTIES::contains);
+    }
+
+    public ResponseEntity<AdminUserDTO> getUser(String login) {
+        log.debug("REST request to get User : {}", login);
+        return ResponseUtil.wrapOrNotFound(getUserWithAuthoritiesByLogin(login).map(AdminUserDTO::new));
+    }
+
+    public ResponseEntity<Void> deleteUserOrigine(String login) {
+        log.debug("REST request to delete User: {}", login);
+        deleteUser(login);
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createAlert(applicationName, "A user is deleted with identifier " + login, login))
+            .build();
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -155,9 +260,9 @@ public class UserService {
         utilisateur.setSouhait(souhait);
         utilisateur.setPanier(panier);
 
-        utilisateurRepository.save(utilisateur);
-        panierRepository.save(panier);
-        souhaitRepository.save(souhait);
+        utilisateurService.save(utilisateur);
+        panierService.save(panier);
+        souhaitService.save(souhait);
 
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -252,26 +357,26 @@ public class UserService {
     }
 
     private void deleteUtilisateur(User user) {
-        if (utilisateurRepository.existsByidcompte(user)) {
-            Utilisateur utilisateur = utilisateurRepository.getByidcompte(user);
+        if (utilisateurService.existsByidcompte(user)) {
+            Utilisateur utilisateur = utilisateurService.getByidcompte(user);
 
             Panier panier = utilisateur.getPanier();
             if (panier != null) {
-                panierRepository.delete(panier);
+                panierService.delete(panier);
             }
 
             Souhait souhait = utilisateur.getSouhait();
             if (souhait != null) {
-                souhaitRepository.delete(souhait);
+                souhaitService.delete(souhait);
             }
 
             CarteBancaire carteBancaire = utilisateur.getIdPaiment();
             if (carteBancaire != null) {
-                carteBancaireRepository.delete(carteBancaire);
+                carteBancaireService.delete(carteBancaire);
             }
 
             utilisateur.setIdcompte(null);
-            utilisateurRepository.save(utilisateur);
+            utilisateurService.save(utilisateur);
         }
     }
 
@@ -379,5 +484,13 @@ public class UserService {
         if (user.getEmail() != null) {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
         }
+    }
+
+    public User findOneByUsername(String username) {
+        return userRepository.findOneByUsername(username);
+    }
+
+    public Utilisateur getByidcompte(User user) {
+        return utilisateurService.getByidcompte(user);
     }
 }

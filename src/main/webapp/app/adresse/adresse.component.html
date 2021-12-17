@@ -1,0 +1,59 @@
+<div class="confirmationCommande">
+  <div class="titre">
+    <span class="nom" style="font-weight: bold; font-size: 25px">Ajouter votre adresse de livraison</span>
+  </div>
+
+  <div class="section">
+    <div class="adresse-nom">
+      <div class="title">Nom</div>
+      <input class="champ" type="text" placeholder="entrez votre nom" size="20" />
+    </div>
+
+    <div class="adresse-nom">
+      <div class="title">Prénom</div>
+      <input class="champ" type="text" placeholder="entrez votre prénom" size="20" />
+    </div>
+
+    <div class="adresse-nom">
+      <div class="title">Batiment, Rue</div>
+      <input class="champ" type="text" placeholder="entrez le numéro du batiment, l'étage" size="20" />
+    </div>
+
+    <div class="adresse-nom">
+      <div class="title">Ville</div>
+      <input class="champ" type="text" placeholder="entrez votre ville" size="20" />
+    </div>
+
+    <div class="adresse-nom">
+      <div class="title">Code Postal</div>
+      <input class="champ" type="text" placeholder="entrez votre code postal" size="20" />
+    </div>
+
+    <div class="adresse-nom">
+      <div class="title">Pays</div>
+      <input class="champ" type="text" placeholder="entrez votre pays" size="20" />
+    </div>
+
+    <div class="adresse-nom">
+      <div class="title">Adresse complète</div>
+      <input class="champ" type="text" placeholder="entrez votre adresse complète" size="40" />
+    </div>
+  </div>
+
+  <div class="sectionPaiement">
+    <div class="nav-item1">
+      <a class="nav-link">
+        <button class="paiement" (click)="continuer()">
+          <div style="font-weight: bold">Continuer</div>
+        </button>
+      </a>
+    </div>
+    <div class="nav-item2">
+      <a class="nav-link">
+        <button class="annuler" (click)="retour()">
+          <div style="font-weight: bold">Retour</div>
+        </button>
+      </a>
+    </div>
+  </div>
+</div>

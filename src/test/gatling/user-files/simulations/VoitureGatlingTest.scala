@@ -85,10 +85,11 @@ class VoitureGatlingTest extends Simulation {
                 , "co2":"0"
                 , "chevaux":"0"
                 , "carburant":"ESSENCE"
-                , "annees":"2020-01-01T00:00:00.000Z"
+                , "annees":"0"
                 , "ville":"SAMPLE_TEXT"
                 , "codePostal":"0"
                 , "description":"SAMPLE_TEXT"
+                , "kilometrage":"0"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_voiture_url"))).exitHereIfFailed

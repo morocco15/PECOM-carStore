@@ -9,6 +9,8 @@ import { Authority } from 'app/config/authority.constants';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { PanierConfirmComponent } from '././panier/panier-confirm/panier-confirm.component';
 import { ArticleComponent } from './article/article.component';
+import { AdresseComponent } from './adresse/adresse.component';
+import { BancaireComponent } from './bancaire/bancaire.component';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
@@ -17,14 +19,18 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
     RouterModule.forRoot(
       [
         {
+          path: 'adresse',
+          component: AdresseComponent,
+        },
+
+        {
+          path: 'bancaire',
+          component: BancaireComponent,
+        },
+        {
           path: 'panier/panierconfirm',
           component: PanierConfirmComponent,
         },
-        {
-          path: 'article',
-          component: ArticleComponent,
-        },
-
         {
           path: 'admin',
           data: {
@@ -36,6 +42,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
         {
           path: 'account',
           loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+        },
+        {
+          path: 'article',
+          loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
         },
         {
           path: 'fildactualite',

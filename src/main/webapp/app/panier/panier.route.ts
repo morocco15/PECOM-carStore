@@ -6,6 +6,7 @@ export const PANIER_ROUTE: Route = {
   path: '',
   component: PanierComponent,
   data: {
-    pageTitle: 'Welcome, Java Hipster!',
+    //authorities: ['ROLE_ADMIN', 'ROLE_USER'],
+    pageTitle: 'Panier',
   },
 };

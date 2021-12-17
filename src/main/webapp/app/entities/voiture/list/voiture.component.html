@@ -51,6 +51,7 @@
           <th scope="col"><span>Ville</span></th>
           <th scope="col"><span>Code Postal</span></th>
           <th scope="col"><span>Description</span></th>
+          <th scope="col"><span>Kilometrage</span></th>
           <th scope="col"><span>Marque</span></th>
           <th scope="col"><span>Categories</span></th>
           <th scope="col"><span>Commande</span></th>
@@ -78,10 +79,11 @@
           <td>{{ voiture.co2 }}</td>
           <td>{{ voiture.chevaux }}</td>
           <td>{{ voiture.carburant }}</td>
-          <td>{{ voiture.annees | formatMediumDatetime }}</td>
+          <td>{{ voiture.annees }}</td>
           <td>{{ voiture.ville }}</td>
           <td>{{ voiture.codePostal }}</td>
           <td>{{ voiture.description }}</td>
+          <td>{{ voiture.kilometrage }}</td>
           <td>
             <div *ngIf="voiture.marque">
               <a [routerLink]="['/marque', voiture.marque?.id, 'view']">{{ voiture.marque?.id }}</a>

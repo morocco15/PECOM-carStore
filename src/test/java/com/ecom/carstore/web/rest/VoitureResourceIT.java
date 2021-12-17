@@ -88,8 +88,8 @@ class VoitureResourceIT {
     private static final Carburant DEFAULT_CARBURANT = Carburant.ESSENCE;
     private static final Carburant UPDATED_CARBURANT = Carburant.DIESEL;
 
-    private static final ZonedDateTime DEFAULT_ANNEES = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_ANNEES = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final Integer DEFAULT_ANNEES = 1;
+    private static final Integer UPDATED_ANNEES = 2;
 
     private static final String DEFAULT_VILLE = "AAAAAAAAAA";
     private static final String UPDATED_VILLE = "BBBBBBBBBB";
@@ -99,6 +99,9 @@ class VoitureResourceIT {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_KILOMETRAGE = 1;
+    private static final Integer UPDATED_KILOMETRAGE = 2;
 
     private static final String ENTITY_API_URL = "/api/voitures";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -145,7 +148,8 @@ class VoitureResourceIT {
             .annees(DEFAULT_ANNEES)
             .ville(DEFAULT_VILLE)
             .codePostal(DEFAULT_CODE_POSTAL)
-            .description(DEFAULT_DESCRIPTION);
+            .description(DEFAULT_DESCRIPTION)
+            .kilometrage(DEFAULT_KILOMETRAGE);
         return voiture;
     }
 
@@ -174,7 +178,8 @@ class VoitureResourceIT {
             .annees(UPDATED_ANNEES)
             .ville(UPDATED_VILLE)
             .codePostal(UPDATED_CODE_POSTAL)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .kilometrage(UPDATED_KILOMETRAGE);
         return voiture;
     }
 
@@ -214,6 +219,7 @@ class VoitureResourceIT {
         assertThat(testVoiture.getVille()).isEqualTo(DEFAULT_VILLE);
         assertThat(testVoiture.getCodePostal()).isEqualTo(DEFAULT_CODE_POSTAL);
         assertThat(testVoiture.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testVoiture.getKilometrage()).isEqualTo(DEFAULT_KILOMETRAGE);
     }
 
     @Test
@@ -260,10 +266,11 @@ class VoitureResourceIT {
             .andExpect(jsonPath("$.[*].co2").value(hasItem(DEFAULT_CO_2)))
             .andExpect(jsonPath("$.[*].chevaux").value(hasItem(DEFAULT_CHEVAUX)))
             .andExpect(jsonPath("$.[*].carburant").value(hasItem(DEFAULT_CARBURANT.toString())))
-            .andExpect(jsonPath("$.[*].annees").value(hasItem(sameInstant(DEFAULT_ANNEES))))
+            .andExpect(jsonPath("$.[*].annees").value(hasItem(DEFAULT_ANNEES)))
             .andExpect(jsonPath("$.[*].ville").value(hasItem(DEFAULT_VILLE)))
             .andExpect(jsonPath("$.[*].codePostal").value(hasItem(DEFAULT_CODE_POSTAL)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].kilometrage").value(hasItem(DEFAULT_KILOMETRAGE)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -310,10 +317,11 @@ class VoitureResourceIT {
             .andExpect(jsonPath("$.co2").value(DEFAULT_CO_2))
             .andExpect(jsonPath("$.chevaux").value(DEFAULT_CHEVAUX))
             .andExpect(jsonPath("$.carburant").value(DEFAULT_CARBURANT.toString()))
-            .andExpect(jsonPath("$.annees").value(sameInstant(DEFAULT_ANNEES)))
+            .andExpect(jsonPath("$.annees").value(DEFAULT_ANNEES))
             .andExpect(jsonPath("$.ville").value(DEFAULT_VILLE))
             .andExpect(jsonPath("$.codePostal").value(DEFAULT_CODE_POSTAL))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.kilometrage").value(DEFAULT_KILOMETRAGE));
     }
 
     @Test
@@ -353,7 +361,8 @@ class VoitureResourceIT {
             .annees(UPDATED_ANNEES)
             .ville(UPDATED_VILLE)
             .codePostal(UPDATED_CODE_POSTAL)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .kilometrage(UPDATED_KILOMETRAGE);
 
         restVoitureMockMvc
             .perform(
@@ -385,6 +394,7 @@ class VoitureResourceIT {
         assertThat(testVoiture.getVille()).isEqualTo(UPDATED_VILLE);
         assertThat(testVoiture.getCodePostal()).isEqualTo(UPDATED_CODE_POSTAL);
         assertThat(testVoiture.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testVoiture.getKilometrage()).isEqualTo(UPDATED_KILOMETRAGE);
     }
 
     @Test
@@ -460,7 +470,8 @@ class VoitureResourceIT {
             .miseEnVente(UPDATED_MISE_EN_VENTE)
             .boiteVitesse(UPDATED_BOITE_VITESSE)
             .carburant(UPDATED_CARBURANT)
-            .ville(UPDATED_VILLE);
+            .ville(UPDATED_VILLE)
+            .kilometrage(UPDATED_KILOMETRAGE);
 
         restVoitureMockMvc
             .perform(
@@ -492,6 +503,7 @@ class VoitureResourceIT {
         assertThat(testVoiture.getVille()).isEqualTo(UPDATED_VILLE);
         assertThat(testVoiture.getCodePostal()).isEqualTo(DEFAULT_CODE_POSTAL);
         assertThat(testVoiture.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testVoiture.getKilometrage()).isEqualTo(UPDATED_KILOMETRAGE);
     }
 
     @Test
@@ -524,7 +536,8 @@ class VoitureResourceIT {
             .annees(UPDATED_ANNEES)
             .ville(UPDATED_VILLE)
             .codePostal(UPDATED_CODE_POSTAL)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .kilometrage(UPDATED_KILOMETRAGE);
 
         restVoitureMockMvc
             .perform(
@@ -556,6 +569,7 @@ class VoitureResourceIT {
         assertThat(testVoiture.getVille()).isEqualTo(UPDATED_VILLE);
         assertThat(testVoiture.getCodePostal()).isEqualTo(UPDATED_CODE_POSTAL);
         assertThat(testVoiture.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testVoiture.getKilometrage()).isEqualTo(UPDATED_KILOMETRAGE);
     }
 
     @Test

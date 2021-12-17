@@ -1,6 +1,9 @@
 package com.ecom.carstore.web.rest;
 
+import com.ecom.carstore.domain.Categorie;
 import com.ecom.carstore.domain.Voiture;
+import com.ecom.carstore.domain.enumeration.Etat;
+import com.ecom.carstore.domain.enumeration.Statut;
 import com.ecom.carstore.repository.VoitureRepository;
 import com.ecom.carstore.service.VoitureService;
 import com.ecom.carstore.web.rest.errors.BadRequestAlertException;
@@ -35,11 +38,9 @@ public class VoitureResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final VoitureRepository voitureRepository;
     private VoitureService voitureService;
 
-    public VoitureResource(VoitureRepository voitureRepository, VoitureService voitureService) {
-        this.voitureRepository = voitureRepository;
+    public VoitureResource(VoitureService voitureService) {
         this.voitureService = voitureService;
     }
 
@@ -52,15 +53,7 @@ public class VoitureResource {
      */
     @PostMapping("/voitures")
     public ResponseEntity<Voiture> createVoiture(@Valid @RequestBody Voiture voiture) throws URISyntaxException {
-        log.debug("REST request to save Voiture : {}", voiture);
-        if (voiture.getId() != null) {
-            throw new BadRequestAlertException("A new voiture cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Voiture result = voitureRepository.save(voiture);
-        return ResponseEntity
-            .created(new URI("/api/voitures/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        return voitureService.createVoiture(voiture);
     }
 
     /**
@@ -78,23 +71,7 @@ public class VoitureResource {
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody Voiture voiture
     ) throws URISyntaxException {
-        log.debug("REST request to update Voiture : {}, {}", id, voiture);
-        if (voiture.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, voiture.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!voitureRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Voiture result = voitureRepository.save(voiture);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, voiture.getId().toString()))
-            .body(result);
+        return voitureService.updateVoiture(id, voiture);
     }
 
     /**
@@ -113,84 +90,7 @@ public class VoitureResource {
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody Voiture voiture
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Voiture partially : {}, {}", id, voiture);
-        if (voiture.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, voiture.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!voitureRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<Voiture> result = voitureRepository
-            .findById(voiture.getId())
-            .map(existingVoiture -> {
-                if (voiture.getModel() != null) {
-                    existingVoiture.setModel(voiture.getModel());
-                }
-                if (voiture.getPrix() != null) {
-                    existingVoiture.setPrix(voiture.getPrix());
-                }
-                if (voiture.getImage1() != null) {
-                    existingVoiture.setImage1(voiture.getImage1());
-                }
-                if (voiture.getImage2() != null) {
-                    existingVoiture.setImage2(voiture.getImage2());
-                }
-                if (voiture.getImage3() != null) {
-                    existingVoiture.setImage3(voiture.getImage3());
-                }
-                if (voiture.getStatut() != null) {
-                    existingVoiture.setStatut(voiture.getStatut());
-                }
-                if (voiture.getVersion() != null) {
-                    existingVoiture.setVersion(voiture.getVersion());
-                }
-                if (voiture.getMiseEnVente() != null) {
-                    existingVoiture.setMiseEnVente(voiture.getMiseEnVente());
-                }
-                if (voiture.getEtat() != null) {
-                    existingVoiture.setEtat(voiture.getEtat());
-                }
-                if (voiture.getPorte() != null) {
-                    existingVoiture.setPorte(voiture.getPorte());
-                }
-                if (voiture.getBoiteVitesse() != null) {
-                    existingVoiture.setBoiteVitesse(voiture.getBoiteVitesse());
-                }
-                if (voiture.getCo2() != null) {
-                    existingVoiture.setCo2(voiture.getCo2());
-                }
-                if (voiture.getChevaux() != null) {
-                    existingVoiture.setChevaux(voiture.getChevaux());
-                }
-                if (voiture.getCarburant() != null) {
-                    existingVoiture.setCarburant(voiture.getCarburant());
-                }
-                if (voiture.getAnnees() != null) {
-                    existingVoiture.setAnnees(voiture.getAnnees());
-                }
-                if (voiture.getVille() != null) {
-                    existingVoiture.setVille(voiture.getVille());
-                }
-                if (voiture.getCodePostal() != null) {
-                    existingVoiture.setCodePostal(voiture.getCodePostal());
-                }
-                if (voiture.getDescription() != null) {
-                    existingVoiture.setDescription(voiture.getDescription());
-                }
-
-                return existingVoiture;
-            })
-            .map(voitureRepository::save);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, voiture.getId().toString())
-        );
+        return voitureService.partialUpdateVoiture(id, voiture);
     }
 
     /**
@@ -201,8 +101,7 @@ public class VoitureResource {
      */
     @GetMapping("/voitures")
     public List<Voiture> getAllVoitures(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
-        log.debug("REST request to get all Voitures");
-        return voitureRepository.findAllWithEagerRelationships();
+        return voitureService.getAllVoitures(eagerload);
     }
 
     /**
@@ -213,9 +112,7 @@ public class VoitureResource {
      */
     @GetMapping("/voitures/{id}")
     public ResponseEntity<Voiture> getVoiture(@PathVariable Long id) {
-        log.debug("REST request to get Voiture : {}", id);
-        Optional<Voiture> voiture = voitureRepository.findOneWithEagerRelationships(id);
-        return ResponseUtil.wrapOrNotFound(voiture);
+        return voitureService.getVoiture(id);
     }
 
     /**
@@ -226,12 +123,7 @@ public class VoitureResource {
      */
     @DeleteMapping("/voitures/{id}")
     public ResponseEntity<Void> deleteVoiture(@PathVariable Long id) {
-        log.debug("REST request to delete Voiture : {}", id);
-        voitureRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
+        return voitureService.deleteVoiture(id);
     }
 
     @GetMapping("/voiture/{debut}/{fin}")
@@ -240,23 +132,28 @@ public class VoitureResource {
         return voitureService.getModelRecent(debut, fin);
     }
 
+    @GetMapping("maxPrix/{max}")
+    public List<Voiture> maxPrix(@PathVariable("max") Long max) {
+        return voitureService.maxPrix(max);
+    }
 
-    @GetMapping("/panier/{id}/{version}")
-    @ResponseBody
-    public boolean AjouterVoitureDansPanier(@PathVariable String username, @PathVariable Long id,@PathVariable int version){
-/*
-        User user = userRepository.findOneByUsername(username);
-        if(voitureService.reserverVoiture(id,version)){
+    @GetMapping("minPrix/{min}")
+    public List<Voiture> minPrix(@PathVariable("min") Long min) {
+        return voitureService.minPrix(min);
+    }
 
-            Panier panier = panierRepository.getById(user.getId());
-            Voiture voiture = voitureService.findOneById(id);
-            if(!panier.voitures.contains(voiture)){
-                panier.addVoitures(voiture);
-            }
-            panierRepository.save(panier);
-            return true;
-        }
- */
-        return false;
+    @GetMapping("limitePrix/{min}/{max}")
+    public List<Voiture> minPrix(@PathVariable("min") Long min, @PathVariable("max") Long max) {
+        return voitureService.limitePrix(min, max);
+    }
+
+    @GetMapping("limiteEtat/{etat}")
+    public List<Voiture> limiteEtat(@PathVariable("etat") Etat etat) {
+        return voitureService.limiteEtat(etat);
+    }
+
+    @GetMapping("limiteCategorie/{categorie}")
+    public List<Voiture> limiteCategorie(@PathVariable("categorie") String categorie) {
+        return voitureService.limiteCategorie(categorie);
     }
 }

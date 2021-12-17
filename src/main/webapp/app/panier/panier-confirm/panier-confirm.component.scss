@@ -1,7 +1,5 @@
 .confirmationCommande {
   display: grid;
-  margin: auto;
-  width: 70%;
   align-items: center;
   background-color: #f5f5f5;
 }
@@ -12,9 +10,9 @@
 }
 
 .section {
-  margin-top: 50px;
   display: flex;
   padding-top: 15px;
+  padding-bottom: 15px;
   border-top: black solid 1px;
 }
 
@@ -24,16 +22,15 @@
 }
 
 .article {
-  display: grid;
+  display: flex;
   margin-left: 60px;
 }
 
 .sectionPaiement {
-  margin-top: 50px;
   display: flex;
   padding-left: 50px;
   margin-bottom: 20px;
-  padding-top: 15px;
+  padding-top: 50px;
   border-top: black solid 1px;
 }
 
@@ -79,4 +76,12 @@
 
 .nav-link {
   padding: 0;
+}
+
+#carac {
+  margin-left: 100px;
+}
+
+.prixArticle {
+  margin-right: 20px;
 }
