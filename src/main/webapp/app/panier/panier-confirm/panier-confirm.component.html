@@ -14,29 +14,15 @@
             <td>
               <div class="confirmationCommande">
                 <div class="section">
-                  <div class="nomVendeur"><span style="font-weight: bold">Nom du vendeur ：</span>{{ voiture.vendeur!.login }}</div>
-
-                  <!-- <img src="item.variant.productVarImages[0].imgUrl" alt="" class="product-image"> -->
+                  <div class="nomVendeur"><span style="font-weight: bold">Nom du vendeur ：</span>{{ voiture?.vendeur?.login }}</div>
                   <img [src]="voiture.image1" alt="" class="article-image" height="199.5px" width="355.5px" />
-
-                  <!--Barre de produits Afficher dynamiquement, les produits Le produit sélectionné provient de l'interface précédente-->
                   <div class="article" id="carac">
-                    <div class="marqueArticle">
-                      <!-- <div class="product-name">{{ item.variant.product.title }}</div> -->
-                      <!--Requête pour obtenir la marque de la voiture du panier-->
-                      <span style="font-weight: bold">Marque ：</span> {{ voiture.marque?.marque }}&nbsp;
-                    </div>
 
-                    <div class="modeleArticle" id="carac">
-                      <!--Requête pour obtenir le modèle de la voiture du panier-->
-                      <span style="font-weight: bold">Modèle ：</span> {{ voiture.model }}
-                    </div>
+                    <div class="marqueArticle"><span style="font-weight: bold">Marque ：</span> {{ voiture?.marque?.marque }}</div>
 
-                    <div class="prixArticle" id="carac">
-                      <!--<span>{{ item.variant.price | currency: 'CNY' }}</span>-->
-                      <!--Requête pour obtenir le prix de la voiture du panier-->
-                      <span style="font-weight: bold">Prix：</span> {{ voiture.prix }} €
-                    </div>
+                    <div class="modeleArticle" id="carac"><span style="font-weight: bold">Modèle ：</span> {{ voiture?.model }}</div>
+
+                    <div class="prixArticle" id="carac"><span style="font-weight: bold">Prix：</span> {{ voiture?.prix }} €</div>
                   </div>
                 </div>
               </div>
