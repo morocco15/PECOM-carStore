@@ -65,15 +65,15 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.log(res);
 
           if (res === true) {
-            this.dialog.open(HintComponent, { data: 'Indication: Ajouter dans le panier !', position: { top: '-29rem', left: '40rem' } });
+            this.dialog.open(HintComponent, { data: 'Ajouté dans le panier !', position: { top: '-29rem', left: '40rem' } });
           } else {
             this.dialog.open(HintComponent, {
-              data: 'Indication: Déja réservé dans le panier !',
+              data: 'Déjà dans votre panier !',
               position: { top: '-29rem', left: '40rem' },
             });
           }
 
-          timer(2000).subscribe(() => {
+          timer(1500).subscribe(() => {
             this.dialog.closeAll();
           });
         });
@@ -88,17 +88,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         if (res === true) {
           this.dialog.open(HintComponent, {
-            data: 'Indication: Ajouter dans la list de souhait !',
+            data: 'Ajouté dans vos favoris !',
             position: { top: '-29rem', left: '40rem' },
           });
         } else {
           this.dialog.open(HintComponent, {
-            data: 'Indication: Déja ajouté dans la liste de souhait !',
+            data: 'Déjà dans vos favoris !',
             position: { top: '-29rem', left: '40rem' },
           });
         }
 
-        timer(2000).subscribe(() => {
+        timer(1500).subscribe(() => {
           this.dialog.closeAll();
         });
 
